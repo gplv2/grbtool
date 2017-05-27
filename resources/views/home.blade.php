@@ -224,26 +224,25 @@ fieldset {
             </div>
       <!--options -->
             <div class="panel panel-default">
-                <div class="panel-heading" data-toggle="collapse" data-target="#generalopts">
+                <div class="panel-heading" data-toggle="collapse" data-target="#opts">
                   Options
                </div>
-                <div id="opts" class="panel-body collapse">
-                <form id="genform" class="form-horizontal" role="form">
-                    <div class="form-group">
-                     </div>
+                <div id="opts" class="panel-body collapse in">
+                <form id="genform" class="form-horizontal ng-pristine ng-valid" role="form">
                     <div class="form-group">
                         <label for="simplify" class="col-md-2 control-label">Simplify</label>
-
                         <div class="col-md-6">
                             <input type="text" class="form-control" id="simplify" placeholder="" value="666">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="percentage">Simplify:</label>
+                        <label for="percentage">% :</label>
 
                         <div id="slider_container">
                             <input type="text" id="percentage" style="width : 35px" readonly="">
-                            <div id="dpslider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 81.8182%;"></span></div>
+                            <div id="dpslider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                  <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 81.8182%;"></span>
+                            </div>
                         </div>
                     </div>
                 </form>

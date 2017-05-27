@@ -36,6 +36,12 @@ lib-cov
 # Public/storage
 /public/storage
 
+storage/logs/laravel.log
+/public/api-rendered-markdowns/*
+/public/api/
+/public/uploads/
+/laradock*/
+/storage/*.index
 # Coverage directory used by tools like istanbul
 coverage
 

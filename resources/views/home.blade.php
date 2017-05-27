@@ -44,23 +44,24 @@
 .form-group {
     padding: 8px; 
 }
-            #map-wrap {
-               top: 0;
-               bottom:0;
-               /* position:fixed; */
-               overflow-y:hidden;
-               overflow-x:hidden;
-               min-height: 500px;
-            }
-            .container {
-                text-align: left;
-                vertical-align: middle;
-            }
 
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
+#map-wrap {
+top: 0;
+bottom:0;
+       /* position:fixed; */
+       overflow-y:hidden;
+       overflow-x:hidden;
+       min-height: 500px;
+}
+.container {
+	text-align: left;
+	vertical-align: middle;
+}
+
+.content {
+	text-align: center;
+display: inline-block;
+}
 
 .form-check-label {
     margin-right: 5em;
@@ -90,7 +91,6 @@
     color: #818a91;
     cursor: not-allowed;
 }
-
 
 #cblist > input {
     margin:3px;
@@ -170,6 +170,7 @@ fieldset {
 @section('page-script')
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaPvbu-B8-JS0N_zAH5BiI6foAvccFBDY" type="text/javascript"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
+
 @stop
 
 @section('bodydef')

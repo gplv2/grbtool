@@ -196,8 +196,6 @@
             </button>
         <a class="navbar-brand{{ (Request::is('/') ? ' active' : '')}}" href="{{ url('/') }}#/"> Home </a>
         <a class="navbar-brand{{ (Request::is('about') ? ' active' : '')}}" href="{{ url('/about') }}#/"> About </a>
-        <!-- <a class="navbar-brand{{ (Request::is('cells') ? ' active' : '')}}" href="{{ url('/cells') }}#/"> Cells </a> -->
-        <a class="navbar-brand{{ (Request::is('maps') ? ' active' : '')}}" href="{{ url('/maps') }}#/"> Maps </a>
         </div>
 
             <div class="navbar-collapse collapse">

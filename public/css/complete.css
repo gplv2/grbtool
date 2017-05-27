@@ -1,0 +1,120 @@
+.notice {
+  position: relative;
+  margin: 1em;
+  /*background: #F9F9F9;*/
+  padding: 1em 1em 1em 2em;
+  border-left: 4px solid #DDD;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+  width: 65%;
+}
+
+.notice:before {
+  position: absolute;
+  top: 50%;
+  margin-top: -17px;
+  left: -17px;
+ /* background-color: #DDD;*/
+  color: #FFF;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  text-align: center;
+  line-height: 30px;
+  font-weight: bold;
+  font-family: Georgia;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.info {
+  border-color: #0074D9;
+}
+
+.info:before {
+  content: "i";
+  background-color: #0074D9;
+}
+
+.success {
+  border-color: #2ECC40;
+}
+
+.success:before {
+  content: "√";
+  background-color: #2ECC40;
+}
+
+.warning {
+  border-color: #FFDC00;
+}
+
+.warning:before {
+  content: "!";
+  background-color: #FFDC00;
+}
+
+.error {
+  border-color: #FF4136;
+}
+
+.error:before {
+  content: "X";
+  background-color: #FF4136;
+}
+
+#feedback { font-size: 1.4em; }
+#selectable .ui-selecting { background: #FECA40; }
+#selectable .ui-selected { background: #F39814; color: white; }
+#selectable li { margin: 3px; padding: 0.4em; font-size: 1.3em; height: 18px; width: 40px; float: left;}
+#cntain { width: 300px; position: relative; display: flex; float: left;}
+.filterclass { position: relative; display: flex; float: left;}
+
+.ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+
+.ui-autocomplete-loading {
+    background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
+}
+
+.ui-widget { font-family: Segoe UI, Arial, sans-serif; font-size: 0.9em; }
+.ui-widget .ui-widget { font-size: 0.9em; }
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Segoe UI, Arial, sans-serif; font-size: 0.9em; }
+
+#header .menu ul li a {
+   display:block;
+   float:left;
+   color: #dc7608;
+   text-decoration:none;
+   font-weight:bold;
+   padding:12px 10px 0 10px;
+   height:35px;
+}
+
+#layerswitcher.olControlLayerSwitcher {
+/*font-size:14px !important;*/
+}
+
+.olControlLayerSwitcher .layersDiv {
+    /*background-color:red !important;*/
+    margin: 1.2em !important;
+}
+
+#master {
+    height:10px; float:right; margin:15px; width: 10px;
+}
+
+#msg {
+   display:block;
+   float: 350px;
+}
+
+#slider_container {
+  float: right;
+  clear: left;
+  width: 300px;
+  text-align: right;
+  font-weight: bold;
+}

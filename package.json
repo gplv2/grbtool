@@ -30,8 +30,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ms": "browserify public/js/mapshaper.js --s mapshaper | uglifyjs > ./public/dist/mapshaper.js",
-    "build:pz": "browserify node_modules/geojsontoosm/index.js --s geos  > ./public/dist/pizza.js",
+    "build:ms": "browserify node_modules/mapshaper/www/mapshaper.js --s mapshaper | uglifyjs > public/js/mapshaper.js",
+    "build:pz": "browserify node_modules/geojsontoosm/index.js --s geos  > public/js/pizza.js",
     "build": "npm run build:ms && npm run build:pz",
     "prod": "gulp --production",
     "dev": "gulp watch"

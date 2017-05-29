@@ -7,6 +7,18 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css" media="all" />
 <link rel="stylesheet" href="css/complete.css">
 <style>
+/* Fix the slider so it aligns better with the label*/
+#dpslider {
+    margin-top: 1em;
+}
+#custom-handle {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+}
 .ol-mouse-position {
     top: auto;
     bottom: 2em;
@@ -168,6 +180,8 @@ fieldset {
 @stop
 
 @section('page-script')
+{!! Html::script('js/mapshaper.js') !!}
+{!! Html::script('js/pizza.js') !!}
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaPvbu-B8-JS0N_zAH5BiI6foAvccFBDY" type="text/javascript"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
 
@@ -194,7 +208,7 @@ fieldset {
                 <form id="reqform" class="form-horizontal ng-pristine ng-valid" role="form">
                     <div class="form-group" id="search">
                            <div id="geosearch" class="filterclass ui-widget">
-                             <label for="address" class="col-md-2 col-sm-2 col-xs-2 control-label">Name</label>
+                             <label for="address" class="col-md-2 col-sm-2 col-xs-2">Name</label>
                              <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                  <input type="text" class="form-control ui-autocomplete-input" autocomplete="off" title="Search via nominatim" id="address" value="" placeholder="Damstraat, Weerde" tabindex="1">
                               </div>
@@ -231,20 +245,18 @@ fieldset {
                 <div id="opts" class="panel-body collapse in">
                 <form id="genform" class="form-horizontal ng-pristine ng-valid" role="form">
                     <div class="form-group">
-                        <label for="simplify" class="col-md-2 control-label">Simplify</label>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="simplify" placeholder="" value="666">
+                        <label for="percentage" class="col-md-3 control-label">Simplify</label>
+                        <div class="col-md-9">
+                            <div id="slider_container">
+                                <div id="dpslider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                  <div id="percentage" class="ui-slider-handle"></div>
+                                  <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="percentage">% :</label>
-
-                        <div id="slider_container">
-                            <input type="text" id="percentage" style="width : 35px" readonly="">
-                            <div id="dpslider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                  <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 81.8182%;"></span>
-                            </div>
-                        </div>
+			<div id="contentfilters" class="col-md-12" style="clear:both;"> </div>
                     </div>
                 </form>
                </div>
@@ -256,6 +268,13 @@ fieldset {
                </div>
                <div class="panel-body collapse" id="jsonpane">
                   <form class="form-horizontal" role="form">
+                     <div class="form-group">
+                         <label class="form-control-label" for="postcode">Postcode</label>
+                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                             <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
+                    	     <button id="crabdata" type="button" class="btn btn-default">Crabdata!</button>
+                        </div>
+                     </div>
                      <div class="form-group">
                         <div class="col-sm-12">
                            <label class="form-control-label" for="apidata">Raw request data:</label>
@@ -305,8 +324,12 @@ fieldset {
 <script src="/js/services.js"></script>
 -->
 {!! Html::script('js/md5.min.js') !!}
-{!! Html::script('js/celllayers.js') !!}
-{!! Html::script('js/cellstyle.js') !!}
-{!! Html::script('js/start.js') !!}
+{!! Html::script('js/pointstyle.js') !!}
+{!! Html::script('js/vectorstyle.js') !!}
+{!! Html::script('js/grblayers.js') !!}
+{!! Html::script('js/overpass.js') !!}
+<!-- {!! Html::script('js/celllayers.js') !!} -->
+<!-- {!! Html::script('js/cellstyle.js') !!} -->
 {!! Html::script('js/search.js') !!}
+{!! Html::script('js/start.js') !!}
 @endsection

@@ -75,8 +75,81 @@ $(document).ready(function () {
         }
     });
 
+    $( "#crabdata" ).click(function( event ) {
+        event.preventDefault();
+        $('body').css('cursor', 'progress');
+        // event.preventDefault();
+        //var url = 'http://nm1.bitless.be/reverse.php?format=json&lon='+ lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
+        var url = 'http://nominatim.openstreetmap.org/reverse.php?format=json&lon='+ lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
+        var geodetic     = new OpenLayers.Projection("EPSG:4326");
+        // var lonlat = map.getCenter();
+        // map.getCenter().lat
+        var lonlat = new OpenLayers.LonLat(map.getCenter().lon ,map.getCenter().lat);
+        lonlat.transform(map.getProjectionObject(), geodetic);
+        $("#msg").html("Reverse geocoding coordinates : "+ toFixed(lonlat.lat,6) + " N, " + toFixed(lonlat.lon,6) + " E").removeClass().addClass("notice success");
+        lon=toFixed(lonlat.lon,6);
+        lat=toFixed(lonlat.lat,6);
+        
+        if (( lat !== null && lat !== undefined && lat != 0) && ( lon !== null && lon !== undefined && lon != 0)) {
+                // console.log(event);
+                geocode = (function () {
+                    var geocode = null;
+                    $.ajax({
+                    data: {
+                             format: "json",
+                             lat: lat,
+                             lon: lon
+                    },
+                        'async': true,
+                        'global': false,
+                        'url': url,
+                        'dataType': "json",
+                        'success': function (data) {
+                            geocode = data;
+                        },
+                    statusCode: {
+                            404: function() {
+                               $('#msg').removeClass().addClass("notice error").html("Error: Problem with reverse nominatim geocoding service");
+                            }
+                        }
+                    });
+
+                    var road='';
+                    var housenumber='';
+                    var postcode='';
+                    var city='';
+                      //var obj = jQuery.parseJSON(mdata);
+                      //if (obj.length<=0) 
+                        //$('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
+                    if(geocode.address.road !== null && geocode.address.road !== undefined) {
+                        road = geocode.address.road + ' ';
+                    }
+                    if(geocode.address.housenumber !== null && geocode.address.housenumber !== undefined) {
+                        housenumber = geocode.address.housenumber + ', ';
+                    }
+                    if(geocode.address.postcode !== null && geocode.address.postcode !== undefined) {
+                        postcode = geocode.address.postcode +' ';
+                    }
+                    if(geocode.address.city !== null && geocode.address.city !== undefined) {
+                        city = geocode.address.city;
+                    }
+                    
+                    var geoaddress = road + housenumber + postcode + city;
+                    $('#idtagadd').val(geoaddress);
+                    $('body').css('cursor', 'default');
+                    console.log(geoaddress);
+                    return geocode;
+                })();
+        }
+        $('body').css('cursor', 'default');
+    });
+
    $(function() {
     var geoCodeURL = "proxy/search.php?format=json&accept-language=nl,en;q=0.8,fr;q=0.5";
+    //var revgeoCodeURL = "proxy/reverse.php?format=json&accept-language=nl,en;q=0.8,fr;&lat=%s&lon=%s&zoom=18&addressdetails=1";
+/*
+{"place_id":"141544983","licence":"Data © OpenStreetMap contributors, ODbL 1.0. http:\/\/www.openstreetmap.org\/copyright","osm_type":"way","osm_id":"353022756","lat":"51.02122585","lon":"4.49124251666685","display_name":"12, Aambeeldstraat, Mechelen, Antwerpen, Vlaanderen, 2800, België","address":{"house_number":"12","road":"Aambeeldstraat","city_district":"Mechelen","town":"Mechelen","county":"Mechelen","state":"Vlaanderen","postcode":"2800","country":"België","country_code":"be"},"boundingbox":["51.0211772","51.0212744","4.4911865","4.4912986"]}
+*/
     // var data = null;
 
     // $('#sgoogle').button();
@@ -108,7 +181,7 @@ $(document).ready(function () {
                  } else {
                     // console.log(status);
                     if ( status == 'ZERO_RESULTS' ) {
-       			$('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
+                $('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
                         // $('#geolog').html("Geen resultaten gevonden met deze zoekopties.");
                     }
                     return [];
@@ -122,18 +195,18 @@ $(document).ready(function () {
                       q: request.term
                   },
                   success: function ( mdata ) {
-					  var obj = jQuery.parseJSON(mdata);
-					  // var data = obj.pop();
+                      var obj = jQuery.parseJSON(mdata);
+                      // var data = obj.pop();
                       $('#address').removeClass('ui-autocomplete-loading');
                       // console.log(data); return true;
 
                       if (obj.length<=0) { 
-						$('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
+                        $('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
                         //$('#geolog').html("Geen resultaten gevonden met deze zoekopties.");
                       }
                       // console.log(data);
-					  var rdata = $.makeArray( obj );
-					  console.log(rdata);
+                      var rdata = $.makeArray( obj );
+                      console.log(rdata);
                       response ( $.map( rdata, function( item ) {
                           return  {
                               label: item.display_name,
@@ -144,7 +217,7 @@ $(document).ready(function () {
                       },
                   statusCode: {
                      404: function() {
-					$('#msg').removeClass().addClass("notice error").html("Error: Problem with external geocoding service");
+                    $('#msg').removeClass().addClass("notice error").html("Error: Problem with external geocoding service");
                             //$('#geolog').html("Probleem met externe geocoder dienst.");
                         }
                     }
@@ -227,6 +300,7 @@ $(document).ready(function () {
             $( this ).removeClass( "ui-corner-top").addClass("ui-corner-all");
         }
    });
+
     $('#clssearch').click(function () {
         $('#address').removeClass('ui-autocomplete-loading');
         //$('#geolog').empty();

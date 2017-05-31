@@ -151,6 +151,7 @@ $(document).ready(function () {
         }
         $('body').css('cursor', 'default');
     });
+
    $(function() {
     var geoCodeURL = "proxy/search.php?format=json&accept-language=nl,en;q=0.8,fr;q=0.5";
     //var revgeoCodeURL = "proxy/reverse.php?format=json&accept-language=nl,en;q=0.8,fr;&lat=%s&lon=%s&zoom=18&addressdetails=1";
@@ -307,6 +308,7 @@ $(document).ready(function () {
             $( this ).removeClass( "ui-corner-top").addClass("ui-corner-all");
         }
    });
+
     $('#clssearch').click(function () {
         $('#address').removeClass('ui-autocomplete-loading');
         //$('#geolog').empty();

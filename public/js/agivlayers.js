@@ -16,6 +16,11 @@ $( document ).ready( function() {
         active: true
     } );
 
+    var boxStrategy = new OpenLayers.Strategy.BBOX( {
+        ratio: 2,
+        resFactor: 2
+    } );
+
     var geojson_format = new OpenLayers.Format.GeoJSON( {
         extractAttributes: true,
         internalProjection: map.getProjectionObject(),
@@ -49,12 +54,12 @@ $( document ).ready( function() {
         highlightOnly: true,
         //autoActivate:true,
         toggle: false,
-        renderIntent: "temporary",
-        eventListeners: {
+        renderIntent: "temporary"
+        //eventListeners: {
             // featurehighlighted: report
-            featurehighlighted: onFeatureSelect,
-            featureunhighlighted: onFeatureUnselect
-        }
+            //featurehighlighted: onFeatureSelect,
+            //featureunhighlighted: onFeatureUnselect
+        //}
     } );
 
     // create selection lists

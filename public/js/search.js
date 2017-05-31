@@ -92,7 +92,7 @@ $(document).ready(function () {
         
         if (( lat !== null && lat !== undefined && lat != 0) && ( lon !== null && lon !== undefined && lon != 0)) {
                 // console.log(event);
-                geocode = (function () {
+                var geocode = (function () {
                     var geocode = null;
                     $.ajax({
                     data: {
@@ -114,6 +114,7 @@ $(document).ready(function () {
                         //var obj = jQuery.parseJSON(mdata);
                         //if (obj.length<=0) 
                         //$('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
+/*
                         if(geocode.address.road !== null && geocode.address.road !== undefined) {
                             road = geocode.address.road + ' ';
                         }
@@ -126,16 +127,23 @@ $(document).ready(function () {
                         if(geocode.address.city !== null && geocode.address.city !== undefined) {
                             city = geocode.address.city;
                         }
+*/
+                        if(geocode.address.postcode !== null && geocode.address.postcode !== undefined) {
+                            /* we got the postal code for this region, try to load crab streets */
+                            $('#postcode').val(geocode.address.postcode);
+                        } else {
+                            $('#msg').removeClass().addClass("notice info").html("Result: Cannot find the postcode back using nominatimm try to move the map a bit.");
+                            $('#postcode').empty();
+                        }
                     
-                        var geoaddress = road + housenumber + postcode + city;
-                        $('#postcode').val(geoaddress);
+                        //var geoaddress = road + housenumber + postcode + city;
                         $('body').css('cursor', 'default');
-                        console.log(geoaddress);
+                        //console.log(geoaddress);
                         return geocode;
                     },
                     statusCode: {
                             404: function() {
-                               $('#msg').removeClass().addClass("notice error").html("Error: Problem with reverse nominatim geocoding service");
+                               $('#msg').removeClass().addClass("notice error").html("Error: Problem with reverse nominatim geocoding service (404)");
                             }
                         }
                     });

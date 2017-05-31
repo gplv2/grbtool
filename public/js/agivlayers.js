@@ -56,9 +56,9 @@ $( document ).ready( function() {
         toggle: false,
         renderIntent: "temporary"
         //eventListeners: {
-            // featurehighlighted: report
-            //featurehighlighted: onFeatureSelect,
-            //featureunhighlighted: onFeatureUnselect
+        // featurehighlighted: report
+        //featurehighlighted: onFeatureSelect,
+        //featureunhighlighted: onFeatureUnselect
         //}
     } );
 

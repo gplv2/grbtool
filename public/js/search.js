@@ -100,45 +100,45 @@ $(document).ready(function () {
                              lat: lat,
                              lon: lon
                     },
-                        'async': true,
-                        'global': false,
-                        'url': url,
-                        'dataType': "json",
-                        'success': function (data) {
-                            geocode = data;
-                        },
+                    'async': true,
+                    'global': false,
+                    'url': url,
+                    'dataType': "json",
+                    'success': function (data) {
+                        geocode = data;
+
+                        var road='';
+                        var housenumber='';
+                        var postcode='';
+                        var city='';
+                        //var obj = jQuery.parseJSON(mdata);
+                        //if (obj.length<=0) 
+                        //$('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
+                        if(geocode.address.road !== null && geocode.address.road !== undefined) {
+                            road = geocode.address.road + ' ';
+                        }
+                        if(geocode.address.housenumber !== null && geocode.address.housenumber !== undefined) {
+                            housenumber = geocode.address.housenumber + ', ';
+                        }
+                        if(geocode.address.postcode !== null && geocode.address.postcode !== undefined) {
+                            postcode = geocode.address.postcode +' ';
+                        }
+                        if(geocode.address.city !== null && geocode.address.city !== undefined) {
+                            city = geocode.address.city;
+                        }
+                    
+                        var geoaddress = road + housenumber + postcode + city;
+                        $('#postcode').val(geoaddress);
+                        $('body').css('cursor', 'default');
+                        console.log(geoaddress);
+                        return geocode;
+                    },
                     statusCode: {
                             404: function() {
                                $('#msg').removeClass().addClass("notice error").html("Error: Problem with reverse nominatim geocoding service");
                             }
                         }
                     });
-
-                    var road='';
-                    var housenumber='';
-                    var postcode='';
-                    var city='';
-                      //var obj = jQuery.parseJSON(mdata);
-                      //if (obj.length<=0) 
-                        //$('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
-                    if(geocode.address.road !== null && geocode.address.road !== undefined) {
-                        road = geocode.address.road + ' ';
-                    }
-                    if(geocode.address.housenumber !== null && geocode.address.housenumber !== undefined) {
-                        housenumber = geocode.address.housenumber + ', ';
-                    }
-                    if(geocode.address.postcode !== null && geocode.address.postcode !== undefined) {
-                        postcode = geocode.address.postcode +' ';
-                    }
-                    if(geocode.address.city !== null && geocode.address.city !== undefined) {
-                        city = geocode.address.city;
-                    }
-                    
-                    var geoaddress = road + housenumber + postcode + city;
-                    $('#idtagadd').val(geoaddress);
-                    $('body').css('cursor', 'default');
-                    console.log(geoaddress);
-                    return geocode;
                 })();
         }
         $('body').css('cursor', 'default');

@@ -257,7 +257,7 @@ fieldset {
                         </div>
                     </div>
                     <div class="form-group">
-			<div id="contentfilters" class="col-md-12" style="clear:both;"> </div>
+                         <div id="contentfilters" class="col-md-12" style="clear:both;"> </div>
                     </div>
                </div>
             </div>

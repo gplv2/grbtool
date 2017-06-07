@@ -259,7 +259,6 @@ fieldset {
                     <div class="form-group">
 			<div id="contentfilters" class="col-md-12" style="clear:both;"> </div>
                     </div>
-                </form>
                </div>
             </div>
       <!--Sidebar content-->
@@ -307,6 +306,7 @@ fieldset {
                 </div>
                  <div class="panel-footer">
                      <div id="msg" class="break-word notice info"></div>
+                     <div id="notes" class="break-word notice info"></div>
                 </div>
             </div>
     </div>

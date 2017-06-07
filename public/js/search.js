@@ -115,22 +115,23 @@ $( document ).ready( function() {
                         //if (obj.length<=0) 
                         //$('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
                         /*
-                                                if(geocode.address.road !== null && geocode.address.road !== undefined) {
-                                                    road = geocode.address.road + ' ';
-                                                }
-                                                if(geocode.address.housenumber !== null && geocode.address.housenumber !== undefined) {
-                                                    housenumber = geocode.address.housenumber + ', ';
-                                                }
-                                                if(geocode.address.postcode !== null && geocode.address.postcode !== undefined) {
-                                                    postcode = geocode.address.postcode +' ';
-                                                }
-                                                if(geocode.address.city !== null && geocode.address.city !== undefined) {
-                                                    city = geocode.address.city;
-                                                }
+			if(geocode.address.road !== null && geocode.address.road !== undefined) {
+                       	road = geocode.address.road + ' ';
+                       	}
+                       	if(geocode.address.housenumber !== null && geocode.address.housenumber !== undefined) {
+                       	housenumber = geocode.address.housenumber + ', ';
+                       	}
+                       	if(geocode.address.postcode !== null && geocode.address.postcode !== undefined) {
+                       	postcode = geocode.address.postcode +' ';
+                       	}
+                       	if(geocode.address.city !== null && geocode.address.city !== undefined) {
+                       	city = geocode.address.city;
+                       	}
                         */
                         if ( geocode.address.postcode !== null && geocode.address.postcode !== undefined ) {
                             /* we got the postal code for this region, try to load crab streets */
                             $( '#postcode' ).val( geocode.address.postcode );
+                            loadstreets();
                         } else {
                             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Result: Cannot find the postcode back using nominatimm try to move the map a bit." );
                             $( '#postcode' ).empty();

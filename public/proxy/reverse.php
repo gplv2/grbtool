@@ -27,12 +27,12 @@ if (!function_exists('getallheaders')) {
    $headers=getallheaders();
 }
 
-$findme='GoogleEarth';
-$pos = strpos($headers['User-Agent'], $findme);
+//$findme='GoogleEarth';
+//$pos = strpos($headers['User-Agent'], $findme);
 // It's google Earth, so validate
 
 //$proxy = new CrossProxy(array('http://nm1.bitless.be/','search.php'));
-$proxy = new CrossProxy(array('https://nominatim.openstreetmap.org/','reverse.php'));
+$proxy = new CrossProxy(array('https://nominatim.openstreetmap.org','reverse.php'));
 
 class CrossProxy {
 
@@ -46,10 +46,10 @@ class CrossProxy {
    protected $settings= array(
       'curl_connecttimeout' => '5',
       'curl_connecttimeout_ms' => '5000',
-      'debug' => 1,
-      'verbose' => 5,
-      'logfile' => 'test_bad.log',
-      'user_agent_string' => 'GRB2OSM proxy user-agent'
+      'debug' => 0,
+      'verbose' => 0,
+     //'logfile' => 'test.log',
+      'user_agent_string' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
    );
 
    /* Store unprocessed $_REQUEST , kind of a misleading name imho , but makes sense in terms of POST/GET etc */
@@ -323,7 +323,7 @@ class CrossProxy {
 
       foreach($this->request_headers as $key => $header) {
          //(in_array($key, array('Cookie', 'Host', 'Accept-Encoding','Content-Encoding', 'Vary','Content-Length','Connection', 'Pragma','Cache-Control','Expires','Keep-Alive'))) 
-         if (in_array($key, array('Cookie', 'Host', 'Accept-Encoding','Content-Encoding', 'Vary','Content-Length','Connection', 'Pragma','Cache-Control','Expires','Keep-Alive'))) {
+         if (in_array($key, array('Cookie', 'Host', 'Accept-Encoding','Content-Encoding', 'Vary','Content-Length','Connection', 'Pragma','Cache-Control','Expires','Keep-Alive', 'User-Agent'))) {
             if (!empty($this->debug)) { $this->trace(3, sprintf("%s - filtering header : %s", __METHOD__ , $key)); }
             continue;
          }
@@ -371,6 +371,8 @@ class CrossProxy {
          /* DELETE */
          curl_setopt($ch, CURLOPT_CUSTOMREQUEST, self::DELETE);
       } else {
+      	 //curl_setopt($ch, CURLOPT_USERAGENT, $this->get_srv_key('HTTP_USER_AGENT'));
+      	 curl_setopt($ch, CURLOPT_USERAGENT, $this->settings['user_agent_string']);
          curl_setopt($ch, CURLOPT_CUSTOMREQUEST, self::GET);
       }
 
@@ -379,7 +381,8 @@ class CrossProxy {
       /* TRUE to include the sent header in the curl_info output, great debug aid */
       curl_setopt($ch, CURLINFO_HEADER_OUT, true);
 
-      curl_setopt($ch, CURLOPT_USERAGENT, $this->get_srv_key('HTTP_USER_AGENT'));
+      //curl_setopt($ch, CURLOPT_USERAGENT, $this->get_srv_key('HTTP_USER_AGENT'));
+      //curl_setopt($ch, CURLOPT_USERAGENT, $this->settings['user_agent_string']);
 
       /* TRUE to return the transfer as a string of the return value of curl_exec() instead of outputting it out directly. */
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -417,7 +420,7 @@ class CrossProxy {
       $this->backend_output = curl_exec($ch);
       $this->backend_curl_info = curl_getinfo($ch);
 
-      if (!empty($this->debug)) { $this->trace(4, sprintf("%s - CURL curl_getinfo output: ", __METHOD__), json_encode($this->backend_curl_info)); } 
+      if (!empty($this->debug)) { $this->trace(4, sprintf("%s - CURL curl_getinfo output: %s", __METHOD__, print_r($this->backend_curl_info,true))); } 
    }
 
    protected function send_reply() {

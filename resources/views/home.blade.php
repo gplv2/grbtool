@@ -265,7 +265,7 @@ fieldset {
                         </div>
                     </div>
                     <div class="form-group">
-			<div id="contentfilters" class="col-md-12" style="clear:both;"> </div>
+                         <div id="contentfilters" class="col-md-12" style="clear:both;"> </div>
                     </div>
                 </form>
                </div>
@@ -315,6 +315,7 @@ fieldset {
                 </div>
                  <div class="panel-footer">
                      <div id="msg" class="break-word notice info"></div>
+                     <div id="notes" class="break-word notice info"></div>
                 </div>
             </div>
     </div>
@@ -336,9 +337,10 @@ fieldset {
 {!! Html::script('js/pointstyle.js') !!}
 {!! Html::script('js/vectorstyle.js') !!}
 {!! Html::script('js/grblayers.js') !!}
+{!! Html::script('js/agivlayers.js') !!}
+{!! Html::script('js/start.js') !!}
 {!! Html::script('js/overpass.js') !!}
 <!-- {!! Html::script('js/celllayers.js') !!} -->
 <!-- {!! Html::script('js/cellstyle.js') !!} -->
 {!! Html::script('js/search.js') !!}
-{!! Html::script('js/start.js') !!}
 @endsection

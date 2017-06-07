@@ -7,11 +7,7 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css" media="all" />
 <link rel="stylesheet" href="css/complete.css">
 <style>
-<<<<<<< HEAD
 
-
-=======
->>>>>>> d478cde2d4a7e6110cefacd89bb132137c0ddb3b
 /* Fix the slider so it aligns better with the label*/
 #dpslider {
     margin-top: 1em;
@@ -24,10 +20,6 @@
     text-align: center;
     line-height: 1.6em;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> d478cde2d4a7e6110cefacd89bb132137c0ddb3b
 .ol-mouse-position {
     top: auto;
     bottom: 2em;

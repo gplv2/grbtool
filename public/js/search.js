@@ -131,7 +131,6 @@ $( document ).ready( function() {
                         if ( geocode.address.postcode !== null && geocode.address.postcode !== undefined ) {
                             /* we got the postal code for this region, try to load crab streets */
                             $( '#postcode' ).val( geocode.address.postcode );
-                            loadstreets();
                         } else {
                             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Result: Cannot find the postcode back using nominatimm try to move the map a bit." );
                             $( '#postcode' ).empty();

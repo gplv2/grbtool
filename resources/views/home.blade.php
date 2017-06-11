@@ -200,16 +200,28 @@ fieldset {
     <div class="col-sm-3 col-md-3 sidebar sidebar-left pull-left">
       <!--Injected angular content-->
             <div class="panel panel-default" ng-view=""></div>
-      <!--Request options -->
+      <!-- Object information -->
+            <div class="panel panel-default">
+                <div class="panel-heading" data-toggle="collapse" data-target="#obj_info">
+                  Object info
+               </div>
+                <div id="obj_info" class="panel-body collapse in">
+               		<div class="col-md-offset-1 col-md-8">
+				<div class="help-block"></div>
+			</div>
+               </div>
+            </div>
+      <!--Search options -->
             <div class="panel panel-default">
                 <div class="panel-heading" data-toggle="collapse" data-target="#searchopts">
                   Search Options
                </div>
                 <div id="searchopts" class="panel-body collapse in">
+                <div class="col-md-offset-1 col-md-12">
                 <form id="reqform" class="form-horizontal ng-pristine ng-valid" role="form">
                     <div class="form-group" id="search">
                            <div id="geosearch" class="filterclass ui-widget">
-                             <label for="address" class="col-md-2 col-sm-2 col-xs-2">Name</label>
+                             <label for="address" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Name</label>
                              <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                  <input type="text" class="form-control ui-autocomplete-input" autocomplete="off" title="Search via nominatim" id="address" value="" placeholder="Damstraat, Weerde" tabindex="1">
                               </div>
@@ -228,7 +240,7 @@ fieldset {
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-offset-1 col-md-8">
+                        <div class="col-md-offset-2 col-lg-6 col-md-6">
                             <!-- <input class="ui-button ui-state-default ColVis_Button" type="button" name="clearsearch" value="X" id="clssearch" title="Wissen zoekbox"> --!>
                             <button id="resetbutton" type="button" name="clearsearch" id="clssearch" class="btn btn-primary pull-left" tabindex="2">Reset</button>
                             <button id="searchbutton" type="button" class="btn btn-primary pull-right" tabindex="1">Search!</button>
@@ -236,6 +248,7 @@ fieldset {
                         </div>
                     </div>
                 </form>
+               </div>
                </div>
             </div>
       <!--options -->
@@ -259,7 +272,12 @@ fieldset {
                     <div class="form-group">
                          <div id="contentfilters" class="col-md-12" style="clear:both;"> </div>
                     </div>
-                </form>
+                         <div class="checkbox">
+                         	<label class="form-control-label"><input type="checkbox" value="">Enable CRAB data in map</label>
+			</div>
+                         <div class="checkbox">
+                         	<label class="form-control-label"><input type="checkbox" value="">Export cocaine</label>
+                        </div>
                </div>
             </div>
       <!--Sidebar content-->

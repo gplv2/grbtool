@@ -994,9 +994,9 @@ dotlayer.events.register('loadend', this, onloaddotend);
             $( '#cntain' ).css( "width", 'auto' );
             $( '#contentfilters' ).empty();
             $( '#contentfilters' ).css( "float", 'right' );
-            $( '#contentfilters' ).append( '<fieldset id="pset" style="display: inline-block; height: 56px;">' );
+            $( '#contentfilters' ).append( '<fieldset id="pset" style="display: inline-block" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">' );
             $( '#pset' ).append( '<legend class="fright">Street filter</legend>' );
-            $( '#pset' ).append( '<select id="seltagid" name="tagid" style="width:100%;">' );
+            $( '#pset' ).append( '<select id="seltagid" class="text-primary" name="tagid" style="width:100%;">' );
             $( '#seltagid' ).append( new Option( '*', 'None' ) );
             //stuff = vector_layer.features;
             //addr:street
@@ -1060,9 +1060,9 @@ dotlayer.events.register('loadend', this, onloaddotend);
             } );
 
             // The building filter
-            $( '#contentfilters' ).append( '<fieldset id="bset" style="width: 160px; display: inline-block; height: 56px;">' );
+            $( '#contentfilters' ).append( '<fieldset id="bset" style="display: inline-block" class="col-lg-5 col-md-5 col-sm-5 col-xs-5">' );
             $( '#bset' ).append( '<legend class="fright">Building filter</legend>' );
-            $( '#bset' ).append( '<select id="selbtype" name="tagid" style="width:100%;">' );
+            $( '#bset' ).append( '<select id="selbtype" class="text-primary" name="tagid" style="width:100%;">' );
             $( '#selbtype' ).append( new Option( '*', 'None' ) );
             //stuff = vector_layer.features;
             //addr:street

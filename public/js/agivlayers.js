@@ -16,7 +16,7 @@ var updateAddressInfo = function() {
 	$('#notes').html = info;
 };
 
-function loadstreets() {
+function () {
     var postcode = $( '#postcode' ).val();
     var keys = [];
 
@@ -74,7 +74,7 @@ function loadstreets() {
         } );
 
         agiv_layer = new OpenLayers.Layer.Vector( 'CRAB - Addresses', {
-            styleMap: address_style,
+            styleMap: eventlayer_style,
             format: geojson_format,
             strategies: [ boxStrategy, refresh ],
             maxScale: 420,
@@ -277,9 +277,9 @@ function loadstreets() {
                 $( '#cntain' ).css( "width", 'auto' );
                 $( '#contentfilters' ).empty();
                 $( '#contentfilters' ).css( "float", 'right' );
-                $( '#contentfilters' ).append( '<fieldset id="pset" style="display: inline-block; height: 56px;">' );
+                $( '#contentfilters' ).append( '<fieldset id="pset" style="display: inline-block" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">' );
                 $( '#pset' ).append( '<legend class="fright">Street filter</legend>' );
-                $( '#pset' ).append( '<select id="seltagid" name="tagid" style="width:100%;">' );
+                $( '#pset' ).append( '<select id="seltagid" class="text-primary" name="tagid" style="width:100%;">' );
                 $( '#seltagid' ).append( new Option( '*', 'None' ) );
                 var streets = {};
 
@@ -340,9 +340,9 @@ function loadstreets() {
                 } );
 
                 // The building filter
-                $( '#contentfilters' ).append( '<fieldset id="bset" style="width: 160px; display: inline-block; height: 56px;">' );
+                $( '#contentfilters' ).append( '<fieldset id="bset" style="display: inline-block" class="col-lg-5 col-md-5 col-sm-5 col-xs-5">' );
                 $( '#bset' ).append( '<legend class="fright">Building filter</legend>' );
-                $( '#bset' ).append( '<select id="selbtype" name="tagid" style="width:100%;">' );
+                $( '#bset' ).append( '<select id="selbtype" class="text-primary" name="tagid" style="width:100%;">' );
                 $( '#selbtype' ).append( new Option( '*', 'None' ) );
                 //stuff = vector_layer.features;
                 //addr:street

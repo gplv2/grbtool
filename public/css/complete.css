@@ -111,6 +111,11 @@
    float: 350px;
 }
 
+#note {
+   display:block;
+   float: 350px;
+}
+
 #slider_container {
   float: right;
   clear: left;

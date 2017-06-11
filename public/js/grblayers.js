@@ -950,6 +950,9 @@ dotlayer.events.register('loadend', this, onloaddotend);
     //console.log(overpass_layer);
 
 
+    loadagivlayer();
+    loadwrlayer();
+
     //console.log(eventlayer_style);
     /*
              event_layer = new OpenLayers.Layer.Vector('BXL - Traffic events/works', {
@@ -985,18 +988,93 @@ dotlayer.events.register('loadend', this, onloaddotend);
     //var feature = event_layer.features;
     //console.log(event_layer);
 
+    function getpostalcode() {
+        $( 'body' ).css( 'cursor', 'progress' );
+        //var url = 'http://nm1.bitless.be/reverse.php?format=json&lon='+ lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
+        var geodetic = new OpenLayers.Projection( "EPSG:4326" );
+        // var lonlat = map.getCenter();
+        // map.getCenter().lat
+        var lonlat = new OpenLayers.LonLat( map.getCenter().lon, map.getCenter().lat );
+        lonlat.transform( map.getProjectionObject(), geodetic );
+        var url = 'http://nominatim.openstreetmap.org/reverse.php?format=json&lon=' + lonlat.lon + '&lat=' + lonlat.lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
+        $( "#notes" ).html( "Reverse geocoding coordinates : " + toFixed( lonlat.lat, 6 ) + " N, " + toFixed( lonlat.lon, 6 ) + " E" ).removeClass().addClass( "notice success" );
+        lon = toFixed( lonlat.lon, 6 );
+        lat = toFixed( lonlat.lat, 6 );
+
+        if ( ( lat !== null && lat !== undefined && lat != 0 ) && ( lon !== null && lon !== undefined && lon != 0 ) ) {
+            var geocode = ( function() {
+                var geocode = null;
+                $.ajax( {
+                    data: {
+                        format: "json",
+                        lat: lat,
+                        lon: lon
+                    },
+                    'async': true,
+                    'global': false,
+                    'url': url,
+                    'dataType': "json",
+                    'success': function( data ) {
+                        geocode = data;
+
+                        var road = '';
+                        var housenumber = '';
+                        var postcode = '';
+                        var city = '';
+                        //var obj = jQuery.parseJSON(mdata);
+                        //if (obj.length<=0) 
+                        //$('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
+                        /*
+			if(geocode.address.road !== null && geocode.address.road !== undefined) {
+                       	road = geocode.address.road + ' ';
+                       	}
+                       	if(geocode.address.housenumber !== null && geocode.address.housenumber !== undefined) {
+                       	housenumber = geocode.address.housenumber + ', ';
+                       	}
+                       	if(geocode.address.postcode !== null && geocode.address.postcode !== undefined) {
+                       	postcode = geocode.address.postcode +' ';
+                       	}
+                       	if(geocode.address.city !== null && geocode.address.city !== undefined) {
+                       	city = geocode.address.city;
+                       	}
+                        */
+                        if ( geocode.address.postcode !== null && geocode.address.postcode !== undefined ) {
+                            /* we got the postal code for this region, try to load crab streets */
+                            $( '#postcode' ).val( geocode.address.postcode );
+                        } else {
+                            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Result: Cannot find the postcode back using nominatimm try to move the map a bit." );
+                            $( '#postcode' ).empty();
+                        }
+
+                        //var geoaddress = road + housenumber + postcode + city;
+                        $( 'body' ).css( 'cursor', 'default' );
+                        //console.log(geoaddress);
+                        return geocode;
+                    },
+                    statusCode: {
+                        404: function() {
+                            $( '#msg' ).removeClass().addClass( "notice error" ).html( "Error: Problem with reverse nominatim geocoding service (404)" );
+                        }
+                    }
+                } );
+            } )();
+        }
+        $( 'body' ).css( 'cursor', 'default' );
+    }
+
     function onloadvectorend( evt ) {
         // isvecup = null; Always do this now
         isvecup = null;
         if ( isvecup == null || isvecup == undefined ) {
+            getpostalcode();
             // if(stuff !== null && stuff !== undefined) 
             // console.log(poilayer);
             $( '#cntain' ).css( "width", 'auto' );
             $( '#contentfilters' ).empty();
             $( '#contentfilters' ).css( "float", 'right' );
-            $( '#contentfilters' ).append( '<fieldset id="pset" style="display: inline-block; height: 56px;">' );
+            $( '#contentfilters' ).append( '<fieldset id="pset" style="display: inline-block" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">' );
             $( '#pset' ).append( '<legend class="fright">Street filter</legend>' );
-            $( '#pset' ).append( '<select id="seltagid" name="tagid" style="width:100%;">' );
+            $( '#pset' ).append( '<select id="seltagid" class="text-primary" name="tagid" style="width:100%;">' );
             $( '#seltagid' ).append( new Option( '*', 'None' ) );
             //stuff = vector_layer.features;
             //addr:street
@@ -1060,9 +1138,9 @@ dotlayer.events.register('loadend', this, onloaddotend);
             } );
 
             // The building filter
-            $( '#contentfilters' ).append( '<fieldset id="bset" style="width: 160px; display: inline-block; height: 56px;">' );
+            $( '#contentfilters' ).append( '<fieldset id="bset" style="display: inline-block" class="col-lg-5 col-md-5 col-sm-5 col-xs-5">' );
             $( '#bset' ).append( '<legend class="fright">Building filter</legend>' );
-            $( '#bset' ).append( '<select id="selbtype" name="tagid" style="width:100%;">' );
+            $( '#bset' ).append( '<select id="selbtype" class="text-primary" name="tagid" style="width:100%;">' );
             $( '#selbtype' ).append( new Option( '*', 'None' ) );
             //stuff = vector_layer.features;
             //addr:street

@@ -5,25 +5,52 @@ var tcontext = {
         //console.log(feature); 
         //$.each(vector_layer.features, function(i, item) 
         //$.each(vector_layer.features, function(i, item) 
-        if ( feature.attributes[ 'category' ] == 'EVENTS' ) {
+        if ( feature.attributes[ 'house_nrs' ] == 'EVENTS' ) {
             return "red";
         } else if ( feature.attributes[ 'category' ] == 'WORKS' ) {
             return "orange";
         } else {
             return "green";
         }
-    }
+    },
     /*
              getSize: function(feature) {
                 return feature.attributes["type"] / map.getResolution() * .703125;
              }
     */
+    getLabel: function( feature ) {
+        console.log( feature );
+        //$.each(feature , function(i, item) 
+        var label = '';
+        if ( feature.attributes[ 'sname' ] ) {
+            label += feature.attributes[ 'sname' ];
+        }
+        if ( feature.attributes[ 'house_nr' ] ) {
+            $.each( feature.attributes[ 'house_nr' ], function( i, item ) {
+                label += ' ' + item;
+            } );
+        }
+        if ( feature.attributes[ 'bus_nr' ] ) {
+            label += ' ( ';
+            $.each( feature.attributes[ 'bus_nr' ], function( i, item ) {
+                label += ' ' + item;
+            } );
+            label += ' )';
+        } else if ( feature.attributes[ 'app_nr' ] ) {
+            label += ' ( ';
+            $.each( feature.attributes[ 'app_nr' ], function( i, item ) {
+                label += ' ' + item;
+            } );
+            label += ' )';
+        }
+        return label;
+    }
 };
 
 //$(document).ready(function () {
 var event_styled = new OpenLayers.Style( {
-    fillColor: "${getColor}", // using context.getColor(feature)
-    // fillColor: "white",
+    //fillColor: "${getColor}", // using context.getColor(feature)
+    fillColor: "white",
     pointRadius: 2,
     fontWeight: "normal",
     //fontColor: "#000000",
@@ -33,7 +60,7 @@ var event_styled = new OpenLayers.Style( {
     pointerEvents: "all",
     fillOpacity: 0.8,
     cursor: "pointer",
-    label: "${cause}",
+    //label: "${house_nrs}",
     labelOutlineColor: "white",
     labelOutlineWidth: 3,
     fontFamily: "sans-serif"
@@ -50,7 +77,7 @@ var event_temp_styled = new OpenLayers.Style( {
     pointerEvents: "all",
     fillOpacity: 0.4,
     cursor: "pointer",
-    label: "${cause}",
+    label: "${getLabel}",
     labelOutlineColor: "white",
     labelOutlineWidth: 4,
     fontFamily: "sans-serif"
@@ -69,10 +96,10 @@ var eventlayer_style = new OpenLayers.StyleMap( {
 eventlayer_style.styles[ 'default' ].addRules( [
     new OpenLayers.Rule( {
         maxScaleDenominator: 60000000,
-        minScaleDenominator: 433344,
+        minScaleDenominator: 3400,
         symbolizer: {
             "Point": {
-                pointRadius: 5,
+                pointRadius: 1,
                 graphicName: "square",
                 fillColor: "white",
                 fillOpacity: 0.25,
@@ -104,8 +131,8 @@ eventlayer_style.styles[ 'default' ].addRules( [
         */
     } ),
     new OpenLayers.Rule( {
-        maxScaleDenominator: 433344,
-        minScaleDenominator: 54168,
+        maxScaleDenominator: 3400,
+        minScaleDenominator: 1700,
         symbolizer: {
             "Point": {
                 pointRadius: 5,
@@ -140,11 +167,11 @@ eventlayer_style.styles[ 'default' ].addRules( [
         */
     } ),
     new OpenLayers.Rule( {
-        maxScaleDenominator: 54168,
+        maxScaleDenominator: 1700,
         minScaleDenominator: 1,
         symbolizer: {
             "Point": {
-                pointRadius: 5,
+                pointRadius: 12,
                 graphicName: "square",
                 fillColor: "white",
                 fillOpacity: 0.25,

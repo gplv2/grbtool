@@ -205,10 +205,18 @@ fieldset {
                 <div class="panel-heading" data-toggle="collapse" data-target="#obj_info">
                   Object info
                </div>
-                <div id="obj_info" class="panel-body collapse in">
-               		<div class="col-md-offset-1 col-md-8">
-				<div class="help-block"></div>
-			</div>
+               <div id="obj_info" class="panel-body collapse in">
+                <form id="reqform" class="form-horizontal ng-pristine ng-valid" role="form">
+                  <div class="col-md-offset-1 col-md-8">
+				         <div class="help-block"></div>
+                     <div class="form-group">
+                         <label for="postcode" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Postcode</label>
+                         <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                             <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
+                        </div>
+                     </div>
+			         </div>
+         </form>
                </div>
             </div>
       <!--Search options -->
@@ -272,12 +280,18 @@ fieldset {
                     <div class="form-group">
                          <div id="contentfilters" class="col-md-12" style="clear:both;"> </div>
                     </div>
-                         <div class="checkbox">
-                         	<label class="form-control-label"><input type="checkbox" value="">Enable CRAB data in map</label>
-			</div>
-                         <div class="checkbox">
-                         	<label class="form-control-label"><input type="checkbox" value="">Export cocaine</label>
-                        </div>
+                    <div class="checkbox">
+                        <label class="form-control-label"><input type="checkbox" value="" checked>Enable CRAB layer</label>
+			        </div>
+                    <div class="checkbox">
+                        <label class="form-control-label"><input type="checkbox" value="" checked>Enable Wegenregister layer</label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="form-control-label"><input type="checkbox" value="">Include CRAB data in export</label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="form-control-label"><input type="checkbox" value="" checked>Enable postalcode tracking</label>
+                    </div>
                </div>
             </div>
       <!--Sidebar content-->
@@ -287,13 +301,6 @@ fieldset {
                </div>
                <div class="panel-body collapse" id="jsonpane">
                   <form class="form-horizontal" role="form">
-                     <div class="form-group">
-                         <label class="form-control-label" for="postcode">Postcode</label>
-                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                             <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
-                    	     <button id="crabdata" type="button" class="btn btn-default">Crabdata!</button>
-                        </div>
-                     </div>
                      <div class="form-group">
                         <div class="col-sm-12">
                            <label class="form-control-label" for="apidata">Raw request data:</label>
@@ -348,6 +355,7 @@ fieldset {
 {!! Html::script('js/vectorstyle.js') !!}
 {!! Html::script('js/grblayers.js') !!}
 {!! Html::script('js/agivlayers.js') !!}
+{!! Html::script('js/wrlayers.js') !!}
 {!! Html::script('js/start.js') !!}
 {!! Html::script('js/overpass.js') !!}
 <!-- {!! Html::script('js/celllayers.js') !!} -->

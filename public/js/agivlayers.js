@@ -6,17 +6,17 @@ var stylemap = null;
 
 var webmercator = new OpenLayers.Projection( "EPSG:3857" );
 var geodetic = new OpenLayers.Projection( "EPSG:4326" );
-var mercator = new OpenLayers.Projection( "EPSG:900913" ); // to Spherical Mercator Projection
-var lambert = new OpenLayers.Projection( "EPSG:31370" ); // to Spherical Mercator Projection
+var mercator = new OpenLayers.Projection( "EPSG:900913" );
+var lambert = new OpenLayers.Projection( "EPSG:31370" );
 
 // The function that gets called on feature selection. Shows information 
 // about the number of "points" on the map.
 var updateAddressInfo = function() {
-	var info = 'Currently ' + agiv_layer.features.length + ' address points are shown on the map.';
-	$('#notes').html = info;
+    var info = 'Currently ' + agiv_layer.features.length + ' address points are shown on the map.';
+    $( '#notes' ).html( info );
 };
 
-function () {
+function loadagivlayer() {
     var postcode = $( '#postcode' ).val();
     var keys = [];
 
@@ -32,14 +32,14 @@ function () {
         }
     } );
 
-/*
-    for ( var key in streets ) {
-        if ( streetlist.hasOwnProperty( key ) ) {
-            keys.push( key );
+    /*
+        for ( var key in streets ) {
+            if ( streetlist.hasOwnProperty( key ) ) {
+                keys.push( key );
+            }
         }
-    }
-    keys.sort();
-*/
+        keys.sort();
+    */
 
     //console.log(keys);
     //$.each( keys, function( i, item ) {
@@ -85,7 +85,7 @@ function () {
             //zoomOffset: 9, resolutions: [152.87405654907226, 76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627, 0.5971642833948135],
             //zoomOffset: 10, resolutions: [76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627, 0.5971642833948135],
             protocol: new OpenLayers.Protocol.HTTP( {
-                url: "https://agivdata.grbosm.site/?streets=" + JSON.stringify(Object.keys(streets)) + "&postcode=" + postcode,
+                url: "https://agivdata.grbosm.site/?streets=" + JSON.stringify( Object.keys( streets ) ) + "&postcode=" + postcode,
                 format: geojson_format
             } ),
 
@@ -101,13 +101,13 @@ function () {
             //autoActivate:true,
             toggle: false,
             renderIntent: "temporary",
-/*
-            eventListeners: {
-            	featurehighlighted: updateAddressInfo
-            	//featurehighlighted: onFeatureSelect,
-            	//featureunhighlighted: onFeatureUnselect
-            }
-*/
+            /*
+                        eventListeners: {
+                        	featurehighlighted: updateAddressInfo
+                        	//featurehighlighted: onFeatureSelect,
+                        	//featureunhighlighted: onFeatureUnselect
+                        }
+            */
         } );
 
         // create selection lists
@@ -144,35 +144,33 @@ function () {
 
         /* Overpass select hover style */
         var address_temp_styled = new OpenLayers.Style( {
-                fillColor: "red",
-                fontColor: "#000000",
-                fontWeight: "normal",
-                pointRadius: 8,
-                fontSize: "11px",
-                strokeColor: "#ff9933",
-                strokeWidth: 2,
-                // externalGraphic: null,
-                pointerEvents: "all",
-                fillOpacity: 0.3,
-                label : "${getNumber}",
-                labelOutlineColor: "black",
-                labelAlign: "rb",
-                labelOutlineWidth: 8,
-                cursor: "pointer",
-                fontFamily: "sans-serif"
-                //fontFamily: "Courier New, monospace"
-            }
-            , {
-                context: {
-                  getLabel: function(feature) {
+            fillColor: "red",
+            fontColor: "#000000",
+            fontWeight: "normal",
+            pointRadius: 8,
+            fontSize: "11px",
+            strokeColor: "#ff9933",
+            strokeWidth: 2,
+            // externalGraphic: null,
+            pointerEvents: "all",
+            fillOpacity: 0.3,
+            label: "${getNumber}",
+            labelOutlineColor: "black",
+            labelAlign: "rb",
+            labelOutlineWidth: 8,
+            cursor: "pointer",
+            fontFamily: "sans-serif"
+            //fontFamily: "Courier New, monospace"
+        }, {
+            context: {
+                getLabel: function( feature ) {
                     return feature.properties.tags.sname;
-                  },
-                  getNumber: function(feature) {
+                },
+                getNumber: function( feature ) {
                     return feature.properties.tags.house_nr;
-                  }
                 }
-              }
-        );
+            }
+        } );
 
         var address_style = new OpenLayers.StyleMap( {
             'default': address_styled,
@@ -255,7 +253,7 @@ function () {
                     fontSize: "11px",
                     strokeColor: "#ff9963",
                     strokeWidth: 3,
-                    label : "${getNumber}",
+                    label: "${getNumber}",
                     labelAlign: "cm",
                     //labelAlign: "cm",
                     pointerEvents: "all",
@@ -267,13 +265,20 @@ function () {
             } )
         ] );
 
+        agiv_layer.events.on( {
+            "featuresadded": function() {
+                // $("#msg").html("Info : "+ "Loaded CRAB import layer").removeClass().addClass("notice success");
+            }
+        } );
+
+
         function onloadagivend( evt ) {
-            // isvecup = null; Always do this now
-            //isagivup = null;
-			updateAddressInfo();
+            // isagivup = null; Always do this now
+            isagivup = null;
             if ( isagivup == null || isagivup == undefined ) {
                 // if(stuff !== null && stuff !== undefined) 
                 // console.log(poilayer);
+                updateAddressInfo();
                 $( '#cntain' ).css( "width", 'auto' );
                 $( '#contentfilters' ).empty();
                 $( '#contentfilters' ).css( "float", 'right' );
@@ -405,9 +410,8 @@ function () {
                     }
                 } );
                 //console.log(poilayer.features);
-                isvecup = true;
+                isagivup = true;
             }
         }
-        isagivup = true;
     }
 }

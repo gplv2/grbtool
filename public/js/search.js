@@ -1,4 +1,4 @@
-/*jslint node: true */
+/*jslint node: true, maxerr: 50, indent: 4 */
 "use strict";
 
 var geocoder = null;
@@ -73,83 +73,6 @@ $( document ).ready( function() {
             //$('#okfilt').click();
             // console.log(event);
         }
-    } );
-
-    $( "#crabdata" ).click( function( event ) {
-        event.preventDefault();
-        $( 'body' ).css( 'cursor', 'progress' );
-        // event.preventDefault();
-        //var url = 'http://nm1.bitless.be/reverse.php?format=json&lon='+ lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
-        var url = 'http://nominatim.openstreetmap.org/reverse.php?format=json&lon=' + lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
-        var geodetic = new OpenLayers.Projection( "EPSG:4326" );
-        // var lonlat = map.getCenter();
-        // map.getCenter().lat
-        var lonlat = new OpenLayers.LonLat( map.getCenter().lon, map.getCenter().lat );
-        lonlat.transform( map.getProjectionObject(), geodetic );
-        $( "#msg" ).html( "Reverse geocoding coordinates : " + toFixed( lonlat.lat, 6 ) + " N, " + toFixed( lonlat.lon, 6 ) + " E" ).removeClass().addClass( "notice success" );
-        lon = toFixed( lonlat.lon, 6 );
-        lat = toFixed( lonlat.lat, 6 );
-
-        if ( ( lat !== null && lat !== undefined && lat != 0 ) && ( lon !== null && lon !== undefined && lon != 0 ) ) {
-            // console.log(event);
-            var geocode = ( function() {
-                var geocode = null;
-                $.ajax( {
-                    data: {
-                        format: "json",
-                        lat: lat,
-                        lon: lon
-                    },
-                    'async': true,
-                    'global': false,
-                    'url': url,
-                    'dataType': "json",
-                    'success': function( data ) {
-                        geocode = data;
-
-                        var road = '';
-                        var housenumber = '';
-                        var postcode = '';
-                        var city = '';
-                        //var obj = jQuery.parseJSON(mdata);
-                        //if (obj.length<=0) 
-                        //$('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
-                        /*
-			if(geocode.address.road !== null && geocode.address.road !== undefined) {
-                       	road = geocode.address.road + ' ';
-                       	}
-                       	if(geocode.address.housenumber !== null && geocode.address.housenumber !== undefined) {
-                       	housenumber = geocode.address.housenumber + ', ';
-                       	}
-                       	if(geocode.address.postcode !== null && geocode.address.postcode !== undefined) {
-                       	postcode = geocode.address.postcode +' ';
-                       	}
-                       	if(geocode.address.city !== null && geocode.address.city !== undefined) {
-                       	city = geocode.address.city;
-                       	}
-                        */
-                        if ( geocode.address.postcode !== null && geocode.address.postcode !== undefined ) {
-                            /* we got the postal code for this region, try to load crab streets */
-                            $( '#postcode' ).val( geocode.address.postcode );
-                        } else {
-                            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Result: Cannot find the postcode back using nominatimm try to move the map a bit." );
-                            $( '#postcode' ).empty();
-                        }
-
-                        //var geoaddress = road + housenumber + postcode + city;
-                        $( 'body' ).css( 'cursor', 'default' );
-                        //console.log(geoaddress);
-                        return geocode;
-                    },
-                    statusCode: {
-                        404: function() {
-                            $( '#msg' ).removeClass().addClass( "notice error" ).html( "Error: Problem with reverse nominatim geocoding service (404)" );
-                        }
-                    }
-                } );
-            } )();
-        }
-        $( 'body' ).css( 'cursor', 'default' );
     } );
 
     $( function() {

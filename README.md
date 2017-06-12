@@ -3,6 +3,9 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/gplv2/grbtool/badges/coverage.png?s=531ebd5f55891dfc816ace082531adfb24d194e9)](https://scrutinizer-ci.com/g/gplv2/grbtool/badges/coverage.png?s=531ebd5f55891dfc816ace082531adfb24d194e9)
 [![Build](https://scrutinizer-ci.com/g/gplv2/grbtool/badges/build.png?b=master)](https://scrutinizer-ci.com/g/gplv2/grbtool/badges/build.png?b=master)
 
+# Screenshot
+
+![first screenshot](/screenshots/grbtool_new.png?raw=true "First screenshot")
 
 # Grbtool
 

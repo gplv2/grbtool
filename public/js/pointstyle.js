@@ -46,7 +46,7 @@ var tcontext = {
             }
             return label;
         } else if ( feature.layer[ 'name' ] == "Wegenregister data" ) {
-            console.log( feature );
+            //console.log( feature );
             //$.each(feature , function(i, item) 
             var label = '';
             if ( feature.attributes[ 'name:left' ] == feature.attributes[ 'name:right' ] ) {

@@ -990,13 +990,13 @@ dotlayer.events.register('loadend', this, onloaddotend);
 
     function getpostalcode() {
         $( 'body' ).css( 'cursor', 'progress' );
-        //var url = 'http://nm1.bitless.be/reverse.php?format=json&lon='+ lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
+        //var url = '//nm1.bitless.be/reverse.php?format=json&lon='+ lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
         var geodetic = new OpenLayers.Projection( "EPSG:4326" );
         // var lonlat = map.getCenter();
         // map.getCenter().lat
         var lonlat = new OpenLayers.LonLat( map.getCenter().lon, map.getCenter().lat );
         lonlat.transform( map.getProjectionObject(), geodetic );
-        var url = 'http://nominatim.openstreetmap.org/reverse.php?format=json&lon=' + lonlat.lon + '&lat=' + lonlat.lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
+        var url = '//nominatim.openstreetmap.org/reverse.php?format=json&lon=' + lonlat.lon + '&lat=' + lonlat.lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
         $( "#notes" ).html( "Reverse geocoding coordinates : " + toFixed( lonlat.lat, 6 ) + " N, " + toFixed( lonlat.lon, 6 ) + " E" ).removeClass().addClass( "notice success" );
         lon = toFixed( lonlat.lon, 6 );
         lat = toFixed( lonlat.lat, 6 );
@@ -1425,14 +1425,14 @@ $( document ).ready( function() {
     $( "#msg" ).html( "Action: docReadydone" );
 
     function openStreetview( lat, lon ) {
-        var dataUrl = 'http://cbk0.google.com/cbk?output=json&ll=' + lat + ',' + lon + '&';
+        var dataUrl = '//cbk0.google.com/cbk?output=json&ll=' + lat + ',' + lon + '&';
         $.ajax( {
             url: dataUrl,
             dataType: 'jsonp',
             data: {}
         } ).done( function( data ) {
             if ( data && data.Location && data.Location.panoId ) {
-                var url = 'http://maps.google.com/maps?layer=c&cbp=0,,,,30&panoid=' + data.Location.panoId;
+                var url = '//maps.google.com/maps?layer=c&cbp=0,,,,30&panoid=' + data.Location.panoId;
                 window.open( url, '_blank' );
             } else {
                 $( "#msg" ).html( "Warning : " + "Street View could not allocate position." ).removeClass().addClass( "notice warning" );

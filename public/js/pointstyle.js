@@ -92,7 +92,11 @@ var tcontext = {
             } else {
                 label = '';
             }
-            return label;
+            if (!label) {
+                return '';
+            } else {
+                return label;
+            }
         }
     },
     getWidth: function( feature ) {

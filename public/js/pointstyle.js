@@ -60,6 +60,36 @@ var tcontext = {
             }
             return label;
         }
+    },
+    getWidth: function( feature ) {
+        if ( feature.layer[ 'name' ] == "CRAB - Addresses" ) {
+            return 1;
+        } else if ( feature.layer[ 'name' ] == "Wegenregister data" ) {
+            if ( feature.attributes[ 'properties' ]['_meta'].length ) {
+                var cat = feature.attributes[ 'properties' ]['_meta']['WEGCAT'];
+                console.log(cat);
+                switch(cat) {
+                    case '-8':
+                        // unknown road
+                        return 1;
+                        break;
+                    case 'L2':
+                        return 1;
+                        break;
+                    case 'S3':
+                        return 2;
+                        break;
+                    case 'PII-4':
+                        return 3;
+                        break;
+                    case 'H':
+                        return 4;
+                        break;
+                    default:
+                        return 1;
+                } 
+            }   
+        }
     }
 };
 
@@ -125,7 +155,7 @@ eventlayer_style.styles[ 'default' ].addRules( [
                 strokeColor: "#3333aa"
             },
             "Line": {
-                strokeWidth: 3,
+                strokeWidth: "${getWidth}",
                 strokeOpacity: 1,
                 strokeColor: "#3A01DF"
             },
@@ -161,7 +191,7 @@ eventlayer_style.styles[ 'default' ].addRules( [
                 strokeColor: "#3333aa"
             },
             "Line": {
-                strokeWidth: 3,
+                strokeWidth: "${getWidth}",
                 strokeOpacity: 1,
                 strokeColor: "#3A01DF"
             },
@@ -197,7 +227,7 @@ eventlayer_style.styles[ 'default' ].addRules( [
                 strokeColor: "#3333aa"
             },
             "Line": {
-                strokeWidth: 3,
+                strokeWidth: "${getWidth}",
                 strokeOpacity: 1,
                 strokeColor: "#3A01DF"
             },

@@ -65,9 +65,9 @@ var tcontext = {
         if ( feature.layer[ 'name' ] == "CRAB - Addresses" ) {
             return 1;
         } else if ( feature.layer[ 'name' ] == "Wegenregister data" ) {
-            console.log(feature.attributes[ 'properties' ]);
-            if ( feature.attributes[ 'properties' ]['_meta'].length ) {
-                var cat = feature.attributes[ 'properties' ]['_meta']['WEGCAT'];
+            //console.log(feature.attributes[ '_meta' ]);
+            if ( feature.attributes[ '_meta'].length ) {
+                var cat = feature.attributes[ '_meta']['WEGCAT'];
                 console.log(cat);
                 switch(cat) {
                     case '-8':

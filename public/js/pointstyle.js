@@ -110,7 +110,7 @@ eventlayer_style.styles[ 'default' ].addRules( [
             "Line": {
                 strokeWidth: 3,
                 strokeOpacity: 1,
-                strokeColor: "#ff0000"
+                strokeColor: "#3A01DF"
             },
             "Polygon": {
                 strokeWidth: 1,
@@ -146,7 +146,7 @@ eventlayer_style.styles[ 'default' ].addRules( [
             "Line": {
                 strokeWidth: 3,
                 strokeOpacity: 1,
-                strokeColor: "#ff0000"
+                strokeColor: "#3A01DF"
             },
             "Polygon": {
                 strokeWidth: 1,
@@ -182,7 +182,7 @@ eventlayer_style.styles[ 'default' ].addRules( [
             "Line": {
                 strokeWidth: 3,
                 strokeOpacity: 1,
-                strokeColor: "#ff0000"
+                strokeColor: "#3A01DF"
             },
             "Polygon": {
                 strokeWidth: 1,

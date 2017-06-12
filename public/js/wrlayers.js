@@ -19,6 +19,7 @@ var updateAddressInfo = function() {
 function loadwrlayer() {
     var postcode = $( '#postcode' ).val();
 
+    var streets = { };
     if ( vector_layer == null || vector_layer == undefined ) {
         return false;
     }

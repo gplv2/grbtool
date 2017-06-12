@@ -129,7 +129,14 @@ $( document ).ready( function() {
                             q: request.term
                         },
                         success: function( mdata ) {
-                            var obj = jQuery.parseJSON( mdata );
+                            // For some very weird reason, in the dev site this is a string, but in staging it comes out as an array, very weird as the source is the same
+                            var obj = undefined;
+                            if ( mdata.constructor !== Array ) {
+                                obj = jQuery.parseJSON( mdata );
+                            } else {
+                                obj = mdata;
+                            }
+
                             // var data = obj.pop();
                             $( '#address' ).removeClass( 'ui-autocomplete-loading' );
                             // console.log(data); return true;

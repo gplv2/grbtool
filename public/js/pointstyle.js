@@ -20,6 +20,10 @@ var tcontext = {
     */
     getLabel: function( feature ) {
         if ( feature.layer[ 'name' ] == "CRAB - Addresses" ) {
+            var is_muted = $('#mute_crab_labels').prop('checked');
+            if (is_muted) {
+                return '';
+            }
             //console.log( feature );
             //$.each(feature , function(i, item) 
             var label = '';
@@ -46,6 +50,10 @@ var tcontext = {
             }
             return label;
         } else if ( feature.layer[ 'name' ] == "Wegenregister data" ) {
+            var is_muted = $('#mute_wr_labels').prop('checked');
+            if (is_muted) {
+                return '';
+            }
             //console.log( feature );
             //$.each(feature , function(i, item) 
             var label = '';

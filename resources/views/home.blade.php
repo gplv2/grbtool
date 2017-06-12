@@ -284,6 +284,12 @@ fieldset {
                         <label class="form-control-label"><input type="checkbox" value="" checked>Enable CRAB layer</label>
 			        </div>
                     <div class="checkbox">
+                        <label class="form-control-label"><input id ="mute_crab_labels" type="checkbox" value="" checked>Mute CRAB labels</label>
+			        </div>
+                    <div class="checkbox">
+                        <label class="form-control-label"><input id ="mute_wr_labels" type="checkbox" value="" checked>Mute Wegenregister labels</label>
+			        </div>
+                    <div class="checkbox">
                         <label class="form-control-label"><input type="checkbox" value="" checked>Enable Wegenregister layer</label>
                     </div>
                     <div class="checkbox">

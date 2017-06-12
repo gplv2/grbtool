@@ -19,31 +19,47 @@ var tcontext = {
              }
     */
     getLabel: function( feature ) {
-        console.log( feature );
-        //$.each(feature , function(i, item) 
-        var label = '';
-        if ( feature.attributes[ 'sname' ] ) {
-            label += feature.attributes[ 'sname' ];
+        if ( feature.layer[ 'name' ] == "CRAB - Addresses" ) {
+            //console.log( feature );
+            //$.each(feature , function(i, item) 
+            var label = '';
+            if ( feature.attributes[ 'sname' ] ) {
+                label += feature.attributes[ 'sname' ];
+            }
+            if ( feature.attributes[ 'house_nr' ] ) {
+                $.each( feature.attributes[ 'house_nr' ], function( i, item ) {
+                    label += ' ' + item;
+                } );
+            }
+            if ( feature.attributes[ 'bus_nr' ] ) {
+                label += ' ( ';
+                $.each( feature.attributes[ 'bus_nr' ], function( i, item ) {
+                    label += ' ' + item;
+                } );
+                label += ' )';
+            } else if ( feature.attributes[ 'app_nr' ] ) {
+                label += ' ( ';
+                $.each( feature.attributes[ 'app_nr' ], function( i, item ) {
+                    label += ' ' + item;
+                } );
+                label += ' )';
+            }
+            return label;
+        } else if ( feature.layer[ 'name' ] == "Wegenregister data" ) {
+            console.log( feature );
+            //$.each(feature , function(i, item) 
+            var label = '';
+            if ( feature.attributes[ 'name:left' ] == feature.attributes[ 'name:right' ] ) {
+                label = feature.attributes[ 'name:right' ];
+            } else if ( feature.attributes[ 'name:right' ] && feature.attributes[ 'name:right' ].length ) {
+                label = feature.attributes[ 'name:right' ];
+            } else if ( feature.attributes[ 'name:left' ] && feature.attributes[ 'name:left' ].length ) {
+                label = feature.attributes[ 'name:left' ];
+            } else {
+                label = '';
+            }
+            return label;
         }
-        if ( feature.attributes[ 'house_nr' ] ) {
-            $.each( feature.attributes[ 'house_nr' ], function( i, item ) {
-                label += ' ' + item;
-            } );
-        }
-        if ( feature.attributes[ 'bus_nr' ] ) {
-            label += ' ( ';
-            $.each( feature.attributes[ 'bus_nr' ], function( i, item ) {
-                label += ' ' + item;
-            } );
-            label += ' )';
-        } else if ( feature.attributes[ 'app_nr' ] ) {
-            label += ' ( ';
-            $.each( feature.attributes[ 'app_nr' ], function( i, item ) {
-                label += ' ' + item;
-            } );
-            label += ' )';
-        }
-        return label;
     }
 };
 
@@ -61,6 +77,7 @@ var event_styled = new OpenLayers.Style( {
     fillOpacity: 0.8,
     cursor: "pointer",
     //label: "${house_nrs}",
+    label: "${getLabel}",
     labelOutlineColor: "white",
     labelOutlineWidth: 3,
     fontFamily: "sans-serif"

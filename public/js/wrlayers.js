@@ -19,7 +19,8 @@ var updateAddressInfo = function() {
 function loadwrlayer() {
     var postcode = $( '#postcode' ).val();
 
-    var streets = { };
+    var streets = {};
+
     if ( vector_layer == null || vector_layer == undefined ) {
         return false;
     }
@@ -107,12 +108,14 @@ function loadwrlayer() {
                 // if(stuff !== null && stuff !== undefined) 
                 // console.log(poilayer);
             }
-            var bounds = vector_layer.getDataExtent();
+            /*
+                        var bounds = vector_layer.getDataExtent();
 
-            if ( bounds !== null && bounds !== undefined ) {
-                map.panTo( bounds.getCenterLonLat() );
-                //map.zoomToExtent(bounds, true);
-            }
+                        if ( bounds !== null && bounds !== undefined ) {
+                            map.panTo( bounds.getCenterLonLat() );
+                            //map.zoomToExtent(bounds, true);
+                        }
+            */
         }
         //console.log(poilayer.features);
         iswrup = true;

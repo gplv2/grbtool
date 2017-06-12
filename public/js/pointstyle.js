@@ -2,15 +2,41 @@
 "use strict";
 var tcontext = {
     getColor: function( feature ) {
-        //console.log(feature); 
-        //$.each(vector_layer.features, function(i, item) 
-        //$.each(vector_layer.features, function(i, item) 
-        if ( feature.attributes[ 'house_nrs' ] == 'EVENTS' ) {
-            return "red";
-        } else if ( feature.attributes[ 'category' ] == 'WORKS' ) {
-            return "orange";
-        } else {
-            return "green";
+        if ( feature.layer[ 'name' ] == "Wegenregister data" ) {
+            //console.log(feature); 
+            //$.each(vector_layer.features, function(i, item) 
+            if ( feature.attributes[ '_meta'] ) {
+                var cat = feature.attributes[ '_meta']['WEGCAT'];
+                //console.log(cat);
+                switch(cat) {
+                    case '-8':
+                        // unknown road
+                        return 'orange';
+                        break;
+                    case 'L2':
+                        return 'yellow';
+                        break;
+                    case 'S3':
+                        return 'orange';
+                        break;
+                    case 'PII-4':
+                        return 'green';
+                        break;
+                    case 'H':
+                        return 'green';
+                        break;
+                    default:
+                        return 'blue';
+                } 
+            }   
+        } else if ( feature.layer[ 'name' ] == "CRAB - Addresses" ) {
+            if ( feature.attributes[ 'house_nrs' ] == 'EVENTS' ) {
+                return "red";
+            } else if ( feature.attributes[ 'category' ] == 'WORKS' ) {
+                return "orange";
+            } else {
+                return "green";
+            }
         }
     },
     /*
@@ -66,9 +92,9 @@ var tcontext = {
             return 1;
         } else if ( feature.layer[ 'name' ] == "Wegenregister data" ) {
             //console.log(feature.attributes[ '_meta' ]);
-            if ( feature.attributes[ '_meta'].length ) {
+            if ( feature.attributes[ '_meta'] ) {
                 var cat = feature.attributes[ '_meta']['WEGCAT'];
-                console.log(cat);
+                //console.log(cat);
                 switch(cat) {
                     case '-8':
                         // unknown road
@@ -108,7 +134,7 @@ var event_styled = new OpenLayers.Style( {
     fillOpacity: 0.8,
     cursor: "pointer",
     //label: "${house_nrs}",
-    label: "${getLabel}",
+    //label: "${getLabel}",
     labelOutlineColor: "white",
     labelOutlineWidth: 3,
     fontFamily: "sans-serif"
@@ -156,9 +182,11 @@ eventlayer_style.styles[ 'default' ].addRules( [
                 strokeColor: "#3333aa"
             },
             "Line": {
+                label: "${getLabel}",
                 strokeWidth: "${getWidth}",
-                strokeOpacity: 1,
-                strokeColor: "#3A01DF"
+                strokeOpacity: 0.90,
+                strokeColor: "${getColor}", // using context.getColor(feature)
+                //strokeColor: "#3A01DF"
             },
             "Polygon": {
                 strokeWidth: 1,
@@ -183,6 +211,7 @@ eventlayer_style.styles[ 'default' ].addRules( [
         minScaleDenominator: 1700,
         symbolizer: {
             "Point": {
+                //label: "${getLabel}",
                 pointRadius: 5,
                 graphicName: "square",
                 fillColor: "white",
@@ -192,9 +221,11 @@ eventlayer_style.styles[ 'default' ].addRules( [
                 strokeColor: "#3333aa"
             },
             "Line": {
+                label: "${getLabel}",
                 strokeWidth: "${getWidth}",
-                strokeOpacity: 1,
-                strokeColor: "#3A01DF"
+                strokeOpacity: 0.90,
+                //strokeColor: "#3A01DF"
+                strokeColor: "${getColor}", // using context.getColor(feature)
             },
             "Polygon": {
                 strokeWidth: 1,
@@ -219,6 +250,7 @@ eventlayer_style.styles[ 'default' ].addRules( [
         minScaleDenominator: 1,
         symbolizer: {
             "Point": {
+                label: "${getLabel}",
                 pointRadius: 12,
                 graphicName: "square",
                 fillColor: "white",
@@ -228,9 +260,11 @@ eventlayer_style.styles[ 'default' ].addRules( [
                 strokeColor: "#3333aa"
             },
             "Line": {
+                label: "${getLabel}",
                 strokeWidth: "${getWidth}",
-                strokeOpacity: 1,
-                strokeColor: "#3A01DF"
+                strokeOpacity: 0.90,
+                //strokeColor: "#3A01DF"
+                strokeColor: "${getColor}", // using context.getColor(feature)
             },
             "Polygon": {
                 strokeWidth: 1,

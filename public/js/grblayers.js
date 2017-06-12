@@ -21,6 +21,11 @@ var streetextents = null;
 
 var overpassapi = "http://overpass-api.de/api/interpreter?data=";
 
+var webmercator = null;
+var geodetic = null;
+var mercator = null;
+var lambert = null;
+
 function initmap() {
     $( 'body' ).css( 'cursor', 'wait' );
 
@@ -49,10 +54,10 @@ function initmap() {
     // pink tile avoidance
     OpenLayers.IMAGE_RELOAD_ATTEMPTS = 2;
 
-    var webmercator = new OpenLayers.Projection( "EPSG:3857" );
-    var geodetic = new OpenLayers.Projection( "EPSG:4326" );
-    var mercator = new OpenLayers.Projection( "EPSG:900913" ); // to Spherical Mercator Projection
-    var lambert = new OpenLayers.Projection( "EPSG:31370" ); // to Spherical Mercator Projection
+    webmercator = new OpenLayers.Projection( "EPSG:3857" );
+    geodetic = new OpenLayers.Projection( "EPSG:4326" );
+    mercator = new OpenLayers.Projection( "EPSG:900913" ); // to Spherical Mercator Projection
+    lambert = new OpenLayers.Projection( "EPSG:31370" ); // to Spherical Mercator Projection
     //projection: "EPSG:31370",
 
     $( window ).resize( function() {
@@ -63,7 +68,7 @@ function initmap() {
         //$('#map').css("width",canvaswidth);
     } );
 
-    $( "#msg" ).html( "start init()" );
+    $( "#msg" ).html( "Initializing map" );
     var layerswitcher = new OpenLayers.Control.LayerSwitcher();
 
     map = new OpenLayers.Map( {
@@ -149,9 +154,6 @@ function initmap() {
             );
         },
         trigger: function( e ) {
-            var webmercator = new OpenLayers.Projection( "EPSG:3857" );
-            var geodetic = new OpenLayers.Projection( "EPSG:4326" );
-            var mercator = new OpenLayers.Projection( "EPSG:900913" ); // to Spherical Mercator Projection
             var lonlat = map.getLonLatFromPixel( e.xy );
             lonlat.transform( map.getProjectionObject(), geodetic );
             $( "#msg" ).html( "Info : " + toFixed( lonlat.lat, 6 ) + " N, " + toFixed( lonlat.lon, 6 ) + " E" ).removeClass().addClass( "notice success" );
@@ -1212,7 +1214,6 @@ dotlayer.events.register('loadend', this, onloaddotend);
  * Get the data from osm, ret should be an empty array
  */
 function getOsmInfo() {
-    var geodetic = new OpenLayers.Projection( "EPSG:4326" );
     $( '#msg' ).removeClass().addClass( "notice info" );
 
     var bounds = map.getExtent();
@@ -1322,18 +1323,17 @@ $( document ).ready( function() {
     } );
 
     /* Setup the information pane left bottom */
-    //console.log( "docready!" );
-    //$('#log').append('<div> bottom resize().</div>');
     var canvasheight = $( '#map' ).css( 'height' );
     var canvaswidth = $( '#map' ).css( 'width' );
     var newh = ( parseInt( canvasheight, 10 ) / 2 ) + 'px';
+
     // var newm =$('#map').css('margin-top');
 
     $( '#bottom' ).css( "height", newh );
     $( '#bottom' ).css( "margin-top", newh );
     $( '#bottom' ).css( "width", '440px' );
     $( '#bottom' ).css( "opacity", '0.8' );
-    $( "#msg" ).html( "Action: Bottom resized" );
+    $( "#notes" ).html( "Action: Bottom resized" );
     $( '#bottom' ).append( "<div/>" );
     $( '#bottom' ).hide();
 

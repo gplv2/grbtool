@@ -4,11 +4,6 @@ var wr_layer;
 var iswrup = null;
 var stylemap = null;
 
-var webmercator = new OpenLayers.Projection( "EPSG:3857" );
-var geodetic = new OpenLayers.Projection( "EPSG:4326" );
-var mercator = new OpenLayers.Projection( "EPSG:900913" );
-var lambert = new OpenLayers.Projection( "EPSG:31370" );
-
 // The function that gets called on feature selection. Shows information 
 // about the number of "ways" on the map.
 var updateAddressInfo = function() {

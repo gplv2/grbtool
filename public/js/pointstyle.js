@@ -72,22 +72,22 @@ var tcontext = {
                 switch(cat) {
                     case '-8':
                         // unknown road
-                        return 1;
-                        break;
-                    case 'L2':
-                        return 1;
-                        break;
-                    case 'S3':
                         return 2;
                         break;
-                    case 'PII-4':
+                    case 'L2':
                         return 3;
                         break;
+                    case 'S3':
+                        return 5;
+                        break;
+                    case 'PII-4':
+                        return 6;
+                        break;
                     case 'H':
-                        return 4;
+                        return 7;
                         break;
                     default:
-                        return 1;
+                        return 3;
                 } 
             }   
         }

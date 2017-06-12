@@ -9,9 +9,6 @@ var streets = []; // list of streets with the addresses divided in several categ
 function filterForJosm() {
     filterStrategy.setFilter( null );
     mergeStrategy.setFilter( null );
-    // var webmercator  = new OpenLayers.Projection("EPSG:3857");
-    var geodetic = new OpenLayers.Projection( "EPSG:4326" );
-    // var mercator     = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
 
     newlayername = 'filtered-sourcelayer';
 
@@ -67,7 +64,6 @@ function openInJosm() {
             $( '#msg' ).removeClass().addClass( "notice error" ).html( "Your JOSM installation does not yet support load_data requests. Please update JOSM to version 7643 or newer" );
         } else {
             $( '#msg' ).removeClass().addClass( "notice success" ).html( "JOSM is ready" );
-            var geodetic = new OpenLayers.Projection( "EPSG:4326" );
 
             var myurl = "http://localhost:8111/load_data?new_layer=true&layer_name=" + newlayername + "&data=";
 
@@ -161,7 +157,6 @@ function openAreaInJosm() {
             $( '#msg' ).removeClass().addClass( "notice error" ).html( "Your JOSM installation does not yet support load_data requests. Please update JOSM to version 7643 or newer" );
         } else {
             $( '#msg' ).removeClass().addClass( "notice success" ).html( "JOSM is ready" );
-            var geodetic = new OpenLayers.Projection( "EPSG:4326" );
 
             function generateId( len ) {
                 var arr = new Uint8Array( ( len || 40 ) / 2 );
@@ -220,7 +215,6 @@ function escapeXML( str ) {
 }
 
 function addOverpassLayer() {
-    var geodetic = new OpenLayers.Projection( "EPSG:4326" );
     // map.removeLayer('OverPass').
     overpass_layer.destroyFeatures();
     var geojson_format = new OpenLayers.Format.GeoJSON( {

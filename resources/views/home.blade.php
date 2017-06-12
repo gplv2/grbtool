@@ -42,8 +42,7 @@
     /* width: 1000px;
     margin: 5px;
     height: 468px; */
-    width: 98%;
-    height: 98%;
+    height: 94%;
     position: block;
 }
 .panel-body {
@@ -59,12 +58,12 @@
 }
 
 #map-wrap {
-top: 0;
-bottom:0;
-       /* position:fixed; */
-       overflow-y:hidden;
-       overflow-x:hidden;
-       min-height: 500px;
+    top: 0;
+    bottom:0;
+   /* position:fixed; */
+    overflow-y:hidden;
+    overflow-x:hidden;
+    min-height: 400px;
 }
 .container {
 	text-align: left;

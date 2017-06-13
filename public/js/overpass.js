@@ -241,3 +241,19 @@ function addOverpassRoadLayer() {
     overpass_road_layer.refresh();
     //console.log(overpass_road_layer);
 }
+
+function addDiffLayer() {
+    var diff = tf( osmRoadInfo, wr_layer.features );
+
+    // map.removeLayer('OverPass').
+    diff_layer.destroyFeatures();
+    var geojson_format = new OpenLayers.Format.GeoJSON( {
+        internalProjection: map.getProjectionObject(),
+        externalProjection: geodetic
+    } );
+    diff_layer.addFeatures( geojson_format.read( diff ) );
+    //map.addLayer(overpass_road_layer);
+    diff_layer.setVisibility( true );
+    diff_layer.refresh();
+    //console.log(overpass_road_layer);
+}

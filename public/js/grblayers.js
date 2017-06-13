@@ -7,6 +7,7 @@ var map;
 var vector_layer;
 var event_layer;
 var overpass_layer;
+var diff_layer;
 var overpass_road_layer;
 var agiv_layer;
 var osmInfo;
@@ -946,6 +947,23 @@ dotlayer.events.register('loadend', this, onloaddotend);
     map.addLayer( overpass_layer );
     map.setLayerIndex( overpass_layer, 0 );
 
+    diff_layer = new OpenLayers.Layer.Vector( "WR OSM - Differences", {
+        styleMap: overpass_style,
+        //maxResolution: map.getResolutionForZoom(15),
+        //minScale: 54168.1,
+        // strategies: [new OpenLayers.Strategy.Fixed()], // This throws an error when setting visibility to true , strange.
+        //zoomOffset: 9, resolutions: [152.87405654907226, 76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627, 0.5971642833948135],
+        //zoomOffset: 10, resolutions: [76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627, 0.5971642833948135],
+        format: geojson_format,
+        isBaseLayer: false,
+        visibility: false,
+        extractStyles: false,
+        extractAttributes: true
+    } );
+
+    map.addLayer( diff_layer );
+    map.setLayerIndex( diff_layer, 0 );
+
     overpass_road_layer = new OpenLayers.Layer.Vector( "Overpass - Highway Data", {
         styleMap: overpass_style,
         //maxResolution: map.getResolutionForZoom(15),
@@ -969,7 +987,6 @@ dotlayer.events.register('loadend', this, onloaddotend);
     //overpass_layer.setVisibility(true);
     //overpass_layer.refresh();
     //console.log(overpass_layer);
-
 
     loadagivlayer();
     loadwrlayer();
@@ -1461,6 +1478,16 @@ $( document ).ready( function() {
             //event.preventDefault();
             //return false; 
         } );
+
+        $( "#diffwr" ).button().click( function( event ) {
+            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading overpass data" );
+            $( 'body' ).css( 'cursor', 'wait' );
+            addDiffLayer();
+            $( 'body' ).css( 'cursor', 'default' );
+            //event.preventDefault();
+            //return false; 
+        } );
+
 
         $( "#wropass" ).button().click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading WR overpass highway data" );

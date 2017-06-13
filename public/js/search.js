@@ -23,7 +23,7 @@ $( document ).ready( function() {
         var lon = $( '#idtaglon' ).val();
         var address = $( '#idtagadd' ).val();
         //var url = 'http://nm1.bitless.be/reverse.php?format=json&lon='+ lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
-        var url = 'http://nominatim.openstreetmap.org/reverse.php?format=json&lon=' + lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
+        var url = '//nominatim.openstreetmap.org/reverse.php?format=json&lon=' + lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
 
         if ( ( lat !== null && lat !== undefined && lat != 0 ) && ( lon !== null && lon !== undefined && lon != 0 ) ) {
             if ( address.length <= 0 ) {
@@ -129,7 +129,14 @@ $( document ).ready( function() {
                             q: request.term
                         },
                         success: function( mdata ) {
-                            var obj = jQuery.parseJSON( mdata );
+                            // For some very weird reason, in the dev site this is a string, but in staging it comes out as an array, very weird as the source is the same
+                            var obj = undefined;
+                            if ( mdata.constructor !== Array ) {
+                                obj = jQuery.parseJSON( mdata );
+                            } else {
+                                obj = mdata;
+                            }
+
                             // var data = obj.pop();
                             $( '#address' ).removeClass( 'ui-autocomplete-loading' );
                             // console.log(data); return true;

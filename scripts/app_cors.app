@@ -1,8 +1,8 @@
 server {
     listen 80;
     listen 443 ssl;
-    server_name api.grb.app grb.app;
-    root "/var/www/grbtool/public/";
+    server_name staging.grbosm.site;
+    root "/var/www/grbtool_staging/public/";
 
     index index.php;
 
@@ -20,9 +20,13 @@ server {
         return 200;
     }
 
-    location /proxy {
+    location /proxy/search.php {
     	root "/var/www/grbtool/public/proxy/";
         try_files $uri /search.php?$query_string;
+    }
+    location /proxy/reverse.php {
+    	root "/var/www/grbtool/public/proxy/";
+        try_files $uri /reverse.php?$query_string;
     }
 
     location / {
@@ -33,14 +37,14 @@ server {
     location = /robots.txt  { access_log off; log_not_found off; }
 
     rewrite_log on;
-    error_log  /var/log/nginx/api_error.log debug;
-    access_log  /var/log/nginx/api_access.log combined;
+    error_log  /var/log/nginx/grb_staging_error.log debug;
+    access_log  /var/log/nginx/grb_staging_access.log combined;
 
 #sendfile on;
 
     client_max_body_size 100m;
 
-    location ~ ^/search\.php(/|$) {
+    location ~ ^/(reverse\.php|search\.php)(/|$) {
         include fastcgi_params;
     	root "/var/www/grbtool/public/proxy/";
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
@@ -56,7 +60,7 @@ server {
     location ~ ^/index\.php(/|$) {
 # If request comes from allowed subdomain
 # (*.bitless.be) then we enable CORS
-        if ($http_origin ~* "^https?://.*\.bitless\.be$") {
+        if ($http_origin ~* "^https?://(.*\.bitless\.be$|grb\.site)") {
             set $cors "1";
         }
 
@@ -113,7 +117,7 @@ server {
         deny all;
     }
 
-    ssl_certificate     /etc/nginx/ssl/grb.app.crt;
-    ssl_certificate_key /etc/nginx/ssl/grb.app.key;
+   ssl_certificate /etc/letsencrypt/live/staging.grbosm.site/fullchain.pem;
+   ssl_certificate_key /etc/letsencrypt/live/staging.grbosm.site/privkey.pem;
 }
 

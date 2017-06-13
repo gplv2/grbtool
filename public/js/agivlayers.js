@@ -4,11 +4,6 @@ var agiv_layer;
 var isagivup = null;
 var stylemap = null;
 
-var webmercator = new OpenLayers.Projection( "EPSG:3857" );
-var geodetic = new OpenLayers.Projection( "EPSG:4326" );
-var mercator = new OpenLayers.Projection( "EPSG:900913" );
-var lambert = new OpenLayers.Projection( "EPSG:31370" );
-
 // The function that gets called on feature selection. Shows information 
 // about the number of "points" on the map.
 var updateAddressInfo = function() {
@@ -17,6 +12,11 @@ var updateAddressInfo = function() {
 };
 
 function loadagivlayer() {
+    webmercator = new OpenLayers.Projection( "EPSG:3857" );
+    geodetic = new OpenLayers.Projection( "EPSG:4326" );
+    mercator = new OpenLayers.Projection( "EPSG:900913" );
+    lambert = new OpenLayers.Projection( "EPSG:31370" );
+
     var postcode = $( '#postcode' ).val();
     var keys = [];
 

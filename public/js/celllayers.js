@@ -39,10 +39,10 @@ function initmap() {
     // pink tile avoidance
     OpenLayers.IMAGE_RELOAD_ATTEMPTS = 2;
 
-    var webmercator = new OpenLayers.Projection( "EPSG:3857" );
-    var geodetic = new OpenLayers.Projection( "EPSG:4326" );
-    var mercator = new OpenLayers.Projection( "EPSG:900913" );
-    var lambert = new OpenLayers.Projection( "EPSG:31370" );
+    webmercator = new OpenLayers.Projection( "EPSG:3857" );
+    geodetic = new OpenLayers.Projection( "EPSG:4326" );
+    mercator = new OpenLayers.Projection( "EPSG:900913" );
+    lambert = new OpenLayers.Projection( "EPSG:31370" );
     //projection: "EPSG:31370",
 
     //$('#log').append('<div>Handler for .resize() called.</div>');

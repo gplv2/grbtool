@@ -6,10 +6,35 @@ var turf = require( '@turf/turf' ),
     normalize = require( '@mapbox/geojson-normalize' ),
     tilebelt = require( '@mapbox/tilebelt' );
 
-module.exports = function( tileLayers, tile, done ) {
+module.exports = function( source, dest, done ) {
+
+    if ( source == null || source == undefined ) {
+        return false;
+    }
+
+    if ( dest == null || dest == undefined ) {
+        return false;
+    }
+
     // concat feature classes and normalize data
-    var nwrData = normalize( tileLayers.tiger.tiger20062014 );
-    var osmData = normalize( tileLayers.osmdata.migeojson );
+    var nwrData = normalize( source );
+    var osmData = normalize( dest );
+
+    // filter out Points
+    nwrData.features.forEach( function( road, i ) {
+        if (road.geometry.type == 'Point') {
+            nwrData.features.splice( i, 1 );
+        }
+    } );
+
+    // filter out Points
+    osmData.features.forEach( function( road, i ) {
+        if (road.geometry.type == 'Point') {
+            osmData.features.splice( i, 1 );
+        }
+    } );
+    console.log(osmData);
+    console.log(nwrData);
 
     // filter out roads that are shorter than 30m and have no name
     nwrData.features.forEach( function( road, i ) {
@@ -17,19 +42,22 @@ module.exports = function( tileLayers, tile, done ) {
     } );
 
     // clip features to tile
-    osmData = clip( osmData, tile );
-    nwrData = clip( nwrData, tile );
+    //osmData = clip( osmData, tile );
+    //nwrData = clip( nwrData, tile );
     osmData = normalize( flatten( osmData ) );
     nwrData = normalize( flatten( nwrData ) );
 
     // buffer streets
-    var streetBuffers = turf.featurecollection( [] );
+    // console.log(turf);
+    var streetBuffers = turf.featureCollection( [] );
     streetBuffers.features = osmData.features.map( function( f ) {
-        if ( f.properties.highway ) {
-            return turf.buffer( road, 20, 'meters' ).features[ 0 ];
+        //console.log(f);return true;
+        if ( f.properties.tags.highway ) {
+            return turf.buffer( f.geometry, 20, 'meters' );
         }
     } );
-    streetBuffers = normalize( turf.merge( streetBuffers ) );
+    //streetBuffers = normalize( turf.union( streetBuffers ) );
+    streetBuffers = normalize( streetBuffers );
 
     // erase street buffer from nwr lines
     var nwrDeltas = turf.featurecollection( [] );

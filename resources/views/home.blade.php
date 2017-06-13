@@ -230,6 +230,7 @@ fieldset {
                      <div class="form-group">
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                              <button id="opass" type="button" class="btn btn-default" tabindex="1">Load Overpass data</button>
+                             <button id="wropass" type="button" class="btn btn-default" tabindex="1">Load WR Overpass data</button>
                         </div>
                      </div>
 		   </div>
@@ -373,6 +374,7 @@ fieldset {
 <script src="/js/controllers.js"></script>
 <script src="/js/services.js"></script>
 -->
+{!! Html::script('js/osmtogeojson/osmtogeojson.js') !!}
 {!! Html::script('js/md5.min.js') !!}
 {!! Html::script('js/pointstyle.js') !!}
 {!! Html::script('js/vectorstyle.js') !!}

@@ -227,3 +227,17 @@ function addOverpassLayer() {
     overpass_layer.refresh();
     //console.log(overpass_layer);
 }
+
+function addOverpassRoadLayer() {
+    // map.removeLayer('OverPass').
+    overpass_road_layer.destroyFeatures();
+    var geojson_format = new OpenLayers.Format.GeoJSON( {
+        internalProjection: map.getProjectionObject(),
+        externalProjection: geodetic
+    } );
+    overpass_road_layer.addFeatures( geojson_format.read( osmRoadInfo ) );
+    //map.addLayer(overpass_road_layer);
+    overpass_road_layer.setVisibility( true );
+    overpass_road_layer.refresh();
+    //console.log(overpass_road_layer);
+}

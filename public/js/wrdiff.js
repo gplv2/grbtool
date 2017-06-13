@@ -50,17 +50,25 @@ module.exports = function( source, dest, done ) {
     // buffer streets
     // console.log(turf);
     var streetBuffers = turf.featureCollection( [] );
+    var buffer_meters = $( '#streetbuffer' ).val();
+
+    if ( buffer_meters == null || buffer_meters == undefined || !buffer_meters ) {
+        console.log("using default buffer_meters.check code");
+        buffer_meters = 20;
+    }
+
     streetBuffers.features = osmData.features.map( function( f ) {
         //console.log(f);return true;
         if ( f.properties.tags.highway ) {
-            return turf.buffer( f.geometry, 20, 'meters' );
+            return turf.buffer( f.geometry, buffer_meters , 'meters' );
         }
     } );
+
     //streetBuffers = normalize( turf.union( streetBuffers ) );
-    streetBuffers = normalize( streetBuffers );
+    //streetBuffers = normalize( streetBuffers );
 
     // erase street buffer from nwr lines
-    var nwrDeltas = turf.featurecollection( [] );
+    var nwrDeltas = turf.featureCollection( [] );
 
     if ( nwrData && streetBuffers ) {
         nwrData.features.forEach( function( nwrRoad ) {

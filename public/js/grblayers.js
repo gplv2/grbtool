@@ -21,7 +21,7 @@ var isvecup = null;
 var stuff = null;
 var streetextents = null;
 
-var overpassapi = "http://overpass-api.de/api/interpreter?data=";
+var overpassapi = "//overpass-api.de/api/interpreter?data=";
 
 var webmercator = null;
 var geodetic = null;

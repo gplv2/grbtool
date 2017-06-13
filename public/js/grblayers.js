@@ -7,8 +7,10 @@ var map;
 var vector_layer;
 var event_layer;
 var overpass_layer;
+var overpass_road_layer;
 var agiv_layer;
 var osmInfo;
+var osmRoadInfo;
 var filterStrategy;
 var streetStrategy;
 var buildingStrategy;
@@ -927,7 +929,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
         externalProjection: geodetic
     } );
 
-    overpass_layer = new OpenLayers.Layer.Vector( "Overpass - GRB Data in OSM", {
+    overpass_layer = new OpenLayers.Layer.Vector( "Overpass - GRB Data", {
         styleMap: overpass_style,
         //maxResolution: map.getResolutionForZoom(15),
         //minScale: 54168.1,
@@ -943,6 +945,23 @@ dotlayer.events.register('loadend', this, onloaddotend);
 
     map.addLayer( overpass_layer );
     map.setLayerIndex( overpass_layer, 0 );
+
+    overpass_road_layer = new OpenLayers.Layer.Vector( "Overpass - Highway Data", {
+        styleMap: overpass_style,
+        //maxResolution: map.getResolutionForZoom(15),
+        //minScale: 54168.1,
+        // strategies: [new OpenLayers.Strategy.Fixed()], // This throws an error when setting visibility to true , strange.
+        //zoomOffset: 9, resolutions: [152.87405654907226, 76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627, 0.5971642833948135],
+        //zoomOffset: 10, resolutions: [76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627, 0.5971642833948135],
+        format: geojson_format,
+        isBaseLayer: false,
+        visibility: false,
+        extractStyles: false,
+        extractAttributes: true
+    } );
+
+    map.addLayer( overpass_road_layer );
+    map.setLayerIndex( overpass_road_layer, 1 );
 
     //overpass_layer.destroyFeatures();
     //overpass_layer.addFeatures(geojson_format.read(osmInfo));
@@ -1211,6 +1230,97 @@ dotlayer.events.register('loadend', this, onloaddotend);
 }
 
 /**
+ * Get road data from osm
+ */
+function getRoadInfo() {
+    $( '#msg' ).removeClass().addClass( "notice info" );
+
+    var bounds = map.getExtent();
+    bounds.transform( map.getProjectionObject(), geodetic );
+
+    //console.log(bounds.toBBOX());
+
+    var query = "<osm-script output=\"json\" timeout=\"250\">" +
+        "  <union>" +
+        "    <query type=\"way\">" +
+        "      <has-kv k=\"highway\"/>" +
+        "      <bbox-query e=\"" + bounds.right + "\" n=\"" + bounds.top + "\" s=\"" + bounds.bottom + "\" w=\"" + bounds.left + "\"/>" +
+        "    </query>" +
+        "    <query type=\"way\">" +
+        "      <has-kv k=\"cycleway\" />" +
+        "      <bbox-query e=\"" + bounds.right + "\" n=\"" + bounds.top + "\" s=\"" + bounds.bottom + "\" w=\"" + bounds.left + "\"/>" +
+        //"      <bbox-query {{bbox}}/>" +
+        "    </query>" +
+        "  </union>" +
+        "  <union>" +
+        "    <item/>" +
+        "    <recurse type=\"down\"/>" +
+        "  </union>" +
+        "  <print mode=\"meta\"/>" +
+        "</osm-script>";
+
+    //console.log(query);
+
+    var req = new XMLHttpRequest();
+    var overpasserror = "";
+    req.onreadystatechange = function() {
+        switch ( req.readyState ) {
+            case 0:
+                // 0: request not initialized 
+                overpasserror = 'Overpass request not initialized';
+                break;
+            case 1:
+                // 1: server connection established
+                overpasserror = 'Overpass server connection established';
+                break;
+            case 2:
+                // 2: request received 
+                overpasserror = 'Overpass request received';
+                break;
+            case 3:
+                // 3: processing request 
+                overpasserror = 'Overpass processing request';
+                break;
+            case 4:
+                // 4: request finished and response is ready
+                overpasserror = 'Overpass request finished and response is ready';
+                break;
+            default:
+                overpasserror = 'Overpass Unknown status';
+                // unknown status
+        }
+        $( "#msg" ).html( "Info : " + overpasserror ).removeClass().addClass( "notice info" );
+
+        if ( req.readyState != 4 )
+            return;
+        if ( req.status != 200 ) {
+            overpasserror = 'non "HTTP 200 OK" status: ' + req.status;
+            $( "#msg" ).switchClass( "info", "error", 200, "easeInOutQuad" ).html( "Error : " + overpasserror ).switchClass( "info", "error", 1000, "easeInOutQuad" );
+            return;
+        }
+
+        var data = "";
+        try {
+            $( "#msg" ).html( "Info : " + "Parsing JSON" ).removeClass().addClass( "notice info" );
+            data = JSON.parse( req.responseText );
+        } catch ( e ) {
+            $( '#msg' ).removeClass().addClass( "notice error" ).html( "Problem parsing Overpass JSON data" + e );
+            return false;
+        }
+        $( "#msg" ).html( "Info : " + "Parsing OK" ).removeClass().addClass( "notice success" );
+        //$("#msg").html("Info : " + "Parsing JSON").removeClass().addClass("notice info");
+        //console.log(data);
+        osmRoadInfo = osmtogeojson( data );
+        //console.log(osmInfo); 
+        addOverpassRoadLayer();
+        //$("#msg").html("Info : " + "Added GEOJSON to map").removeClass().addClass("notice success");
+    }
+    //console.log("Overpass query:\n" + query);
+    req.open( "GET", overpassapi + encodeURIComponent( query ), true );
+    req.send( null );
+}
+
+/**
  * Get the data from osm, ret should be an empty array
  */
 function getOsmInfo() {
@@ -1239,6 +1349,8 @@ function getOsmInfo() {
         "  </union>" +
         "  <print mode=\"meta\"/>" +
         "</osm-script>";
+
+    //console.log(query);
 
     var req = new XMLHttpRequest();
     var overpasserror = "";
@@ -1290,7 +1402,7 @@ function getOsmInfo() {
         //$("#msg").html("Info : " + "Parsing JSON").removeClass().addClass("notice info");
         //console.log(data);
         osmInfo = osmtogeojson( data );
-        // console.log(test); 
+        //console.log(osmInfo); 
         addOverpassLayer();
         //$("#msg").html("Info : " + "Added GEOJSON to map").removeClass().addClass("notice success");
     }
@@ -1349,6 +1461,16 @@ $( document ).ready( function() {
             //event.preventDefault();
             //return false; 
         } );
+
+        $( "#wropass" ).button().click( function( event ) {
+            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading WR overpass highway data" );
+            $( 'body' ).css( 'cursor', 'wait' );
+            getRoadInfo();
+            $( 'body' ).css( 'cursor', 'default' );
+            //event.preventDefault();
+            //return false; 
+        } );
+
 
         $( "#fpass" ).button().click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Filtering GRB vector layer (overpass data / BBOX)" );

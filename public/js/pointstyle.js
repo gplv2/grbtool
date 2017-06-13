@@ -5,10 +5,10 @@ var tcontext = {
         if ( feature.layer[ 'name' ] == "Wegenregister data" ) {
             //console.log(feature); 
             //$.each(vector_layer.features, function(i, item) 
-            if ( feature.attributes[ '_meta'] ) {
-                var cat = feature.attributes[ '_meta']['WEGCAT'];
+            if ( feature.attributes[ '_meta' ] ) {
+                var cat = feature.attributes[ '_meta' ][ 'WEGCAT' ];
                 //console.log(cat);
-                switch(cat) {
+                switch ( cat ) {
                     case '-8':
                         // unknown road
                         return 'orange';
@@ -27,8 +27,8 @@ var tcontext = {
                         break;
                     default:
                         return 'blue';
-                } 
-            }   
+                }
+            }
         } else if ( feature.layer[ 'name' ] == "CRAB - Addresses" ) {
             if ( feature.attributes[ 'house_nrs' ] == 'EVENTS' ) {
                 return "red";
@@ -46,8 +46,8 @@ var tcontext = {
     */
     getLabel: function( feature ) {
         if ( feature.layer[ 'name' ] == "CRAB - Addresses" ) {
-            var is_muted = $('#mute_crab_labels').prop('checked');
-            if (is_muted) {
+            var is_muted = $( '#mute_crab_labels' ).prop( 'checked' );
+            if ( is_muted ) {
                 return '';
             }
             //console.log( feature );
@@ -76,8 +76,8 @@ var tcontext = {
             }
             return label;
         } else if ( feature.layer[ 'name' ] == "Wegenregister data" ) {
-            var is_muted = $('#mute_wr_labels').prop('checked');
-            if (is_muted) {
+            var is_muted = $( '#mute_wr_labels' ).prop( 'checked' );
+            if ( is_muted ) {
                 return '';
             }
             //console.log( feature );
@@ -92,7 +92,7 @@ var tcontext = {
             } else {
                 label = '';
             }
-            if (!label) {
+            if ( !label ) {
                 return '';
             } else {
                 return label;
@@ -104,10 +104,10 @@ var tcontext = {
             return 1;
         } else if ( feature.layer[ 'name' ] == "Wegenregister data" ) {
             //console.log(feature.attributes[ '_meta' ]);
-            if ( feature.attributes[ '_meta'] ) {
-                var cat = feature.attributes[ '_meta']['WEGCAT'];
+            if ( feature.attributes[ '_meta' ] ) {
+                var cat = feature.attributes[ '_meta' ][ 'WEGCAT' ];
                 //console.log(cat);
-                switch(cat) {
+                switch ( cat ) {
                     case '-8':
                         // unknown road
                         return 2;
@@ -126,8 +126,8 @@ var tcontext = {
                         break;
                     default:
                         return 3;
-                } 
-            }   
+                }
+            }
         }
     }
 };

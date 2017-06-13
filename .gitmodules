@@ -1,8 +1,8 @@
 [submodule "osmtogeojson"]
-    path = osmtogeojson
+    path = public/js/osmtogeojson
     url = https://github.com/tyrasd/osmtogeojson.git
 
 [submodule "geojsontoosm"]
-    path = geojsontoosm
+    path = public/js/geojsontoosm
     url = git@github.com:gplv2/geojsontoosm.git
 

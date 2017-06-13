@@ -215,8 +215,26 @@ fieldset {
                              <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
                         </div>
                      </div>
-			         </div>
-         </form>
+		   </div>
+         	</form>
+               </div>
+            </div>
+      <!-- Toolbox -->
+            <div class="panel panel-default">
+                <div class="panel-heading" data-toggle="collapse" data-target="#tools">
+                  Tools
+               </div>
+               <div id="tools" class="panel-body collapse in">
+                <form id="reqform" class="form-horizontal ng-pristine ng-valid" role="form">
+                  <div class="col-md-offset-1 col-md-8">
+		     <div class="help-block">Take actions</div>
+                     <div class="form-group">
+                         <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                             <button id="opass" type="button" class="btn btn-default" tabindex="1">Load Overpass data</button>
+                        </div>
+                     </div>
+		   </div>
+         	</form>
                </div>
             </div>
       <!--Search options -->
@@ -224,7 +242,7 @@ fieldset {
                 <div class="panel-heading" data-toggle="collapse" data-target="#searchopts">
                   Search Options
                </div>
-                <div id="searchopts" class="panel-body collapse in">
+                <div id="searchopts" class="panel-body collapse">
                 <div class="col-md-offset-1 col-md-12">
                 <form id="reqform" class="form-horizontal ng-pristine ng-valid" role="form">
                     <div class="form-group" id="search">

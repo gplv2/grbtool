@@ -17,11 +17,10 @@ module.exports = function( source, dest ) {
     }
 
     // concat feature classes and normalize data
-    var nwrData = normalize( source );
-    var osmData = normalize( dest );
+    var osmData = normalize( source );
+    var nwrData = normalize( dest );
 
-    // filter out Points
-    //console.log( nwrData );
+    // filter out Points from both
     var deleteIndexes = [];
     nwrData.features.forEach( function( road, i ) {
         if ( road.geometry.type == 'Point' ) {
@@ -42,9 +41,8 @@ module.exports = function( source, dest ) {
         nwrData.features.splice( deleteIndexes[ i ], 1 );
     }
 
-
     var deleteIndexes = [];
-    // filter out Points
+
     osmData.features.forEach( function( road, i ) {
         if ( road.geometry.type == 'Point' ) {
             //console.log( "osm: found point" );
@@ -63,6 +61,7 @@ module.exports = function( source, dest ) {
     for ( i; i >= 0; i-- ) {
         osmData.features.splice( deleteIndexes[ i ], 1 );
     }
+    // done 
 
 
     /*
@@ -126,14 +125,14 @@ module.exports = function( source, dest ) {
 
     //if(typeof OsmStreetBuffers[key] === 'undefined' || typeof OsmStreetBuffers[key] == 'null' )
 
-
+    //return(OsmStreetBuffers);
     // erase street buffer from nwr lines
     var nwrDeltas = turf.featureCollection( [] );
 
     if ( nwrData && OsmStreetBuffers ) {
         nwrData.features.forEach( function( nwrRoad ) {
             OsmStreetBuffers.features.forEach( function( osmRoad ) {
-                var roadDiff = turf.difference( osmRoad, nwrRoad );
+                var roadDiff = turf.difference( nwrRoad, osmRoad );
                 //console.log( roadDiff );
                 if ( roadDiff ) {
                     nwrDeltas.features.push( roadDiff )

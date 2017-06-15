@@ -229,8 +229,9 @@ fieldset {
 		     <div class="help-block">Take actions</div>
                      <div class="form-group">
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                             <button id="opass" type="button" class="btn btn-default" tabindex="1">Load Overpass data</button>
-                             <button id="wropass" type="button" class="btn btn-default" tabindex="1">Load WR Overpass data</button>
+                             <button id="opass" type="button" class="btn btn-default" tabindex="1">Load OSM data</button>
+                             <button id="wropass" type="button" class="btn btn-default" tabindex="2">Load WR data</button>
+                             <button id="diffwr" type="button" class="btn btn-default" tabindex="3">Diff WR vs OSM</button>
                         </div>
                      </div>
 		   </div>
@@ -284,6 +285,12 @@ fieldset {
                </div>
                 <div id="opts" class="panel-body collapse in">
                 <form id="genform" class="form-horizontal ng-pristine ng-valid" role="form">
+                     <div class="form-group">
+                         <label for="streetbuffer" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Buffer for street analysis (meters)</label>
+                         <div class="col-md-offset-1 col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                             <input type="number" class="form-control col-md-6 col-sm-6 col-xs-6" value="20" title="Enter meters for buffer" id="streetbuffer" tabindex="1">
+                        </div>
+                     </div>
                     <div class="form-group">
                         <label for="percentage" class="col-md-3 control-label">Simplify</label>
                         <div class="col-md-9">
@@ -374,6 +381,7 @@ fieldset {
 <script src="/js/controllers.js"></script>
 <script src="/js/services.js"></script>
 -->
+{!! Html::script('js/trf.js') !!}
 {!! Html::script('js/osmtogeojson/osmtogeojson.js') !!}
 {!! Html::script('js/md5.min.js') !!}
 {!! Html::script('js/pointstyle.js') !!}

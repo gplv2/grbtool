@@ -23,6 +23,15 @@ module.exports = function( source, dest ) {
     // filter out Points
     nwrData.features.forEach( function( road, i ) {
         if ( road.geometry.type == 'Point' ) {
+            console.log( "nwr: found point" );
+            nwrData.features.splice( i, 1 );
+        }
+    } );
+
+    console.log( nwrData );
+    nwrData.features.forEach( function( road, i ) {
+        if ( road.geometry.type == 'Point' ) {
+            console.log( "nwr: found point agani" );
             nwrData.features.splice( i, 1 );
         }
     } );
@@ -30,6 +39,7 @@ module.exports = function( source, dest ) {
     // filter out Points
     osmData.features.forEach( function( road, i ) {
         if ( road.geometry.type == 'Point' ) {
+            console.log( "osm: found point" );
             osmData.features.splice( i, 1 );
         }
     } );
@@ -58,32 +68,35 @@ module.exports = function( source, dest ) {
     }
 
     OsmStreetBuffers.features = osmData.features.map( function( f ) {
-        //console.log(f);return true;
-        if ( f.properties.tags.highway ) {
-            return turf.buffer( f.geometry, buffer_meters, 'meters' );
-        }
+            //console.log(f);return true;
+            //if ( f.properties.tags.highway ) 
+            if ( f.properties.tags.highway !== null || f.properties.tags.highway !== undefined ) {
+                return turf.buffer( f.geometry, buffer_meters, 'meters' );
+            } else {
+                console.log( f );
+            }
     } );
 
-    //OsmStreetBuffers = normalize( turf.union( OsmStreetBuffers ) );
-    //OsmStreetBuffers = normalize( OsmStreetBuffers );
+//OsmStreetBuffers = normalize( turf.union( OsmStreetBuffers ) );
+//OsmStreetBuffers = normalize( OsmStreetBuffers );
 
-    // erase street buffer from nwr lines
-    var nwrDeltas = turf.featureCollection( [] );
+// erase street buffer from nwr lines
+var nwrDeltas = turf.featureCollection( [] );
 
-    if ( nwrData && OsmStreetBuffers ) {
-        nwrData.features.forEach( function( nwrRoad ) {
-            OsmStreetBuffers.features.forEach( function( osmRoad ) {
-                var roadDiff = turf.difference( nwrRoad, osmRoad );
-                //console.log( roadDiff );
-                if ( roadDiff && !filter( roadDiff ) ) nwrDeltas.features.push( roadDiff );
-            } );
+if ( nwrData && OsmStreetBuffers ) {
+    nwrData.features.forEach( function( nwrRoad ) {
+        OsmStreetBuffers.features.forEach( function( osmRoad ) {
+            var roadDiff = turf.difference( nwrRoad, osmRoad );
+            //console.log( roadDiff );
+            if ( roadDiff && !filter( roadDiff ) ) nwrDeltas.features.push( roadDiff );
         } );
-    }
+    } );
+}
 
-    //done( null, nwrDeltas );
+//done( null, nwrDeltas );
 
-    //console.log( "deltas" );
-    return ( nwrDeltas );
+//console.log( "deltas" );
+return ( nwrDeltas );
 };
 
 function clip( lines, tile ) {

@@ -243,7 +243,23 @@ function addOverpassRoadLayer() {
 }
 
 function addDiffLayer() {
-    var diff = tf( osmRoadInfo, wr_layer.features );
+    var geoJSON = new OpenLayers.Format.GeoJSON( {
+        internalProjection: map.getProjectionObject(),
+        externalProjection: geodetic
+    } );
+    var json = geoJSON.write( wr_layer.features );
+    var json_o = JSON.parse( json );
+    //console.log(json);
+
+    /*
+        var obj = wr_layer.features.reduce(function(acc, cur, i) {
+            acc[i] = cur;
+            return acc;
+        }, {});
+    */
+
+    var diff = tf( osmRoadInfo, json_o );
+    console.log( diff );
 
     // map.removeLayer('OverPass').
     diff_layer.destroyFeatures();
@@ -251,7 +267,7 @@ function addDiffLayer() {
         internalProjection: map.getProjectionObject(),
         externalProjection: geodetic
     } );
-    diff_layer.addFeatures( geojson_format.read( diff ) );
+    diff_layer.addFeatures( diff );
     //map.addLayer(overpass_road_layer);
     diff_layer.setVisibility( true );
     diff_layer.refresh();

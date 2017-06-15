@@ -21,35 +21,56 @@ module.exports = function( source, dest ) {
     var osmData = normalize( dest );
 
     // filter out Points
+    //console.log( nwrData );
+    var deleteIndexes = [];
     nwrData.features.forEach( function( road, i ) {
         if ( road.geometry.type == 'Point' ) {
-            console.log( "nwr: found point" );
-            nwrData.features.splice( i, 1 );
+            //console.log( "nwr: found point at "+ i );
+            deleteIndexes.push( i );
+            //nwrData.features.splice( i, 1 );
         }
     } );
 
-    console.log( nwrData );
-    nwrData.features.forEach( function( road, i ) {
-        if ( road.geometry.type == 'Point' ) {
-            console.log( "nwr: found point agani" );
-            nwrData.features.splice( i, 1 );
-        }
+    /* sort from big to small : [1, 3, 5] */
+    deleteIndexes.sort( function( a, b ) {
+        return a - b;
     } );
 
+    var i = deleteIndexes.length - 1;
+    /* delete backwards */
+    for ( i; i >= 0; i-- ) {
+        nwrData.features.splice( deleteIndexes[ i ], 1 );
+    }
+
+
+    var deleteIndexes = [];
     // filter out Points
     osmData.features.forEach( function( road, i ) {
         if ( road.geometry.type == 'Point' ) {
-            console.log( "osm: found point" );
-            osmData.features.splice( i, 1 );
+            //console.log( "osm: found point" );
+            deleteIndexes.push( i );
+            //osmData.features.splice( i, 1 );
         }
     } );
-    //console.log( osmData );
-    //console.log( nwrData );
 
-    // filter out roads that are shorter than 30m and have no name
-    nwrData.features.forEach( function( road, i ) {
-        if ( filter( road ) ) nwrData.features.splice( i, 1 );
+    /* sort from big to small : [1, 3, 5] */
+    deleteIndexes.sort( function( a, b ) {
+        return a - b;
     } );
+
+    var i = deleteIndexes.length - 1;
+    /* delete backwards */
+    for ( i; i >= 0; i-- ) {
+        osmData.features.splice( deleteIndexes[ i ], 1 );
+    }
+
+
+    /*
+        // filter out roads that are shorter than 30m and have no name
+        nwrData.features.forEach( function( road, i ) {
+            if ( filter( road ) ) nwrData.features.splice( i, 1 );
+        } );
+    */
 
     // clip features to tile
     //osmData = clip( osmData, tile );
@@ -68,35 +89,63 @@ module.exports = function( source, dest ) {
     }
 
     OsmStreetBuffers.features = osmData.features.map( function( f ) {
-            //console.log(f);return true;
-            //if ( f.properties.tags.highway ) 
-            if ( f.properties.tags.highway !== null || f.properties.tags.highway !== undefined ) {
-                return turf.buffer( f.geometry, buffer_meters, 'meters' );
-            } else {
-                console.log( f );
-            }
+        //console.log(f);return true;
+        //if ( f.properties.tags.highway ) 
+        if ( f.hasOwnProperty( 'properties' ) ) {
+            return turf.buffer( f.geometry, buffer_meters, 'meters' );
+            //if (f.properties.hasOwnProperty('name:left') || f.properties.hasOwnProperty('name:right')) {
+            //console.log("name HW found");
+            //}
+        }
     } );
 
-//OsmStreetBuffers = normalize( turf.union( OsmStreetBuffers ) );
-//OsmStreetBuffers = normalize( OsmStreetBuffers );
+    var deleteIndexes = [];
+    // filter out Points
+    OsmStreetBuffers.features.forEach( function( feature, i ) {
+        if ( typeof feature == 'undefined' ) {
+            deleteIndexes.push( i );
+        }
+    } );
 
-// erase street buffer from nwr lines
-var nwrDeltas = turf.featureCollection( [] );
+    /* sort from big to small : [1, 3, 5] */
+    deleteIndexes.sort( function( a, b ) {
+        return a - b;
+    } );
 
-if ( nwrData && OsmStreetBuffers ) {
-    nwrData.features.forEach( function( nwrRoad ) {
-        OsmStreetBuffers.features.forEach( function( osmRoad ) {
-            var roadDiff = turf.difference( nwrRoad, osmRoad );
-            //console.log( roadDiff );
-            if ( roadDiff && !filter( roadDiff ) ) nwrDeltas.features.push( roadDiff );
+    var i = deleteIndexes.length - 1;
+    //console.log(OsmStreetBuffers);
+    /* delete backwards */
+    for ( i; i >= 0; i-- ) {
+        OsmStreetBuffers.features.splice( deleteIndexes[ i ], 1 );
+        //console.log("Deleting key "+ deleteIndexes[i] + " @ " +i);
+    }
+    //console.log(OsmStreetBuffers);
+
+    //OsmStreetBuffers = normalize( turf.union( OsmStreetBuffers ) );
+    OsmStreetBuffers = normalize( OsmStreetBuffers );
+
+    //if(typeof OsmStreetBuffers[key] === 'undefined' || typeof OsmStreetBuffers[key] == 'null' )
+
+
+    // erase street buffer from nwr lines
+    var nwrDeltas = turf.featureCollection( [] );
+
+    if ( nwrData && OsmStreetBuffers ) {
+        nwrData.features.forEach( function( nwrRoad ) {
+            OsmStreetBuffers.features.forEach( function( osmRoad ) {
+                var roadDiff = turf.difference( osmRoad, nwrRoad );
+                //console.log( roadDiff );
+                if ( roadDiff ) {
+                    nwrDeltas.features.push( roadDiff )
+                };
+            } );
         } );
-    } );
-}
+    }
 
-//done( null, nwrDeltas );
+    //done( null, nwrDeltas );
 
-//console.log( "deltas" );
-return ( nwrDeltas );
+    //console.log( "deltas" );
+    return ( nwrDeltas );
 };
 
 function clip( lines, tile ) {

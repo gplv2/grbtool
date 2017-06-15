@@ -259,7 +259,7 @@ function addDiffLayer() {
     */
 
     var diff = tf( osmRoadInfo, json_o );
-    console.log( diff );
+    //console.log( diff );
 
     // map.removeLayer('OverPass').
     diff_layer.destroyFeatures();
@@ -267,7 +267,7 @@ function addDiffLayer() {
         internalProjection: map.getProjectionObject(),
         externalProjection: geodetic
     } );
-    diff_layer.addFeatures( diff );
+    diff_layer.addFeatures( geojson_format.read( diff ) );
     //map.addLayer(overpass_road_layer);
     diff_layer.setVisibility( true );
     diff_layer.refresh();

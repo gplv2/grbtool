@@ -226,10 +226,15 @@ fieldset {
                <div id="tools" class="panel-body collapse in">
                 <form id="reqform" class="form-horizontal ng-pristine ng-valid" role="form">
                   <div class="col-md-offset-1 col-md-8">
-		     <div class="help-block">Take actions</div>
+		     <div class="help-block">Take GRB actions</div>
                      <div class="form-group">
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                              <button id="opass" type="button" class="btn btn-default" tabindex="1">Load OSM data</button>
+                        </div>
+                     </div>
+		    <div class="help-block">Take WR actions</div>
+                     <div class="form-group">
+                         <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                              <button id="wropass" type="button" class="btn btn-default" tabindex="2">Load WR data</button>
                              <button id="diffwr" type="button" class="btn btn-default" tabindex="3">Diff WR vs OSM</button>
                         </div>
@@ -381,7 +386,7 @@ fieldset {
 <script src="/js/controllers.js"></script>
 <script src="/js/services.js"></script>
 -->
-{!! Html::script('js/trf.js') !!}
+{!! Html::script('js/turf.min.js') !!}
 {!! Html::script('js/osmtogeojson/osmtogeojson.js') !!}
 {!! Html::script('js/md5.min.js') !!}
 {!! Html::script('js/pointstyle.js') !!}
@@ -391,6 +396,7 @@ fieldset {
 {!! Html::script('js/wrlayers.js') !!}
 {!! Html::script('js/start.js') !!}
 {!! Html::script('js/overpass.js') !!}
+{!! Html::script('js/nwr.js') !!}
 <!-- {!! Html::script('js/celllayers.js') !!} -->
 <!-- {!! Html::script('js/cellstyle.js') !!} -->
 {!! Html::script('js/search.js') !!}

@@ -2,7 +2,7 @@
 "use strict";
 var tcontext = {
     getColor: function( feature ) {
-        if ( feature.layer[ 'name' ] == "Wegenregister data" ) {
+        if ( feature.layer[ 'name' ] == "Wegenregister data" || feature.layer[ 'name' ] == 'WR OSM - Differences' ) {
             //console.log(feature); 
             //$.each(vector_layer.features, function(i, item) 
             if ( feature.attributes[ '_meta' ] ) {
@@ -75,7 +75,7 @@ var tcontext = {
                 label += ' )';
             }
             return label;
-        } else if ( feature.layer[ 'name' ] == "Wegenregister data" ) {
+        } else if ( feature.layer[ 'name' ] == "Wegenregister data" || feature.layer[ 'name' ] == 'WR OSM - Differences' ) {
             var is_muted = $( '#mute_wr_labels' ).prop( 'checked' );
             if ( is_muted ) {
                 return '';

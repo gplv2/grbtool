@@ -5,7 +5,7 @@
 
 var streets = []; // list of streets with the addresses divided in several categories + extra info
 
-// REMOTECONTROL BINDINGS
+// REMOTECONTROL BINDINGS FOR JOSM
 function filterForJosm() {
     filterStrategy.setFilter( null );
     mergeStrategy.setFilter( null );

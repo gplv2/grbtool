@@ -381,7 +381,7 @@ fieldset {
 <script src="/js/controllers.js"></script>
 <script src="/js/services.js"></script>
 -->
-{!! Html::script('js/trf.js') !!}
+{!! Html::script('js/turf.min.js') !!}
 {!! Html::script('js/osmtogeojson/osmtogeojson.js') !!}
 {!! Html::script('js/md5.min.js') !!}
 {!! Html::script('js/pointstyle.js') !!}
@@ -391,6 +391,7 @@ fieldset {
 {!! Html::script('js/wrlayers.js') !!}
 {!! Html::script('js/start.js') !!}
 {!! Html::script('js/overpass.js') !!}
+{!! Html::script('js/nwr.js') !!}
 <!-- {!! Html::script('js/celllayers.js') !!} -->
 <!-- {!! Html::script('js/cellstyle.js') !!} -->
 {!! Html::script('js/search.js') !!}

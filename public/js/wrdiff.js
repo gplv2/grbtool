@@ -1,8 +1,7 @@
 /*jslint node: true, maxerr: 50, indent: 4 */
 "use strict";
 
-var turf = require( '@turf/turf' ),
-    flatten = require( 'geojson-flatten' ),
+var flatten = require( 'geojson-flatten' ),
     normalize = require( '@mapbox/geojson-normalize' ),
     tilebelt = require( '@mapbox/tilebelt' );
 
@@ -79,7 +78,7 @@ module.exports = function( source, dest ) {
 
     // buffer streets
     // console.log(turf);
-    var OsmStreetBuffers = turf.featureCollection( [] );
+    var OsmBuffers = turf.featureCollection( [] );
     var buffer_meters = $( '#streetbuffer' ).val();
 
     if ( buffer_meters == null || buffer_meters == undefined || !buffer_meters ) {
@@ -87,7 +86,7 @@ module.exports = function( source, dest ) {
         buffer_meters = 20;
     }
 
-    OsmStreetBuffers.features = osmData.features.map( function( f ) {
+    OsmBuffers.features = osmData.features.map( function( f ) {
         //console.log(f);return true;
         //if ( f.properties.tags.highway ) 
         if ( f.hasOwnProperty( 'properties' ) ) {
@@ -100,7 +99,7 @@ module.exports = function( source, dest ) {
 
     var deleteIndexes = [];
     // filter out Points
-    OsmStreetBuffers.features.forEach( function( feature, i ) {
+    OsmBuffers.features.forEach( function( feature, i ) {
         if ( typeof feature == 'undefined' ) {
             deleteIndexes.push( i );
         }
@@ -112,35 +111,54 @@ module.exports = function( source, dest ) {
     } );
 
     var i = deleteIndexes.length - 1;
-    //console.log(OsmStreetBuffers);
+    //console.log(OsmBuffers);
     /* delete backwards */
     for ( i; i >= 0; i-- ) {
-        OsmStreetBuffers.features.splice( deleteIndexes[ i ], 1 );
+        OsmBuffers.features.splice( deleteIndexes[ i ], 1 );
         //console.log("Deleting key "+ deleteIndexes[i] + " @ " +i);
     }
-    //console.log(OsmStreetBuffers);
+    //console.log(OsmBuffers);
 
-    //OsmStreetBuffers = normalize( turf.union( OsmStreetBuffers ) );
-    OsmStreetBuffers = normalize( OsmStreetBuffers );
+    //OsmBuffers = normalize( turf.union( OsmBuffers ) );
+    OsmBuffers = normalize( OsmBuffers );
 
-    //if(typeof OsmStreetBuffers[key] === 'undefined' || typeof OsmStreetBuffers[key] == 'null' )
+    //if(typeof OsmBuffers[key] === 'undefined' || typeof OsmBuffers[key] == 'null' )
 
-    //return(OsmStreetBuffers);
-    // erase street buffer from nwr lines
+    // return(OsmBuffers);
+
     var nwrDeltas = turf.featureCollection( [] );
 
-    if ( nwrData && OsmStreetBuffers ) {
-        nwrData.features.forEach( function( nwrRoad ) {
-            OsmStreetBuffers.features.forEach( function( osmRoad ) {
-                var roadDiff = turf.difference( nwrRoad, osmRoad );
-                //console.log( roadDiff );
-                if ( roadDiff ) {
-                    nwrDeltas.features.push( roadDiff )
-                };
+    /*
+        if ( nwrData && OsmBuffers ) {
+            nwrData.features.forEach( function( nwrRoad ) {
+                OsmBuffers.features.forEach( function( osmRoad ) {
+                    var roadDiff = turf.difference( nwrRoad, osmRoad );
+                    //console.log( roadDiff );
+                    if ( roadDiff ) {
+                        nwrDeltas.features.push( roadDiff )
+                    };
+                } );
             } );
+        }
+    */
+    var segments = null;
+
+    if ( nwrData && OsmBuffers ) {
+        nwrData.features.forEach( function( nwrRoad ) {
+            var touches = false;
+            OsmBuffers.features.forEach( function( osmRoad ) {
+                //var roadDiff = turf.difference( nwrRoad, osmRoad );
+                var overlapped = turf.intersect( osmRoad, nwrRoad );
+                if ( overlapped !== null && overlapped !== undefined ) {
+                    touches = true;
+                }
+            } );
+            if ( !touches ) {
+                nwrDeltas.features.push( nwrRoad );
+            }
         } );
     }
-
+    // console.log(nwrDeltas);
     //done( null, nwrDeltas );
 
     //console.log( "deltas" );

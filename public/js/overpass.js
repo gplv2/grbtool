@@ -53,7 +53,21 @@ function filterForJosm() {
     //return true;
 }
 
-function openInJosm() {
+function openInJosm(layername) {
+    /* Default is GRB */
+    if ( layername == null || layername == undefined ) {
+        /* default to GRB */
+        layername = 'GRB - Vector Source';
+        if ( newlayername == null && newlayername == undefined ) {
+            newlayername = 'grb-diff';
+        }
+    } else {
+        layername = 'WR OSM - Differences';
+        if ( newlayername == null && newlayername == undefined ) {
+            newlayername = 'nwr-diff';
+        }
+    }
+
     $.ajax( {
         url: "//localhost:8111/version",
         dataType: "json",
@@ -72,7 +86,7 @@ function openInJosm() {
                 externalProjection: geodetic
             } );
 
-            var mylayers = map.getLayersByName( 'GRB - Vector Source' );
+            var mylayers = map.getLayersByName( layername );
             //console.log(mylayers[0].features);
             /*
                            $.each(mylayers.features, function(i, item) {

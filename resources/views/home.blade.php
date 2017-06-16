@@ -232,7 +232,6 @@ fieldset {
                              <button id="opass" type="button" class="btn btn-default" tabindex="1">Load OSM data</button>
                         </div>
                      </div>
-		    </div>
 		    <div class="help-block">Take WR actions</div>
                      <div class="form-group">
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">

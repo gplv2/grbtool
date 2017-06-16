@@ -226,10 +226,16 @@ fieldset {
                <div id="tools" class="panel-body collapse in">
                 <form id="reqform" class="form-horizontal ng-pristine ng-valid" role="form">
                   <div class="col-md-offset-1 col-md-8">
-		     <div class="help-block">Take actions</div>
+		     <div class="help-block">Take GRB actions</div>
                      <div class="form-group">
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                              <button id="opass" type="button" class="btn btn-default" tabindex="1">Load OSM data</button>
+                        </div>
+                     </div>
+		    </div>
+		    <div class="help-block">Take WR actions</div>
+                     <div class="form-group">
+                         <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                              <button id="wropass" type="button" class="btn btn-default" tabindex="2">Load WR data</button>
                              <button id="diffwr" type="button" class="btn btn-default" tabindex="3">Diff WR vs OSM</button>
                         </div>

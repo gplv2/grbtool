@@ -127,6 +127,7 @@ module.exports = function( source, dest ) {
     // return(OsmBuffers);
 
     var nwrDeltas = turf.featureCollection( [] );
+    var missingDeltas = turf.featureCollection( [] );
 
     /*
         if ( nwrData && OsmBuffers ) {
@@ -142,22 +143,41 @@ module.exports = function( source, dest ) {
         }
     */
     var segments = null;
-
+/*
     if ( nwrData && OsmBuffers ) {
-        nwrData.features.forEach( function( nwrRoad ) {
+        OsmBuffers.features.forEach( function( osmRoad ) {
             var touches = false;
-            OsmBuffers.features.forEach( function( osmRoad ) {
-                //var roadDiff = turf.difference( nwrRoad, osmRoad );
+            nwrData.features.forEach( function( nwrRoad ) {
                 var overlapped = turf.intersect( osmRoad, nwrRoad );
                 if ( overlapped !== null && overlapped !== undefined ) {
+                    var roadDiff = turf.difference( nwrRoad, osmRoad );
+                    missingDeltas.features.push( roadDiff );
                     touches = true;
                 }
             } );
             if ( !touches ) {
+                nwrDeltas.features.push( osmRoad );
+            }
+        } );
+    }
+*/
+    if ( nwrData && OsmBuffers ) {
+        nwrData.features.forEach( function( nwrRoad ) {
+            var keep = true;
+            OsmBuffers.features.forEach( function( osmRoad ) {
+                var overlapped = turf.intersect( osmRoad, nwrRoad );
+                if ( overlapped !== null && overlapped !== undefined ) {
+                    var roadDiff = turf.difference( nwrRoad, osmRoad );
+                    missingDeltas.features.push( roadDiff );
+                    keep = false;
+                }
+            } );
+            if ( keep ) {
                 nwrDeltas.features.push( nwrRoad );
             }
         } );
     }
+
     // console.log(nwrDeltas);
     //done( null, nwrDeltas );
 

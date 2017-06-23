@@ -53,7 +53,7 @@ function filterForJosm() {
     //return true;
 }
 
-function openInJosm(layername) {
+function openInJosm( layername ) {
     /* Default is GRB */
     if ( layername == null || layername == undefined ) {
         /* default to GRB */

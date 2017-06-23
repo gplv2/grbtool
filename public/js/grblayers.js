@@ -1498,23 +1498,23 @@ $( document ).ready( function() {
             //return false; 
         } );
 
-        $( "#loadgrb" ).button().click(function( event ) {
-            $('#msg').removeClass().addClass("notice info").html("Action: Loading vector GRB data in a new JOSM layer");
-            $('body').css('cursor', 'wait');
+        $( "#loadgrb" ).button().click( function( event ) {
+            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading vector GRB data in a new JOSM layer" );
+            $( 'body' ).css( 'cursor', 'wait' );
             openInJosm();
-            $('body').css('cursor', 'default');
+            $( 'body' ).css( 'cursor', 'default' );
             event.preventDefault();
-            return false; 
-        });
+            return false;
+        } );
 
-        $( "#loadnwr" ).button().click(function( event ) {
-            $('#msg').removeClass().addClass("notice info").html("Action: Loading vector NWR data in a new JOSM layer");
-            $('body').css('cursor', 'wait');
-            openInJosm('WR OSM - Differences');
-            $('body').css('cursor', 'default');
+        $( "#loadnwr" ).button().click( function( event ) {
+            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading vector NWR data in a new JOSM layer" );
+            $( 'body' ).css( 'cursor', 'wait' );
+            openInJosm( 'WR OSM - Differences' );
+            $( 'body' ).css( 'cursor', 'default' );
             event.preventDefault();
-            return false; 
-        });
+            return false;
+        } );
 
         $( "#fpass" ).button().click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Filtering GRB vector layer (overpass data / BBOX)" );

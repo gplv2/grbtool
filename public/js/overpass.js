@@ -5,7 +5,7 @@
 
 var streets = []; // list of streets with the addresses divided in several categories + extra info
 
-// REMOTECONTROL BINDINGS
+// REMOTECONTROL BINDINGS FOR JOSM
 function filterForJosm() {
     filterStrategy.setFilter( null );
     mergeStrategy.setFilter( null );
@@ -53,7 +53,21 @@ function filterForJosm() {
     //return true;
 }
 
-function openInJosm() {
+function openInJosm(layername) {
+    /* Default is GRB */
+    if ( layername == null || layername == undefined ) {
+        /* default to GRB */
+        layername = 'GRB - Vector Source';
+        if ( newlayername == null && newlayername == undefined ) {
+            newlayername = 'grb-diff';
+        }
+    } else {
+        layername = 'WR OSM - Differences';
+        if ( newlayername == null && newlayername == undefined ) {
+            newlayername = 'nwr-diff';
+        }
+    }
+
     $.ajax( {
         url: "//localhost:8111/version",
         dataType: "json",
@@ -72,7 +86,7 @@ function openInJosm() {
                 externalProjection: geodetic
             } );
 
-            var mylayers = map.getLayersByName( 'GRB - Vector Source' );
+            var mylayers = map.getLayersByName( layername );
             //console.log(mylayers[0].features);
             /*
                            $.each(mylayers.features, function(i, item) {
@@ -239,5 +253,37 @@ function addOverpassRoadLayer() {
     //map.addLayer(overpass_road_layer);
     overpass_road_layer.setVisibility( true );
     overpass_road_layer.refresh();
+    //console.log(overpass_road_layer);
+}
+
+function addDiffLayer() {
+    var geoJSON = new OpenLayers.Format.GeoJSON( {
+        internalProjection: map.getProjectionObject(),
+        externalProjection: geodetic
+    } );
+    var json = geoJSON.write( wr_layer.features );
+    var json_o = JSON.parse( json );
+    //console.log(json);
+
+    /*
+        var obj = wr_layer.features.reduce(function(acc, cur, i) {
+            acc[i] = cur;
+            return acc;
+        }, {});
+    */
+
+    var diff = tf( osmRoadInfo, json_o );
+    //console.log( diff );
+
+    // map.removeLayer('OverPass').
+    diff_layer.destroyFeatures();
+    var geojson_format = new OpenLayers.Format.GeoJSON( {
+        internalProjection: map.getProjectionObject(),
+        externalProjection: geodetic
+    } );
+    diff_layer.addFeatures( geojson_format.read( diff ) );
+    //map.addLayer(overpass_road_layer);
+    diff_layer.setVisibility( true );
+    diff_layer.refresh();
     //console.log(overpass_road_layer);
 }

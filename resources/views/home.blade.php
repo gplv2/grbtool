@@ -226,11 +226,18 @@ fieldset {
                <div id="tools" class="panel-body collapse in">
                 <form id="reqform" class="form-horizontal ng-pristine ng-valid" role="form">
                   <div class="col-md-offset-1 col-md-8">
-		     <div class="help-block">Take actions</div>
+		     <div class="help-block">Take GRB actions</div>
                      <div class="form-group">
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                             <button id="opass" type="button" class="btn btn-default" tabindex="1">Load Overpass data</button>
-                             <button id="wropass" type="button" class="btn btn-default" tabindex="1">Load WR Overpass data</button>
+                             <button id="opass" type="button" class="btn btn-default" tabindex="1">Load OSM data</button>
+                        </div>
+                     </div>
+		    <div class="help-block">Take WR actions</div>
+                     <div class="form-group">
+                         <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                             <button id="wropass" type="button" class="btn btn-default" tabindex="2">Load WR data</button>
+                             <button id="diffwr" type="button" class="btn btn-default" tabindex="3">Diff WR vs OSM</button>
+                             <button id="loadnwr" type="button" class="btn btn-default" tabindex="3">Export NWR diff to JOSM</button>
                         </div>
                      </div>
 		   </div>
@@ -284,6 +291,12 @@ fieldset {
                </div>
                 <div id="opts" class="panel-body collapse in">
                 <form id="genform" class="form-horizontal ng-pristine ng-valid" role="form">
+                     <div class="form-group">
+                         <label for="streetbuffer" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Buffer for street analysis (meters)</label>
+                         <div class="col-md-offset-1 col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                             <input type="number" class="form-control col-md-6 col-sm-6 col-xs-6" value="1" title="Enter meters for buffer" id="streetbuffer" tabindex="1">
+                        </div>
+                     </div>
                     <div class="form-group">
                         <label for="percentage" class="col-md-3 control-label">Simplify</label>
                         <div class="col-md-9">
@@ -374,6 +387,7 @@ fieldset {
 <script src="/js/controllers.js"></script>
 <script src="/js/services.js"></script>
 -->
+{!! Html::script('js/turf.min.js') !!}
 {!! Html::script('js/osmtogeojson/osmtogeojson.js') !!}
 {!! Html::script('js/md5.min.js') !!}
 {!! Html::script('js/pointstyle.js') !!}
@@ -383,6 +397,7 @@ fieldset {
 {!! Html::script('js/wrlayers.js') !!}
 {!! Html::script('js/start.js') !!}
 {!! Html::script('js/overpass.js') !!}
+{!! Html::script('js/nwr.js') !!}
 <!-- {!! Html::script('js/celllayers.js') !!} -->
 <!-- {!! Html::script('js/cellstyle.js') !!} -->
 {!! Html::script('js/search.js') !!}

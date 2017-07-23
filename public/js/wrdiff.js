@@ -143,24 +143,24 @@ module.exports = function( source, dest ) {
         }
     */
     var segments = null;
-/*
-    if ( nwrData && OsmBuffers ) {
-        OsmBuffers.features.forEach( function( osmRoad ) {
-            var touches = false;
-            nwrData.features.forEach( function( nwrRoad ) {
-                var overlapped = turf.intersect( osmRoad, nwrRoad );
-                if ( overlapped !== null && overlapped !== undefined ) {
-                    var roadDiff = turf.difference( nwrRoad, osmRoad );
-                    missingDeltas.features.push( roadDiff );
-                    touches = true;
+    /*
+        if ( nwrData && OsmBuffers ) {
+            OsmBuffers.features.forEach( function( osmRoad ) {
+                var touches = false;
+                nwrData.features.forEach( function( nwrRoad ) {
+                    var overlapped = turf.intersect( osmRoad, nwrRoad );
+                    if ( overlapped !== null && overlapped !== undefined ) {
+                        var roadDiff = turf.difference( nwrRoad, osmRoad );
+                        missingDeltas.features.push( roadDiff );
+                        touches = true;
+                    }
+                } );
+                if ( !touches ) {
+                    nwrDeltas.features.push( osmRoad );
                 }
             } );
-            if ( !touches ) {
-                nwrDeltas.features.push( osmRoad );
-            }
-        } );
-    }
-*/
+        }
+    */
     if ( nwrData && OsmBuffers ) {
         nwrData.features.forEach( function( nwrRoad ) {
             var keep = true;

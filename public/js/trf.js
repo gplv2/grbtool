@@ -665,7 +665,6 @@
                     return false;
                 }
             }
-
         }, {
             "@mapbox/geojson-normalize": 1,
             "@mapbox/tilebelt": 2,

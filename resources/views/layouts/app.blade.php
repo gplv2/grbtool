@@ -41,8 +41,8 @@
                 padding: 0;
                 width: 100%;
                 display: table;
-                font-family: 'Lato', "Source Sans Pro", sans-serif;
-                font-size: 20px; 
+                /*font-family: 'Lato', "Source Sans Pro", sans-serif; */
+                font-size: 12px; 
             }
 
             #map-wrap {
@@ -63,7 +63,7 @@
             }
 
             .title {
-                font-size: 96px;
+                font-size: 76px;
             }
 
             .fa-btn {
@@ -83,16 +83,15 @@
                width: 100%;
                height: 100%;
             }
+/*
             .navbar {
-               min-height: 55px;
+               min-height: 30px;
+               margin-bottom: 5px;
             }
-            .navbar-header {
-               float: left;
-               font-family: 'Oswald';
-            }
+*/
             .panel-heading {
                font-family: 'Oswald';
-               font-size: 26px; 
+               font-size: 16px; 
             }
 
             #footerLogo {margin-bottom: 22px;}
@@ -124,25 +123,28 @@
                text-align: center;
                font-size: 10px;
                display: block;
-               font-family: 'Lato';
+               font-family: 'Oswald';
             }
-
-            .navbar {
-               min-height: 55px;
-            }
+/*
             .navbar-header {
                float: left;
+               font-size: 15px;
                padding: 5px;
                font-family: 'Oswald';
             }
             .navbar-header > a.active{
                font-weight:bold;
-               font-size: 34px;
+               font-size: 15px;
                color: white !important;
             }
 
-            .navbar-default {
-               /*font: normal 36px 'Cookie', cursive;*/
+            .navbar-collapse.collapse {
+               height: 35px !important;
+            }
+*/
+
+/*            .navbar-default { */
+               /*font: normal 36px 'Cookie', cursive;*/ /*
                font: normal 16px sans-serif;
                text-decoration: none;
                background-color: #292c2f;
@@ -151,13 +153,84 @@
             .navbar-brand {
                color: #efe3e3 !important;
                font-family: 'Oswald';
-               font-size: 32px;
+               font-size: 15px;
                -o-object-fit: contain;
                object-fit: contain;
             }
             .navbar>.container-fluid .navbar-brand {
                 margin-left: -5px;
             }   
+*/
+
+.navbar-default {
+  background-color: #463d49;
+  border-color: #887d8d;
+}
+.navbar-default .navbar-brand {
+  color: #adb9bb;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #f9f9f9;
+}
+.navbar-default .navbar-text {
+  color: #adb9bb;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #adb9bb;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #f9f9f9;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #f9f9f9;
+  background-color: #887d8d;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #f9f9f9;
+  background-color: #887d8d;
+}
+.navbar-default .navbar-toggle {
+  border-color: #887d8d;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #887d8d;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #adb9bb;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #adb9bb;
+}
+.navbar-default .navbar-link {
+  color: #adb9bb;
+}
+.navbar-default .navbar-link:hover {
+  color: #f9f9f9;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #adb9bb;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #f9f9f9;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #f9f9f9;
+    background-color: #887d8d;
+  }
+}
 
             .vim {
                display: inline-block;

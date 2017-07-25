@@ -41,8 +41,8 @@
 .map{
     /* width: 1000px;
     margin: 5px;
-    height: 468px; */
-    height: 94%;
+    height: 468px;
+    height: 94%; */
     position: block;
 }
 .panel-body {
@@ -63,7 +63,7 @@
    /* position:fixed; */
     overflow-y:hidden;
     overflow-x:hidden;
-    min-height: 400px;
+    min-height: 600px;
 }
 .container {
 	text-align: left;
@@ -367,12 +367,17 @@ fieldset {
                      <div id="idtag"></div>
                   </div>
                 </div>
-                 <div class="panel-footer">
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  Info
+                </div>
+                <div class="panel-body" id="actions">
                      <div id="msg" class="break-word notice info"></div>
                      <div id="notes" class="break-word notice info"></div>
                 </div>
             </div>
-    </div>
+      </div>
   </div>
 </div>
 

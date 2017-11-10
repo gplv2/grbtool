@@ -59,8 +59,8 @@ function initmap() {
 
     webmercator = new OpenLayers.Projection( "EPSG:3857" );
     geodetic = new OpenLayers.Projection( "EPSG:4326" );
-    mercator = new OpenLayers.Projection( "EPSG:900913" ); // to Spherical Mercator Projection
-    lambert = new OpenLayers.Projection( "EPSG:31370" ); // to Spherical Mercator Projection
+    mercator = new OpenLayers.Projection( "EPSG:900913" ); // Spherical Mercator Projection
+    lambert = new OpenLayers.Projection( "EPSG:31370" ); 
     //projection: "EPSG:31370",
 
     $( window ).resize( function() {
@@ -1454,7 +1454,7 @@ $( document ).ready( function() {
     /* Setup the information pane left bottom */
     var canvasheight = $( '#map' ).css( 'height' );
     var canvaswidth = $( '#map' ).css( 'width' );
-    var newh = ( parseInt( canvasheight, 10 ) / 2 ) + 'px';
+    var newh = ( parseInt( canvasheight, 10 ) / 2.5 ) + 'px';
 
     // var newm =$('#map').css('margin-top');
 

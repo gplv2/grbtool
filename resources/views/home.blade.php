@@ -38,6 +38,28 @@
     top: .5em;
 }
 
+dl {
+  width: 100%;
+  overflow: auto;
+  padding: 0;
+  margin: 0
+}
+dt {
+  float: left;
+  width: 50%;
+  /* adjust the width; make sure the total of both is 100% */
+  padding: 0;
+  margin: 0
+}
+dd {
+  float: left;
+  width: 50%;
+  /* adjust the width; make sure the total of both is 100% */
+  padding: 0;
+  margin: 0
+}
+
+
 .map{
     /* width: 1000px;
     margin: 5px;

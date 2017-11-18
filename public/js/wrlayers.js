@@ -7,8 +7,8 @@ var stylemap = null;
 // The function that gets called on feature selection. Shows information 
 // about the number of "ways" on the map.
 var updateAddressInfo = function() {
-    var info = 'Currently ' + wr_layer.features.length + ' ways are shown on the map.';
-    $( '#notes' ).html( info );
+    //var info = 'Currently ' + wr_layer.features.length + ' ways are shown on the map.';
+    $( '#obj_info_ex' ).html( info );
 };
 
 function loadwrlayer() {
@@ -16,7 +16,7 @@ function loadwrlayer() {
 
     var streets = {};
 
-    if ( vector_layer == null || vector_layer == undefined ) {
+    if ( wr_layer == null || wr_layer == undefined ) {
         return false;
     }
 
@@ -32,8 +32,8 @@ function loadwrlayer() {
         } );
 
         var boxStrategy = new OpenLayers.Strategy.BBOX( {
-            ratio: 2,
-            resFactor: 2
+            ratio: 1,
+            resFactor: 1
         } );
 
         //var clusterStrategy = new OpenLayers.Strategy.Cluster(); /* performance drain !! */
@@ -66,37 +66,148 @@ function loadwrlayer() {
         } );
         //map.setLayerIndex(grb_wms, 1);
 
+      var wselectCtrl = new OpenLayers.Control.SelectFeature(wr_layer,
+         {  
+            clickout: true ,
+            toggle: false,
+            multiple: true, hover: true,
+            //box: true,
+            toggleKey: "ctrlKey", // ctrl key removes from selection
+            multipleKey: "shiftKey" // shift key adds to selection
+         }
+      );
+
         var highlightwr = new OpenLayers.Control.SelectFeature( wr_layer, {
             hover: true,
+            //clickout: true,
             highlightOnly: true,
             //autoActivate:true,
             toggle: false,
-            renderIntent: "temporary",
-            /*
-                        eventListeners: {
-                        	featurehighlighted: updateAddressInfo
-                        	//featurehighlighted: onFeatureSelect,
-                        	//featureunhighlighted: onFeatureUnselect
-                        }
-            */
-        } );
+            renderIntent: "temporary"
+                eventListeners: {
+                    //featurehighlighted: updateAddressInfo
+                    featurehighlighted: onFeatureSelect2,
+                    featureunhighlighted: onFeatureUnselect2
+                }
+            }
+        );
 
-        // create selection lists
-        wr_layer.events.register( 'loadend', this, onloadwrend );
-
-        map.addLayer( wr_layer );
-        wr_layer.setVisibility( true );
-        /* Enable highlighting  */
         map.addControl( highlightwr );
         highlightwr.activate();
+        /* Enable highlighting  */
+        map.addControl( wselectCtrl );
+        wselectCtrl.activate();
+
+
+        //selectCtrl.activate();
+        // create selection lists
+
+        function getdetails(attributes) {
+            var response = "<dl>";
+             $.each(attributes, function(i, item) {
+                  //var option = '<option value="'+ item.groupid +'">'+ imag + item.groupdesc +'</option>';
+                  // item.groupdesc, item.groupid));
+                  //$('#selgroupid').append(option);
+                  if ( strcmp ('way', i) !== 0 && item.length !== 0 && strcmp ('z_order', i) !== 0 && strcmp ('way_area', i) !== 0) {
+                     response += "<dt>" + i +"</dt><dd>" + item + "</dd>";
+                     //console.log(response);
+                  }
+              });
+            response += "</dl>";
+            return response;
+        }
+
+        function onFeatureSelect2( event ) {
+            console.log("select feat");
+            if ( !$( "#wrinfo" ).prop( "checked" ) ) {
+                return true;
+            }
+
+            var feature = event.feature;
+            if ( strcmp( 'Wegenregister data', feature.layer.name ) !== 0 ) {
+                // Don't work on other layers
+                return true;
+            }
+
+            destroyPopups( event );
+
+        // var content = "<h2>"+encHTML(feature.attributes.building) + "</h2>" + encHTML(feature.attributes.source);
+            var featid = '';
+            if ( feature.attributes.building ) {
+                featid = feature.attributes.building;
+            } else if ( feature.attributes.highway ) {
+                featid = feature.attributes.highway;
+            } else if ( feature.attributes.man_made ) {
+                featid = feature.attributes.man_made;
+            } else {
+                featid = feature.attributes.oidn;
+                //console.log(feature);
+            }
+            var content = '<div id="plopper"><fieldset>' + "<legend>" + encHTML( featid ) + '</legend>' +
+            // '<li>' + encHTML(feature.attributes.description) 
+            //+ "<li>Building : "+ feature.attributes.building +"</li>"
+            //+ "<li>Source    : "+ feature.attributes.source +"</li>"
+            getdetails( feature.attributes ) +
+            // + "<li>Tijd server : "+ feature.attributes.server_time +"</li>"
+            "</ul></fieldset></div>";
+            //console.log(content);
+
+            $( '#obj_info_ex' ).html( getdetails( feature.attributes ) );
+
+        /*
+                 var popup = new OpenLayers.Popup.FramedCloud("chicken",
+                    feature.geometry.getBounds().getCenterLonLat(),
+                    new OpenLayers.Size(200,200),
+                    content,
+                    null, true, onPopupClose);
+
+                 feature.popup = popup;
+                 popup.closeOnMove = false;
+
+                 map.addPopup(popup);
+        */
+        /* TODO disable flickering */
+        }
+
+    function onFeatureUnselect2( event ) {
+                console.log("deselect feat");
+        var feature = event.feature;
+        if ( feature.popup ) {
+            map.removePopup( feature.popup );
+            feature.popup.destroy();
+            delete feature.popup;
+        }
+    }
+
 
         wr_layer.events.on( {
             "featuresadded": function() {
-                // $("#msg").html("Info : "+ "Loaded CRAB import layer").removeClass().addClass("notice success");
+                $("#msg").html("Info : "+ "Loaded WR data layer").removeClass().addClass("notice success");
+            },
+            "featureselected": onFeatureSelect2,
+            "featureunselected": onFeatureUnselect2
+/*
+            "featuresadded": function() {
+                // $("#msg").html("Info : "+ "Loaded GRB import layer").removeClass().addClass("notice success");
             }
+*/
         } );
 
+        wr_layer.events.register( 'loadend', this, onloadwrend );
+
+        /* popup handling functions */
+        function onPopupClose( evt ) {
+            highlightwr.unselectAll();
+        }
+
+        map.addLayer( wr_layer );
+        wr_layer.setVisibility( true );
+
+        map.addControl( highlightwr );
+        highlightwr.activate();
+
         function onloadwrend( evt ) {
+            console.log("loaded iwr layer");
             // iswrup = null; Always do this now
             iswrup = null;
             if ( iswrup == null || iswrup == undefined ) {
@@ -104,7 +215,7 @@ function loadwrlayer() {
                 // console.log(poilayer);
             }
             /*
-                        var bounds = vector_layer.getDataExtent();
+                        var bounds = wr_layer.getDataExtent();
 
                         if ( bounds !== null && bounds !== undefined ) {
                             map.panTo( bounds.getCenterLonLat() );
@@ -113,6 +224,8 @@ function loadwrlayer() {
             */
         }
         //console.log(poilayer.features);
+
+
         iswrup = true;
     }
 }

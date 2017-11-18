@@ -201,21 +201,22 @@ fieldset {
             <div class="panel panel-default" ng-view=""></div>
       <!-- Object information -->
             <div class="panel panel-default">
-                <div class="panel-heading" data-toggle="collapse" data-target="#obj_info">
+               <div class="panel-heading" data-toggle="collapse" data-target="#obj_info">
                   Object info
                </div>
                <div id="obj_info" class="panel-body collapse in">
                 <form id="reqform" class="form-horizontal ng-pristine ng-valid" role="form">
                   <div class="col-md-offset-1 col-md-8">
-				         <div class="help-block"></div>
-                     <div class="form-group">
-                         <label for="postcode" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Postcode</label>
-                         <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                             <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
+                    <div class="help-block"></div>
+                    <div class="form-group">
+                        <label for="postcode" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Postcode</label>
+                        <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
                         </div>
-                     </div>
-		   </div>
-         	</form>
+                    </div>
+                    </div>
+                </form>
+               <div id="obj_info_ex" class="panel-body collapse in"></div>
                </div>
             </div>
       <!-- Toolbox -->
@@ -319,6 +320,9 @@ fieldset {
 			        </div>
                     <div class="checkbox">
                         <label class="form-control-label"><input id ="mute_wr_labels" type="checkbox" value="" checked>Mute Wegenregister labels</label>
+			        </div>
+                    <div class="checkbox">
+                        <label class="form-control-label"><input id ="wrinfo" type="checkbox" value="" checked>Show WR object info</label>
 			        </div>
                     <div class="checkbox">
                         <label class="form-control-label"><input type="checkbox" value="" checked>Enable Wegenregister layer</label>

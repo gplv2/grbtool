@@ -6,17 +6,17 @@ var stylemap = null;
 
 // The function that gets called on feature selection. Shows information 
 // about the number of "ways" on the map.
-var updateAddressInfo = function() {
-    //var info = 'Currently ' + wr_layer.features.length + ' ways are shown on the map.';
-    $( '#obj_info_ex' ).html( info );
-};
+//var updateAddressInfo = function() {
+    ////var info = 'Currently ' + wr_layer.features.length + ' ways are shown on the map.';
+    //$( '#obj_info_ex' ).html( info );
+//};
 
 function loadwrlayer() {
     var postcode = $( '#postcode' ).val();
 
     var streets = {};
 
-    if ( wr_layer == null || wr_layer == undefined ) {
+    if ( vector_layer == null || vector_layer == undefined ) {
         return false;
     }
 
@@ -83,7 +83,7 @@ function loadwrlayer() {
             highlightOnly: true,
             //autoActivate:true,
             toggle: false,
-            renderIntent: "temporary"
+            renderIntent: "temporary",
                 eventListeners: {
                     //featurehighlighted: updateAddressInfo
                     featurehighlighted: onFeatureSelect2,
@@ -108,9 +108,15 @@ function loadwrlayer() {
                   //var option = '<option value="'+ item.groupid +'">'+ imag + item.groupdesc +'</option>';
                   // item.groupdesc, item.groupid));
                   //$('#selgroupid').append(option);
-                  if ( strcmp ('way', i) !== 0 && item.length !== 0 && strcmp ('z_order', i) !== 0 && strcmp ('way_area', i) !== 0) {
-                     response += "<dt>" + i +"</dt><dd>" + item + "</dd>";
-                     //console.log(response);
+                  if( strcmp ('_meta',i) == 0) {
+                    $.each(item, function(j, jtem) {
+                        response += "<dt>" + j +"</dt><dd>" + jtem + "</dd>";
+                    });
+                  } else {
+                      if ( strcmp ('way', i) !== 0 && item.length !== 0 && strcmp ('z_order', i) !== 0 && strcmp ('way_area', i) !== 0) {
+                          response += "<dt>" + i +"</dt><dd>" + item + "</dd>";
+                          //console.log(response);
+                      }
                   }
               });
             response += "</dl>";
@@ -129,7 +135,7 @@ function loadwrlayer() {
                 return true;
             }
 
-            destroyPopups( event );
+            //destroyPopups( event );
 
         // var content = "<h2>"+encHTML(feature.attributes.building) + "</h2>" + encHTML(feature.attributes.source);
             var featid = '';
@@ -196,9 +202,16 @@ function loadwrlayer() {
         wr_layer.events.register( 'loadend', this, onloadwrend );
 
         /* popup handling functions */
+/*
         function onPopupClose( evt ) {
             highlightwr.unselectAll();
         }
+        function destroyPopups( event ) {
+            while ( map.popups.length ) {
+                map.removePopup( map.popups[ 0 ] );
+            }
+        }
+*/
 
         map.addLayer( wr_layer );
         wr_layer.setVisibility( true );

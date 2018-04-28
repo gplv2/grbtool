@@ -1,6 +1,7 @@
 #!/bin/sh
 
-PATH=$PATH:/var/www/grbtool/node_modules/.bin
+#PATH=$PATH:/var/www/grbtool/node_modules/.bin
+PATH=$PATH:/home/glenn/repos/grbtool/node_modules/.bin
 
 # Bake the pizza
 echo "Building pizza.js"
@@ -15,6 +16,6 @@ echo "Building trf.js"
 browserify public/js/wrdiff.js --s tf > public/js/trf.js
 
 for file in public/js/*.js ; do
-    js-beautify -s 4 -P -m -k -r -f $file
+    js-beautify -s 4 -P -m 3 -r -k -f $file
 done
 

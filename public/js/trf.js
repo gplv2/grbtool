@@ -18,30 +18,33 @@
     }
 } )( function() {
     var define, module, exports;
-    return ( function e( t, n, r ) {
-        function s( o, u ) {
-            if ( !n[ o ] ) {
-                if ( !t[ o ] ) {
-                    var a = typeof require == "function" && require;
-                    if ( !u && a ) return a( o, !0 );
-                    if ( i ) return i( o, !0 );
-                    var f = new Error( "Cannot find module '" + o + "'" );
-                    throw f.code = "MODULE_NOT_FOUND", f
+    return ( function() {
+        function e( t, n, r ) {
+            function s( o, u ) {
+                if ( !n[ o ] ) {
+                    if ( !t[ o ] ) {
+                        var a = typeof require == "function" && require;
+                        if ( !u && a ) return a( o, !0 );
+                        if ( i ) return i( o, !0 );
+                        var f = new Error( "Cannot find module '" + o + "'" );
+                        throw f.code = "MODULE_NOT_FOUND", f
+                    }
+                    var l = n[ o ] = {
+                        exports: {}
+                    };
+                    t[ o ][ 0 ].call( l.exports, function( e ) {
+                        var n = t[ o ][ 1 ][ e ];
+                        return s( n ? n : e )
+                    }, l, l.exports, e, t, n, r )
                 }
-                var l = n[ o ] = {
-                    exports: {}
-                };
-                t[ o ][ 0 ].call( l.exports, function( e ) {
-                    var n = t[ o ][ 1 ][ e ];
-                    return s( n ? n : e )
-                }, l, l.exports, e, t, n, r )
+                return n[ o ].exports
             }
-            return n[ o ].exports
+            var i = typeof require == "function" && require;
+            for ( var o = 0; o < r.length; o++ ) s( r[ o ] );
+            return s
         }
-        var i = typeof require == "function" && require;
-        for ( var o = 0; o < r.length; o++ ) s( r[ o ] );
-        return s
-    } )( {
+        return e
+    } )()( {
         1: [ function( require, module, exports ) {
             module.exports = normalize;
 
@@ -75,7 +78,7 @@
                             type: 'Feature',
                             properties: {},
                             geometry: gj
-                        } ]
+            } ]
                     };
                 } else if ( type === 'feature' ) {
                     return {
@@ -87,7 +90,7 @@
                 }
             }
 
-        }, {} ],
+}, {} ],
         2: [ function( require, module, exports ) {
             'use strict';
 
@@ -126,15 +129,13 @@
                 var bbox = tileToBBOX( tile );
                 var poly = {
                     type: 'Polygon',
-                    coordinates: [
-                        [
-                            [ bbox[ 0 ], bbox[ 1 ] ],
-                            [ bbox[ 0 ], bbox[ 3 ] ],
-                            [ bbox[ 2 ], bbox[ 3 ] ],
-                            [ bbox[ 2 ], bbox[ 1 ] ],
-                            [ bbox[ 0 ], bbox[ 1 ] ]
-                        ]
-                    ]
+                    coordinates: [ [
+            [ bbox[ 0 ], bbox[ 1 ] ],
+            [ bbox[ 0 ], bbox[ 3 ] ],
+            [ bbox[ 2 ], bbox[ 3 ] ],
+            [ bbox[ 2 ], bbox[ 1 ] ],
+            [ bbox[ 0 ], bbox[ 1 ] ]
+        ] ]
                 };
                 return poly;
             }
@@ -179,11 +180,11 @@
              */
             function getChildren( tile ) {
                 return [
-                    [ tile[ 0 ] * 2, tile[ 1 ] * 2, tile[ 2 ] + 1 ],
-                    [ tile[ 0 ] * 2 + 1, tile[ 1 ] * 2, tile[ 2 ] + 1 ],
-                    [ tile[ 0 ] * 2 + 1, tile[ 1 ] * 2 + 1, tile[ 2 ] + 1 ],
-                    [ tile[ 0 ] * 2, tile[ 1 ] * 2 + 1, tile[ 2 ] + 1 ]
-                ];
+        [ tile[ 0 ] * 2, tile[ 1 ] * 2, tile[ 2 ] + 1 ],
+        [ tile[ 0 ] * 2 + 1, tile[ 1 ] * 2, tile[ 2 ] + 1 ],
+        [ tile[ 0 ] * 2 + 1, tile[ 1 ] * 2 + 1, tile[ 2 ] + 1 ],
+        [ tile[ 0 ] * 2, tile[ 1 ] * 2 + 1, tile[ 2 ] + 1 ]
+    ];
             }
 
             /**
@@ -398,7 +399,7 @@
                 pointToTileFraction: pointToTileFraction
             };
 
-        }, {} ],
+}, {} ],
         3: [ function( require, module, exports ) {
             function flatten( gj ) {
                 switch ( ( gj && gj.type ) || null ) {
@@ -450,7 +451,7 @@
 
             module.exports = flatten;
 
-        }, {} ],
+}, {} ],
         4: [ function( require, module, exports ) {
             /*jslint node: true, maxerr: 50, indent: 4 */
             "use strict";
@@ -665,7 +666,7 @@
                     return false;
                 }
             }
-        }, {
+}, {
             "@mapbox/geojson-normalize": 1,
             "@mapbox/tilebelt": 2,
             "geojson-flatten": 3

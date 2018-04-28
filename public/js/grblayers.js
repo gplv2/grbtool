@@ -60,7 +60,7 @@ function initmap() {
     webmercator = new OpenLayers.Projection( "EPSG:3857" );
     geodetic = new OpenLayers.Projection( "EPSG:4326" );
     mercator = new OpenLayers.Projection( "EPSG:900913" ); // Spherical Mercator Projection
-    lambert = new OpenLayers.Projection( "EPSG:31370" );
+    lambert = new OpenLayers.Projection( "EPSG:31370" ); 
     //projection: "EPSG:31370",
 
     $( window ).resize( function() {
@@ -1557,6 +1557,8 @@ $( document ).ready( function() {
             openStreetview( lat, lon );
             return true;
         } );
+
+
 
 
         /*

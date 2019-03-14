@@ -4,7 +4,7 @@
 
 @section('page-style')
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css" media="all" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.13.1/theme/default/style.css" media="all" />
     <style>
             html, body {
                 height: 100%;
@@ -16,7 +16,7 @@
                 width: 100%;
                 display: table;
                 font-family: 'Lato', "Source Sans Pro", sans-serif;
-                font-size: 20px; 
+                font-size: 20px;
             }
 
             #map-wrap {
@@ -67,7 +67,7 @@
             }
             .panel-heading {
                font-family: 'Oswald';
-               font-size: 26px; 
+               font-size: 26px;
             }
 
             #footerLogo {margin-bottom: 22px;}
@@ -81,10 +81,10 @@
                border-top: 1px solid transparent;
                border-color: #e7e7e7;
             }
-            
+
             /* footer 1 */
             .worksList li{display:inline-block; margin: 0 10px 10px 0;}
-            
+
             /* footer 4 */
             .footer4 #footerRights {text-align: left; background:#e7e7e7;}
             .bigTitle.bigTitleFooter {font-size: 2em; margin-bottom: 0;}
@@ -132,7 +132,7 @@
             }
             .navbar>.container-fluid .navbar-brand {
                 margin-left: -5px;
-            }   
+            }
 
             .vim {
                display: inline-block;
@@ -144,7 +144,7 @@
                height: 100%;
             }
                /* background-color: transparent; */
-            
+
             @media(min-width:992px){
                /* footer 4 */
                .footer4 #footerRights .quickMenu {float:right;}
@@ -156,7 +156,7 @@
 @stop
 
 @section('page-script')
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.13.1/OpenLayers.js"></script>
 @stop
 
 @section('bodydef')
@@ -299,7 +299,7 @@
 
 @section('page-bottom-script')
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- Scripts 
+<!-- Scripts
 <script src="/js/app.js"></script>
 <script src="/js/controllers.js"></script>
 <script src="/js/services.js"></script>

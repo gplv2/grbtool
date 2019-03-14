@@ -68,15 +68,15 @@ dd {
     position: block;
 }
 .panel-body {
-    padding: 0px; 
+    padding: 0px;
 }
 .panel {
-    margin-bottom: 5px; 
+    margin-bottom: 5px;
     margin-top: 5px;
-    padding: 8px; 
+    padding: 8px;
 }
 .form-group {
-    padding: 8px; 
+    padding: 8px;
 }
 
 #map-wrap {
@@ -101,7 +101,7 @@ display: inline-block;
     margin-right: 5em;
     margin-bottom: 0;
     cursor: pointer;
-} 
+}
 
 .form-check {
     position: relative;
@@ -161,21 +161,21 @@ fieldset {
 }
 
 #cb_none {
-    margin: 15px; 
-    padding: 18px; 
+    margin: 15px;
+    padding: 18px;
 }
 
 .break-word {
     word-wrap: break-word;
 }
 
-/* Style json with CSS + Javascript 
+/* Style json with CSS + Javascript
 
 .json {
    background-color: ghostwhite;
    border: 1px solid silver;
    padding: 10px 20px;
-   margin: 20px; 
+   margin: 20px;
 }
 */
 
@@ -235,6 +235,9 @@ fieldset {
                         <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
                         </div>
+                        <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                             <button id="ocrab" type="button" class="btn btn-default" tabindex="1">Open in CRAB import</button>
+                        </div>
                     </div>
                     </div>
                 </form>
@@ -253,8 +256,12 @@ fieldset {
                      <div class="form-group">
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                              <button id="opass" type="button" class="btn btn-default" tabindex="1">Load OSM data</button>
+                             <button id="ofilter" type="button" class="btn btn-default" tabindex="1">Filter GRB layer</button>
+                             <button id="oarea" type="button" class="btn btn-default" tabindex="1">Open Area in JOSM</button>
+                             <button id="oarea" type="button" class="btn btn-default" tabindex="1">Export GRB</button>
                         </div>
                      </div>
+<!--
 		    <div class="help-block">Take WR actions</div>
                      <div class="form-group">
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -263,7 +270,8 @@ fieldset {
                              <button id="loadnwr" type="button" class="btn btn-default" tabindex="3">Export NWR diff to JOSM</button>
                         </div>
                      </div>
-		   </div>
+           </div>
+-->
          	</form>
                </div>
             </div>
@@ -314,12 +322,14 @@ fieldset {
                </div>
                 <div id="opts" class="panel-body collapse in">
                 <form id="genform" class="form-horizontal ng-pristine ng-valid" role="form">
+<!--
                      <div class="form-group">
                          <label for="streetbuffer" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Buffer for street analysis (meters)</label>
                          <div class="col-md-offset-1 col-lg-3 col-md-3 col-sm-3 col-xs-3">
                              <input type="number" class="form-control col-md-6 col-sm-6 col-xs-6" value="1" title="Enter meters for buffer" id="streetbuffer" tabindex="1">
                         </div>
                      </div>
+-->
                     <div class="form-group">
                         <label for="percentage" class="col-md-3 control-label">Simplify</label>
                         <div class="col-md-9">
@@ -338,17 +348,17 @@ fieldset {
                         <label class="form-control-label"><input type="checkbox" value="" checked>Enable CRAB layer</label>
 			        </div>
                     <div class="checkbox">
+                        <label class="form-control-label"><input type="checkbox" value="" checked>Enable Wegenregister layer</label>
+                    </div>
+                    <div class="checkbox">
                         <label class="form-control-label"><input id ="mute_crab_labels" type="checkbox" value="" checked>Mute CRAB labels</label>
 			        </div>
                     <div class="checkbox">
                         <label class="form-control-label"><input id ="mute_wr_labels" type="checkbox" value="" checked>Mute Wegenregister labels</label>
 			        </div>
                     <div class="checkbox">
-                        <label class="form-control-label"><input id ="wrinfo" type="checkbox" value="" checked>Show WR object info</label>
+                        <label class="form-control-label"><input id ="wrinfo" type="checkbox" value="" checked>Show object info</label>
 			        </div>
-                    <div class="checkbox">
-                        <label class="form-control-label"><input type="checkbox" value="" checked>Enable Wegenregister layer</label>
-                    </div>
                     <div class="checkbox">
                         <label class="form-control-label"><input type="checkbox" value="">Include CRAB data in export</label>
                     </div>
@@ -413,7 +423,7 @@ fieldset {
 
 @section('page-bottom-script')
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- Scripts 
+<!-- Scripts
 <script src="/js/app.js"></script>
 <script src="/js/controllers.js"></script>
 <script src="/js/services.js"></script>

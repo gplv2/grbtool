@@ -239,7 +239,6 @@ fieldset {
                              <button id="ocrab" type="button" class="btn btn-default" tabindex="1">Open in CRAB import</button>
                         </div>
                     </div>
-                    </div>
                 </form>
                <div id="obj_info_ex" class="panel-body collapse in"></div>
                </div>
@@ -272,7 +271,6 @@ fieldset {
                      </div>
            </div>
 -->
-               </div>
          	</form>
                </div>
             </div>

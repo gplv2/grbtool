@@ -110,7 +110,7 @@ function initmap() {
         */
         layers: [
 
-            new OpenLayers.Layer.OSM( "OSM-BE", [ "https://tile.openstreetmap.be/osmbe/${z}/${x}/${y}.png" ], { attribution: "Tiles courtesy of <a href=\"https://geo6.be/\">GEO-6</a>", transitionEffect: "resize" , numZoomLevels: 21 }),
+            new OpenLayers.Layer.OSM( "OSM-BE", [ "https://tile.openstreetmap.be/osmbe/${z}/${x}/${y}.png" ], { attribution: "Tiles courtesy of <a href=\"https://geo6.be/\">GEO-6</a>", transitionEffect: "resize" , numZoomLevels: 19 }),
 
             new OpenLayers.Layer.OSM( "OpenStreetMap", null, {
                 numZoomLevels: 20

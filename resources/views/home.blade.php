@@ -228,14 +228,14 @@ fieldset {
                </div>
                <div id="obj_info" class="panel-body collapse in">
                 <form id="reqform1" class="form-horizontal ng-pristine ng-valid" role="form">
-                  <div class="col-md-offset-0 col-md-12">
+                  <div class="col-md-offset-0 col-md-8">
                     <div class="help-block"></div>
                     <div class="form-group">
                         <label for="postcode" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Postcode</label>
                         <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                              <button id="ocrab" type="button" class="btn btn-default" tabindex="1">Open in CRAB import</button>
                         </div>
                     </div>
@@ -251,8 +251,8 @@ fieldset {
                </div>
                <div id="tools" class="panel-body collapse in">
                 <form id="reqform2" class="form-horizontal ng-pristine ng-valid" role="form">
-                  <div class="col-md-offset-0 col-md-12 col-sm-12">
-		            <div class="help-block">Take GRB actions</div>
+                  <div class="col-md-offset-1 col-md-8">
+		     <div class="help-block">Take GRB actions</div>
                      <div class="form-group">
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                              <button id="opass" type="button" class="btn btn-default" tabindex="1">Load OSM data</button>

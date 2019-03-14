@@ -257,8 +257,8 @@ fieldset {
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                              <button id="opass" type="button" class="btn btn-default" tabindex="1">Load OSM data</button>
                              <button id="fpass" type="button" class="btn btn-default" tabindex="1">Filter GRB layer</button>
-                             <button id="oarea" type="button" class="btn btn-default" tabindex="1">Open Area in JOSM</button>
-                             <button id="larea" type="button" class="btn btn-default" tabindex="1">Export GRB</button>
+                             <button id="loadarea" type="button" class="btn btn-default" tabindex="1">Open Area in JOSM</button>
+                             <button id="loadgrb" type="button" class="btn btn-default" tabindex="1">Export GRB</button>
                         </div>
                      </div>
 <!--

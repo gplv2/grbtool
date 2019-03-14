@@ -275,7 +275,7 @@ function initmap() {
     );
 
     map.addLayer( grb_wms );
-    map.setLayerIndex( grb_wms, 1 );
+    map.setLayerIndex( grb_wms, 2 );
 
     var grb_wbn = new OpenLayers.Layer.WMS(
         "GRB - WBN+ Weg/water/..",
@@ -407,7 +407,7 @@ function initmap() {
     );
 
     map.addLayer( grb_ortho );
-    map.setLayerIndex( grb_ortho, 2 );
+    map.setLayerIndex( grb_ortho, 3 );
 
     var wr_combo = new OpenLayers.Layer.WMS(
         "Nat. WegenRegister Base",
@@ -432,7 +432,7 @@ function initmap() {
     );
 
     map.addLayer( wr_combo );
-    map.setLayerIndex( wr_combo, 3 );
+    map.setLayerIndex( wr_combo, 4 );
 
     /*
              var get_my_url = function (bounds) {
@@ -482,7 +482,7 @@ function initmap() {
     );
 
     map.addLayer( wr_combo_trans );
-    map.setLayerIndex( wr_combo_trans, 4 );
+    map.setLayerIndex( wr_combo_trans, 5 );
 
     var cdark_all = new OpenLayers.Layer.XYZ(
         "Carto basemap Dark", [
@@ -548,10 +548,10 @@ function initmap() {
         }
     );
     map.addLayer( clight_all );
-    map.setLayerIndex( clight_all, 5 );
+    map.setLayerIndex( clight_all, 6 );
 
     map.addLayer( cdark_all );
-    map.setLayerIndex( cdark_all, 6 );
+    map.setLayerIndex( cdark_all, 7 );
 
 
     /* shift-mouse1 Easily get bbox string (screen relative) */
@@ -965,7 +965,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
     } );
 
     map.addLayer( diff_layer );
-    map.setLayerIndex( diff_layer, 0 );
+    map.setLayerIndex( diff_layer, 1 );
 
     overpass_road_layer = new OpenLayers.Layer.Vector( "Overpass - Highway Data", {
         styleMap: overpass_style,
@@ -982,7 +982,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
     } );
 
     map.addLayer( overpass_road_layer );
-    map.setLayerIndex( overpass_road_layer, 1 );
+    map.setLayerIndex( overpass_road_layer, 2 );
 
     //overpass_layer.destroyFeatures();
     //overpass_layer.addFeatures(geojson_format.read(osmInfo));

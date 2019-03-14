@@ -1531,7 +1531,7 @@ $( document ).ready( function() {
             //return false;
         } );
 
-        $( "#loadgrb" ).button().click( function( event ) {
+        $( "#oarea" ).button().click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading vector GRB data in a new JOSM layer" );
             $( 'body' ).css( 'cursor', 'wait' );
             openInJosm();
@@ -1603,7 +1603,7 @@ $( document ).ready( function() {
                     return false;
                 });
         */
-        $( "#loadarea" ).button().click( function( event ) {
+        $( "#oarea" ).button().click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Opening area in JOSM" );
             $( 'body' ).css( 'cursor', 'wait' );
             openAreaInJosm();

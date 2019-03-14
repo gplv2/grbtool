@@ -105,7 +105,7 @@ function openInJosm( layername ) {
             // From npm module
             // console.log(json);
             // console.log("parsing json");
-            // Command line simplify using mapshaper: 
+            // Command line simplify using mapshaper:
             // -simplify 85% dp keep-shapes stats -o format=geojson /home/glenn/out.geojson
 
             var xml = '';

@@ -227,8 +227,8 @@ fieldset {
                   Object info
                </div>
                <div id="obj_info" class="panel-body collapse in">
-                <form id="reqform" class="form-horizontal ng-pristine ng-valid" role="form">
-                  <div class="col-md-offset-1 col-md-8">
+                <form id="reqform1" class="form-horizontal ng-pristine ng-valid" role="form">
+                  <div class="col-md-offset-0 col-md-12">
                     <div class="help-block"></div>
                     <div class="form-group">
                         <label for="postcode" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Postcode</label>
@@ -250,7 +250,7 @@ fieldset {
                   Tools
                </div>
                <div id="tools" class="panel-body collapse in">
-                <form id="reqform" class="form-horizontal ng-pristine ng-valid" role="form">
+                <form id="reqform2" class="form-horizontal ng-pristine ng-valid" role="form">
                   <div class="col-md-offset-0 col-md-12 col-sm-12">
 		            <div class="help-block">Take GRB actions</div>
                      <div class="form-group">
@@ -283,7 +283,7 @@ fieldset {
                </div>
                 <div id="searchopts" class="panel-body collapse">
                 <div class="col-md-offset-1 col-md-12">
-                <form id="reqform" class="form-horizontal ng-pristine ng-valid" role="form">
+                <form id="reqform3" class="form-horizontal ng-pristine ng-valid" role="form">
                     <div class="form-group" id="search">
                            <div id="geosearch" class="filterclass ui-widget">
                              <label for="address" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Name</label>

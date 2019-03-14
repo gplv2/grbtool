@@ -4,7 +4,7 @@ var agiv_layer;
 var isagivup = null;
 var stylemap = null;
 
-// The function that gets called on feature selection. Shows information 
+// The function that gets called on feature selection. Shows information
 // about the number of "points" on the map.
 var updateAddressInfo = function() {
     var info = 'Currently ' + agiv_layer.features.length + ' address points are shown on the map.';
@@ -114,7 +114,7 @@ function loadagivlayer() {
         agiv_layer.events.register( 'loadend', this, onloadagivend );
 
         map.addLayer( agiv_layer );
-        agiv_layer.setVisibility( true );
+        agiv_layer.setVisibility( false );
         /* Enable highlighting  */
         map.addControl( highlightagiv );
         highlightagiv.activate();
@@ -276,7 +276,7 @@ function loadagivlayer() {
             // isagivup = null; Always do this now
             isagivup = null;
             if ( isagivup == null || isagivup == undefined ) {
-                // if(stuff !== null && stuff !== undefined) 
+                // if(stuff !== null && stuff !== undefined)
                 // console.log(poilayer);
                 updateAddressInfo();
                 $( '#cntain' ).css( "width", 'auto' );

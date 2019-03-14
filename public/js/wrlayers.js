@@ -4,7 +4,7 @@ var wr_layer;
 var iswrup = null;
 var stylemap = null;
 
-// The function that gets called on feature selection. Shows information 
+// The function that gets called on feature selection. Shows information
 // about the number of "ways" on the map.
 //var updateAddressInfo = function() {
 ////var info = 'Currently ' + wr_layer.features.length + ' ways are shown on the map.';
@@ -148,7 +148,7 @@ function loadwrlayer() {
                 //console.log(feature);
             }
             var content = '<div id="plopper"><fieldset>' + "<legend>" + encHTML( featid ) + '</legend>' +
-                // '<li>' + encHTML(feature.attributes.description) 
+                // '<li>' + encHTML(feature.attributes.description)
                 //+ "<li>Building : "+ feature.attributes.building +"</li>"
                 //+ "<li>Source    : "+ feature.attributes.source +"</li>"
                 getdetails( feature.attributes ) +
@@ -212,7 +212,7 @@ function loadwrlayer() {
         */
 
         map.addLayer( wr_layer );
-        wr_layer.setVisibility( true );
+        wr_layer.setVisibility( false );
 
         //map.addControl( highlightwr );
         //highlightwr.activate();
@@ -252,7 +252,7 @@ function loadwrlayer() {
                             var postcode = '';
                             var city = '';
                             //var obj = jQuery.parseJSON(mdata);
-                            //if (obj.length<=0) 
+                            //if (obj.length<=0)
                             //$('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
                             /*
 			if(geocode.address.road !== null && geocode.address.road !== undefined) {
@@ -298,7 +298,7 @@ function loadwrlayer() {
             // iswrup = null; Always do this now
             iswrup = null;
             if ( iswrup == null || iswrup == undefined ) {
-                // if(stuff !== null && stuff !== undefined) 
+                // if(stuff !== null && stuff !== undefined)
                 // console.log(poilayer);
                 getpostalcode();
             }

@@ -950,6 +950,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
     map.addLayer( overpass_layer );
     map.setLayerIndex( overpass_layer, 0 );
 
+    /*
     diff_layer = new OpenLayers.Layer.Vector( "WR OSM - Differences", {
         styleMap: overpass_style,
         //maxResolution: map.getResolutionForZoom(15),
@@ -983,6 +984,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
 
     map.addLayer( overpass_road_layer );
     map.setLayerIndex( overpass_road_layer, 2 );
+    */
 
     //overpass_layer.destroyFeatures();
     //overpass_layer.addFeatures(geojson_format.read(osmInfo));

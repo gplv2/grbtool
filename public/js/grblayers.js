@@ -1519,7 +1519,7 @@ $( document ).ready( function() {
             //return false;
         } );
 
-        $( "#ocrab" ).button().click( function( event ) {
+        $( "#ocrab" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Opening postal code area in crab tool" );
             $( 'body' ).css( 'cursor', 'wait' );
             openInCrabtool();

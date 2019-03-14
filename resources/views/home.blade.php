@@ -235,7 +235,7 @@ fieldset {
                         <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
                         </div>
-                        <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                              <button id="ocrab" type="button" class="btn btn-default" tabindex="1">Open in CRAB import</button>
                         </div>
                     </div>

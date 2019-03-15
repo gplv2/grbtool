@@ -1605,7 +1605,7 @@ $( document ).ready( function() {
                     return false;
                 });
         */
-        $( "#loadarea" ).button().click( function( event ) {
+        $( "#loadarea" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Opening area in JOSM" );
             $( 'body' ).css( 'cursor', 'wait' );
             openAreaInJosm();

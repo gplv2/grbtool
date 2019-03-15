@@ -255,7 +255,7 @@ fieldset {
                </div>
                <div id="tools" class="panel-body collapse in">
                 <form id="reqform2" class="form-horizontal ng-pristine ng-valid" role="form">
-                  <div class="col-md-offset-1 col-md-8">
+                  <div class="col-md-offset-0 col-md-8">
 		            <div class="help-block">CRAB actions</div>
                     <div class="form-group">
                         <label for="postcode" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Postcode</label>
@@ -268,7 +268,7 @@ fieldset {
                     </div>
 		            <div class="help-block">Additional actions</div>
                     <div class="form-group">
-                        <div class="col-md-offset-0 col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <div class="col-md-offset-1 col-lg-2 col-md-2 col-sm-2 col-xs-2">
                              <button id="ostreetview" type="button" class="btn btn-default" tabindex="1">Open in streetview</button>
                         </div>
                     </div>

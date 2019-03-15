@@ -230,23 +230,8 @@ fieldset {
                <div id="obj_info" class="panel-body collapse in">
                 <form id="reqform1" class="form-horizontal ng-pristine ng-valid" role="form">
                   <div class="col-md-offset-0 col-md-8">
-                    <div class="form-group">
-                        <label for="postcode" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Postcode</label>
-                        <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
-                        </div>
-                        <div class="col-md-offset-0 col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                             <button id="ocrab" type="button" class="btn btn-default" tabindex="1">Open in CRAB import</button>
-                        </div>
-                        <div class="col-md-offset-0 col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                             <button id="ostreetview" type="button" class="btn btn-default" tabindex="1">Open in streetview</button>
-                        </div>
-                    </div>
-                    </div>
-                </form>
-                <div id="obj_info_ex" class="panel-body collapse in"></div>
-               </div>
-
+                    <div id="obj_info_ex" class="panel-body collapse in"></div>
+                  </div>
             </div>
       <!-- Toolbox -->
             <div class="panel panel-default">

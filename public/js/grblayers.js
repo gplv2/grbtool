@@ -1594,7 +1594,7 @@ $( document ).ready( function() {
             return true;
         } );
 
-        $( "#ostreetview" ).button().click( function( event ) {
+        $( "#ostreetview" ).click( function( event ) {
             openStreetview( lat, lon );
             return true;
         } );

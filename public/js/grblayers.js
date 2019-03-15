@@ -140,6 +140,8 @@ function initmap() {
             )
         ]
     } );
+
+    // This will record the last place where you clicked in the map as lat/lon. you can then open this in streetview
     OpenLayers.Control.Click = OpenLayers.Class( OpenLayers.Control, {
         defaultHandlerOptions: {
             'single': true,
@@ -171,7 +173,6 @@ function initmap() {
     var click = new OpenLayers.Control.Click();
     map.addControl( click );
     click.activate();
-
 
     map.events.register( 'zoomend', this, function( event ) {
         streetStrategy.setFilter( null );
@@ -1593,11 +1594,10 @@ $( document ).ready( function() {
             return true;
         } );
 
-        $( "#testswitch" ).button().click( function( event ) {
+        $( "#ostreetview" ).button().click( function( event ) {
             openStreetview( lat, lon );
             return true;
         } );
-
 
 
 

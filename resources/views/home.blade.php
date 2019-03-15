@@ -238,6 +238,9 @@ fieldset {
                         <div class="col-md-offset-0 col-lg-2 col-md-2 col-sm-2 col-xs-2">
                              <button id="ocrab" type="button" class="btn btn-default" tabindex="1">Open in CRAB import</button>
                         </div>
+                        <div class="col-md-offset-0 col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                             <button id="ostreetview" type="button" class="btn btn-default" tabindex="1">Open in streetview</button>
+                        </div>
                     </div>
                     </div>
                 </form>

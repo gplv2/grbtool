@@ -358,7 +358,10 @@ fieldset {
                         <label class="form-control-label"><input id ="mute_wr_labels" type="checkbox" value="" checked>Mute Wegenregister labels</label>
 			        </div>
                     <div class="checkbox">
-                        <label class="form-control-label"><input id ="wrinfo" type="checkbox" value="" checked>Show object info</label>
+                        <label class="form-control-label"><input id ="wrinfo" type="checkbox" value="" checked>Show WR object info</label>
+			        </div>
+                    <div class="checkbox">
+                        <label class="form-control-label"><input id ="grbinfo" type="checkbox" value="" checked>Show GRB object info</label>
 			        </div>
                     <div class="checkbox">
                         <label class="form-control-label"><input type="checkbox" value="">Include CRAB data in export</label>

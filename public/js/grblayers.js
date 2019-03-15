@@ -578,16 +578,6 @@ function initmap() {
 
     map.addControl( boxcontrol );
 
-    var selectCtrl = new OpenLayers.Control.SelectFeature( vector_layer, {
-        clickout: true,
-        toggle: false,
-        multiple: true,
-        hover: true,
-        //box: true,
-        toggleKey: "ctrlKey", // ctrl key removes from selection
-        multipleKey: "shiftKey" // shift key adds to selection
-    } );
-
     // vector_layer.events.register('boxselectionend', this, function (event) {
     // console.log("box selection meme");
     // });
@@ -627,6 +617,16 @@ function initmap() {
 dotlayer.events.register('loadend', this, onloaddotend);
     */
 
+    var selectCtrl = new OpenLayers.Control.SelectFeature( vector_layer, {
+        clickout: true,
+        toggle: false,
+        multiple: true,
+        hover: true,
+        //box: true,
+        toggleKey: "ctrlKey", // ctrl key removes from selection
+        multipleKey: "shiftKey" // shift key adds to selection
+    } );
+
 
     var highlightvector = new OpenLayers.Control.SelectFeature( vector_layer, {
         hover: true,
@@ -641,6 +641,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
         }
     } );
 
+    /* Enable highlighting  */
     map.addControl( highlightvector );
     map.addControl( selectCtrl );
     highlightvector.activate();
@@ -679,7 +680,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
     }
 
     function onFeatureSelect( event ) {
-        if ( !$( "#popupswitch" ).prop( "checked" ) ) {
+        if ( !$( "#grbinfo" ).prop( "checked" ) ) {
             return true;
         }
 
@@ -759,10 +760,6 @@ dotlayer.events.register('loadend', this, onloaddotend);
 
     map.addLayer( vector_layer );
     vector_layer.setVisibility( true );
-
-    /* Enable highlighting  */
-    map.addControl( highlightvector );
-    highlightvector.activate();
 
     // lon + lat + zoom
     var retrievedObject = JSON.parse( localStorage.getItem( 'defaultlocation' ) );

@@ -663,9 +663,15 @@ dotlayer.events.register('loadend', this, onloaddotend);
             //var option = '<option value="'+ item.groupid +'">'+ imag + item.groupdesc +'</option>';
             // item.groupdesc, item.groupid));
             //$('#selgroupid').append(option);
-            if ( strcmp( 'way', i ) !== 0 && item.length !== 0 && strcmp( 'z_order', i ) !== 0 && strcmp( 'way_area', i ) !== 0 ) {
-                response += "<dt>" + i + "</dt><dd>" + item + "</dd>";
-                //console.log(response);
+            if ( strcmp( '_meta', i ) == 0 ) {
+                $.each( item, function( j, jtem ) {
+                    response += "<dt>" + j + "</dt><dd>" + jtem + "</dd>";
+                } );
+            } else {
+                if ( strcmp( 'way', i ) !== 0 && item.length !== 0 && strcmp( 'z_order', i ) !== 0 && strcmp( 'way_area', i ) !== 0 ) {
+                    response += "<dt>" + i + "</dt><dd>" + item + "</dd>";
+                    //console.log(response);
+                }
             }
         } );
         response += "</dl>";
@@ -683,7 +689,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
             return true;
         }
 
-        destroyPopups( event );
+        //destroyPopups( event );
 
         // var content = "<h2>"+encHTML(feature.attributes.building) + "</h2>" + encHTML(feature.attributes.source);
         var featid = '';
@@ -697,6 +703,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
             featid = feature.attributes.oidn;
             //console.log(feature);
         }
+
         var content = '<div id="plopper"><fieldset>' + "<legend>" + encHTML( featid ) + '</legend>' +
             // '<li>' + encHTML(feature.attributes.description)
             //+ "<li>Building : "+ feature.attributes.building +"</li>"
@@ -706,7 +713,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
             "</ul></fieldset></div>";
         //console.log(content);
 
-        $( '#bottom' ).html( getdetails( feature.attributes ) );
+        $( '#obj_info_ex' ).html( getdetails( feature.attributes ) );
 
         /*
                  var popup = new OpenLayers.Popup.FramedCloud("chicken",
@@ -719,7 +726,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
                  popup.closeOnMove = false;
 
                  map.addPopup(popup);
-        */
+                 */
         /* TODO disable flickering */
     }
 
@@ -740,11 +747,11 @@ dotlayer.events.register('loadend', this, onloaddotend);
     //});
 
     vector_layer.events.on( {
-        "featureselected": onFeatureSelect,
-        "featureunselected": onFeatureUnselect,
         "featuresadded": function() {
-            // $("#msg").html("Info : "+ "Loaded GRB import layer").removeClass().addClass("notice success");
-        }
+            $( "#msg" ).html( "Info : " + "Data loaded ..." ).removeClass().addClass( "notice success" );
+        },
+        "featureselected": onFeatureSelect,
+        "featureunselected": onFeatureUnselect
     } );
 
     // create selection lists
@@ -752,6 +759,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
 
     map.addLayer( vector_layer );
     vector_layer.setVisibility( true );
+
     /* Enable highlighting  */
     map.addControl( highlightvector );
     highlightvector.activate();

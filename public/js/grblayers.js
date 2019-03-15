@@ -1496,7 +1496,7 @@ $( document ).ready( function() {
         $( '#msg' ).removeClass().addClass( "notice info" );
         $( "#msg" ).html( "Action: Init buttons" );
 
-        $( "#opass" ).button().click( function( event ) {
+        $( "#opass" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading overpass data" );
             $( 'body' ).css( 'cursor', 'wait' );
             getOsmInfo();
@@ -1505,7 +1505,7 @@ $( document ).ready( function() {
             //return false;
         } );
 
-        $( "#diffwr" ).button().click( function( event ) {
+        $( "#diffwr" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading overpass data" );
             $( 'body' ).css( 'cursor', 'wait' );
             addDiffLayer();
@@ -1515,7 +1515,7 @@ $( document ).ready( function() {
         } );
 
 
-        $( "#wropass" ).button().click( function( event ) {
+        $( "#wropass" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading WR overpass highway data" );
             $( 'body' ).css( 'cursor', 'wait' );
             getRoadInfo();
@@ -1533,7 +1533,7 @@ $( document ).ready( function() {
             //return false;
         } );
 
-        $( "#loadgrb" ).button().click( function( event ) {
+        $( "#loadgrb" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading vector GRB data in a new JOSM layer" );
             $( 'body' ).css( 'cursor', 'wait' );
             openInJosm();
@@ -1542,7 +1542,7 @@ $( document ).ready( function() {
             return false;
         } );
 
-        $( "#loadnwr" ).button().click( function( event ) {
+        $( "#loadnwr" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading vector NWR data in a new JOSM layer" );
             $( 'body' ).css( 'cursor', 'wait' );
             openInJosm( 'WR OSM - Differences' );
@@ -1551,7 +1551,7 @@ $( document ).ready( function() {
             return false;
         } );
 
-        $( "#fpass" ).button().click( function( event ) {
+        $( "#fpass" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Filtering GRB vector layer (overpass data / BBOX)" );
             $( 'body' ).css( 'cursor', 'wait' );
             filterForJosm();

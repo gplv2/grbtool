@@ -230,8 +230,10 @@ fieldset {
                <div id="obj_info" class="panel-body collapse in">
                 <form id="reqform1" class="form-horizontal ng-pristine ng-valid" role="form">
                   <div class="col-md-offset-0 col-md-8">
-                    <div id="obj_info_ex" class="panel-body collapse in"></div>
                   </div>
+                </form>
+                <div id="obj_info_ex" class="panel-body collapse in"></div>
+               </div>
             </div>
       <!-- Toolbox -->
             <div class="panel panel-default">

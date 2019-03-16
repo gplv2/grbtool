@@ -279,7 +279,7 @@ function initmap() {
     map.setLayerIndex( grb_wms, 2 );
 
     var grb_wbn = new OpenLayers.Layer.WMS(
-        "GRB - WBN+ Weg/water/..",
+        "GRB - WBN+ Weg/water",
         "http://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB/wms?", {
             LAYERS: 'GRB_WBN,GRB_WVB,GRB_SBN,GRB_WTZ,GRB_WLAS,GRB_WGR,GRB_WGO,GRB_WRL,GRB_WKN,GRB_SNM,GRB_SNM_LINKS,GRB_SNM_RECHTS',
             transparent: "true",
@@ -341,7 +341,7 @@ function initmap() {
     map.addLayer( grb_knw );
 
     var grb_gbg = new OpenLayers.Layer.WMS(
-        "GRB - GBG Gebouw a/d grond",
+        "GRB - GBG",
         //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB/wms?",
         "http://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms?", {
             LAYERS: 'GRB_GBG',
@@ -361,7 +361,7 @@ function initmap() {
     map.addLayer( grb_gbg );
 
     var grb_gba = new OpenLayers.Layer.WMS(
-        "GRB - GBA Gebouwaanhorigheid",
+        "GRB - Gebouwaanhorigheid",
         //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB/wms?",
         "http://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms?", {
             LAYERS: 'GRB_GBA',
@@ -411,7 +411,7 @@ function initmap() {
     map.setLayerIndex( grb_ortho, 3 );
 
     var wr_combo = new OpenLayers.Layer.WMS(
-        "Nat. WegenRegister Base",
+        "Nat. Wegenregister",
         //"http://geo.agiv.be/ogc/wms/omkl?VERSION=1.1.1&",
         "http://geoservices.informatievlaanderen.be/raadpleegdiensten/Wegenregister/wms?", {
             WIDTH: 512,
@@ -461,7 +461,7 @@ function initmap() {
 
 
     var wr_combo_trans = new OpenLayers.Layer.WMS(
-        "Nat. WegenRegister Overlay",
+        "Nat. Wegenregister",
         //"http://geo.agiv.be/ogc/wms/omkl?VERSION=1.1.1&",
         "http://geoservices.informatievlaanderen.be/raadpleegdiensten/Wegenregister/wms?", {
             WIDTH: 512,

@@ -126,15 +126,6 @@ display: inline-block;
     cursor: not-allowed;
 }
 
-#cblist > input {
-    margin:3px;
-    clear:left;
-}
-
-#cblist > label,input {
-    float:left;
-}
-
 .boxsizingBorder {
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;

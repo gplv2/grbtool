@@ -371,10 +371,10 @@ fieldset {
                     <div class="form-group">
                        <label for="jmethod" class="col-md-6 col-sm-6 col-xs-6 control-label">JOSM loading method</label>
                        <div id="jmethod" class="ui-buttonset col-md-3 col-sm-3 col-xs-3">
-                           <input type="radio" name="optionsRadios" id="jinsecure" checked="" class="ui-helper-hidden-accessible">
-                           <label for="jinsecure" class="form-control-label ui-state-active ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left" role="button"><span class="ui-button-text">Non-SSL</span></label>
-                           <input type="radio" name="optionsRadios" id="jsecure" class="ui-helper-hidden-accessible">
-                           <label for="jsecure" class="form-control-label ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" role="button"><span class="ui-button-text">SSL</span></label>
+                           <input type="radio" name="optionsRadios" id="jinsecure" class="ui-helper-hidden-accessible">
+                           <label for="jinsecure" class="form-control-label ui-state-active ui-button ui-widget ui-button-text-only" role="button"><span class="ui-button-text">Non-SSL</span></label>
+                           <input type="radio" name="optionsRadios" id="jsecure" checked="" class="ui-helper-hidden-accessible">
+                           <label for="jsecure"   class="form-control-label ui-state-active ui-button ui-widget ui-state-default ui-button-text-only" role="button"><span class="ui-button-text">SSL</span></label>
                        </div>
                     </div>
 

@@ -189,6 +189,28 @@ fieldset {
 .null { color: magenta; }
 .key { color: red; }
 
+.olControlLayerSwitcher {
+   position: absolute;
+   top: 25px;
+   right: 0;
+   width: 26em !important;
+   font-family: sans-serif;
+   font-weight: bold;
+   margin-top: 3px;
+   margin-left: 3px;
+   margin-bottom: 3px;
+   font-size: smaller;
+   color: white;
+   z-index: 10000;
+}
+.olControlLayerSwitcher .layersDiv
+{
+   padding-top: 5px;
+   padding-left: 10px;
+   padding-bottom: 5px;
+   padding-right: 10px;
+}
+
 </style>
 @stop
 

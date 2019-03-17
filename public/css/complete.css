@@ -94,6 +94,7 @@
 }
 
 #layerswitcher.olControlLayerSwitcher {
+    width: 26em !important;
 /*font-size:14px !important;*/
 }
 

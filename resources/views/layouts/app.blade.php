@@ -346,7 +346,7 @@
                 </div>
             </div>
             <p class="text-muted credit">
-            <span style="text-align: left; float: left">&copy; 2016 - Made with {!! Html::image('img/vim-icon.png', 'VIM powerd logo',  array('class' => 'vim')) !!} VI</span> <span style="text-align: right; float: right">Powered by: <a href="http://laravel.com/" alt="Laravel 5.2">Laravel 5.2</a></span>
+            <span style="text-align: left; float: left">&copy; 2016 - Made with NeoVIM</span> <span style="text-align: right; float: right">Powered by: <a href="http://laravel.com/" alt="Laravel 5.2">Laravel 5.2</a></span>
             </p>
         </footer>
     <!-- JavaScripts -->

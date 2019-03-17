@@ -274,7 +274,7 @@ legend {
    height:35px;
 }
 
-.olControlLayerSwitcher {
+#OpenLayers.Control.LayerSwitcher_20 .olControlLayerSwitcher {
     width: 25em !important;
 }
 

@@ -1,5 +1,8 @@
 /*jslint node: true, maxerr: 50, indent: 4 */
 "use strict";
+
+// vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
 var lon = 4.46795;
 var lat = 50.97485;
 var zoom = 9;

@@ -1,7 +1,7 @@
 /*jslint node: true, maxerr: 50, indent: 4 */
 "use strict";
 
-// vim: tabstop=3;softtabstop=3;shiftwidth=3;expandtab
+// vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 var streets = []; // list of streets with the addresses divided in several categories + extra info
 

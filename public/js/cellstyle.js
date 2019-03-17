@@ -1,6 +1,8 @@
 /*jslint node: true, maxerr: 50, indent: 4 */
 "use strict";
 
+// vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
 /*
  var colors = ["red", "green", "blue"];
             var context = {
@@ -24,8 +26,8 @@
 */
 var context = {
     getColor: function( feature ) {
-        // console.log(feature); 
-        //$.each(vector_layer.features, function(i, item) 
+        // console.log(feature);
+        //$.each(vector_layer.features, function(i, item)
         if ( feature.attributes[ "gsm:radio" ] == 'UMTS' ) {
             return "red";
         } else if ( feature.attributes[ "gsm:radio" ] == 'GSM' ) {

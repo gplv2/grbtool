@@ -70,8 +70,8 @@ OpenLayers.Strategy.RuleCluster = OpenLayers.Class( OpenLayers.Strategy.Cluster,
 
 // wrap the instantiation code in an anonymous function that gets executed
 ( function() {
-        // The function that gets called on feature selection: shows information 
-        // about the feature/cluser in a div on the page 
+        // The function that gets called on feature selection: shows information
+        // about the feature/cluser in a div on the page
         var showInformation = function( evt ) {
             var feature = evt.feature;
             var info = 'Last hovered feature:<br>';
@@ -97,7 +97,7 @@ OpenLayers.Strategy.RuleCluster = OpenLayers.Class( OpenLayers.Strategy.Cluster,
             document.getElementById( 'info' ).innerHTML = info;
         };
 
-        // The function that gets called on feature selection. Shows information 
+        // The function that gets called on feature selection. Shows information
         // about the number of "points" on the map.
         var updateGeneralInformation = function() {
             var info = 'Currently ' + address_layer.features.length + ' points are shown on the map.';

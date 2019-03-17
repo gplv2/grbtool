@@ -1,5 +1,8 @@
 /*jslint node: true, maxerr: 50, indent: 4 */
 "use strict";
+
+// vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
 var agiv_layer;
 var isagivup = null;
 var stylemap = null;
@@ -75,7 +78,7 @@ OpenLayers.Strategy.RuleCluster = OpenLayers.Class( OpenLayers.Strategy.Cluster,
     CLASS_NAME: "OpenLayers.Strategy.RuleCluster"
 } );
 
-// The function that gets called on feature selection. Shows information 
+// The function that gets called on feature selection. Shows information
 // about the number of "points" on the map.
 var updateGeneralInformation = function() {
     var info = 'Currently ' + agiv_layer.features.length + ' points are shown on the map.';
@@ -333,7 +336,7 @@ function loadstreets() {
             // isvecup = null; Always do this now
             isagivup = null;
             if ( isagivup == null || isagivup == undefined ) {
-                // if(stuff !== null && stuff !== undefined) 
+                // if(stuff !== null && stuff !== undefined)
                 // console.log(poilayer);
                 $( '#cntain' ).css( "width", 'auto' );
                 $( '#contentfilters' ).empty();
@@ -474,8 +477,8 @@ function loadstreets() {
     // wrap the instantiation code in an anonymous function that gets executed
     /*
     (function(){
-        // The function that gets called on feature selection: shows information 
-        // about the feature/cluser in a div on the page 
+        // The function that gets called on feature selection: shows information
+        // about the feature/cluser in a div on the page
         var showInformation = function(evt){
             var feature = evt.feature;
             var info = 'Last hovered feature:<br>';
@@ -521,7 +524,7 @@ function loadstreets() {
                 return color;
             }
         };
-        
+
         // style the agiv_layer
         stylemap = new OpenLayers.StyleMap({
             'default': new OpenLayers.Style({
@@ -545,7 +548,7 @@ function loadstreets() {
                 graphicZIndex: 2
             })
         });
-        
+
         agiv_layer.events.on({"featureselected": showInformation});
 
         updateGeneralInformation();

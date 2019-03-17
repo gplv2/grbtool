@@ -1,6 +1,8 @@
 /*jslint node: true, maxerr: 50, indent: 4 */
 "use strict";
 
+// vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
 var flatten = require( 'geojson-flatten' ),
     normalize = require( '@mapbox/geojson-normalize' ),
     tilebelt = require( '@mapbox/tilebelt' );
@@ -60,7 +62,7 @@ module.exports = function( source, dest ) {
     for ( i; i >= 0; i-- ) {
         osmData.features.splice( deleteIndexes[ i ], 1 );
     }
-    // done 
+    // done
 
 
     /*
@@ -88,7 +90,7 @@ module.exports = function( source, dest ) {
 
     OsmBuffers.features = osmData.features.map( function( f ) {
         //console.log(f);return true;
-        //if ( f.properties.tags.highway ) 
+        //if ( f.properties.tags.highway )
         if ( f.hasOwnProperty( 'properties' ) ) {
             return turf.buffer( f.geometry, buffer_meters, 'meters' );
             //if (f.properties.hasOwnProperty('name:left') || f.properties.hasOwnProperty('name:right')) {

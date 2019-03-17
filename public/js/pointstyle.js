@@ -1,10 +1,13 @@
 /*jslint node: true, maxerr: 50, indent: 4 */
 "use strict";
+
+// vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
 var tcontext = {
     getColor: function( feature ) {
         if ( feature.layer[ 'name' ] == "Wegenregister data" || feature.layer[ 'name' ] == 'WR OSM - Differences' ) {
-            //console.log(feature); 
-            //$.each(vector_layer.features, function(i, item) 
+            //console.log(feature);
+            //$.each(vector_layer.features, function(i, item)
             if ( feature.attributes[ '_meta' ] ) {
                 var cat = feature.attributes[ '_meta' ][ 'WEGCAT' ];
                 //console.log(cat);
@@ -51,7 +54,7 @@ var tcontext = {
                 return '';
             }
             //console.log( feature );
-            //$.each(feature , function(i, item) 
+            //$.each(feature , function(i, item)
             var label = '';
             if ( feature.attributes[ 'sname' ] ) {
                 label += feature.attributes[ 'sname' ];
@@ -81,7 +84,7 @@ var tcontext = {
                 return '';
             }
             //console.log( feature );
-            //$.each(feature , function(i, item) 
+            //$.each(feature , function(i, item)
             var label = '';
             if ( feature.attributes[ 'name:left' ] == feature.attributes[ 'name:right' ] ) {
                 label = feature.attributes[ 'name:right' ];

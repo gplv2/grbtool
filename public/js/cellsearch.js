@@ -1,6 +1,8 @@
 /*jslint node: true, maxerr: 50, indent: 4 */
 "use strict";
 
+// vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
 var lat = 51.111051691569;
 var lon = 3.907685546875;
 
@@ -59,7 +61,7 @@ function initmap() {
             new OpenLayers.Control.ScaleLine(),
             layerswitcher,
             //new OpenLayers.Control.PanZoomBar({ panIcons: false }),
-            //new OpenLayers.Control.Permalink(),                    
+            //new OpenLayers.Control.Permalink(),
             new OpenLayers.Control.Zoom()
         ],
         units: 'm',
@@ -81,7 +83,7 @@ function initmap() {
         var x = Math.round( ( bounds.left - this.maxExtent.left ) / ( res * this.tileSize.w ) );
         var y = Math.round( ( this.maxExtent.top - bounds.top ) / ( res * this.tileSize.h ) );
         var z = this.map.getZoom();
-        /* 
+        /*
         if(!x || !y || !z) {
            console.log(x + ' / ' + y + ' / ' + z);
         }
@@ -90,7 +92,7 @@ function initmap() {
         // var bounds = map.getExtent();
         // bounds.transform(map.getProjectionObject(), geodetic);
 
-        //var path = 'tile_' + z + "_" + x + "-" + y + "." + this.type; 
+        //var path = 'tile_' + z + "_" + x + "-" + y + "." + this.type;
         var path = z + "/" + x + "/" + y + "." + this.type;
         //console.log(path);
 
@@ -132,7 +134,7 @@ function initmap() {
 
     /*
           var selectCtrl = new OpenLayers.Control.SelectFeature(vector_layer,
-             {  
+             {
                 clickout: true ,
                 toggle: false,
                 multiple: true, hover: true,
@@ -267,7 +269,7 @@ function initmap() {
     var osmlayer = map.getLayersByName( 'OpenStreetMap' )[ 0 ];
     map.raiseLayer( osmlayer, map.layers.length );
 
-    // default lon + lat + zoom 
+    // default lon + lat + zoom
     /*
           var retrievedObject = JSON.parse(localStorage.getItem('defaultlocation'));
           if ( retrievedObject ) {
@@ -377,7 +379,7 @@ $( document ).ready( function() {
                     via_layer.setVisibility(true);
                     via_layer.refresh();
                     event.preventDefault();
-                    return false; 
+                    return false;
                 });
         */
     } );
@@ -492,7 +494,7 @@ function onFeatureSelect( event ) {
     }
 
     var content = '<div id="plopper"><fieldset>' + "<legend>" + encHTML( featid ) + '</legend>' +
-        // '<li>' + encHTML(feature.attributes.description) 
+        // '<li>' + encHTML(feature.attributes.description)
         //+ "<li>Building : "+ feature.attributes.building +"</li>"
         //+ "<li>Source    : "+ feature.attributes.source +"</li>"
         getdetails( feature.attributes ) +

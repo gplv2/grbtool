@@ -1,5 +1,7 @@
 /*jslint node: true, maxerr: 50, indent: 4 */
 
+// vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
 ( function() {
     'use strict';
     // Auth service

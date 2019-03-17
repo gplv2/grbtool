@@ -1,6 +1,8 @@
 /*jslint node: true, maxerr: 50, indent: 4 */
 "use strict";
 
+// vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
 var lat = 51.111051691569;
 var lon = 3.907685546875;
 var zoomlevel = 12;
@@ -103,7 +105,7 @@ function initmap() {
         // bounds.transform(map.getProjectionObject(), geodetic);
 
 
-        //var path = 'tile_' + z + "_" + x + "-" + y + "." + this.type; 
+        //var path = 'tile_' + z + "_" + x + "-" + y + "." + this.type;
         var path = z + "/" + x + "/" + y + "." + this.type;
         //console.log(path);
         var url = this.url;
@@ -358,7 +360,7 @@ function initmap() {
     var osmlayer = map.getLayersByName( 'OpenStreetMap' )[ 0 ];
     map.raiseLayer( osmlayer, map.layers.length );
 
-    // default lon + lat + zoom 
+    // default lon + lat + zoom
     /*
           var retrievedObject = JSON.parse(localStorage.getItem('defaultlocation'));
           if ( retrievedObject ) {
@@ -448,7 +450,7 @@ $( document ).ready( function() {
                     via_layer.setVisibility(true);
                     via_layer.refresh();
                     event.preventDefault();
-                    return false; 
+                    return false;
                 });
         */
     } );

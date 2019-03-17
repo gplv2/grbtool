@@ -69,11 +69,11 @@ function openInJosm( layername ) {
     }
 
 
-    var josmUrl: "https//localhost:8112/version",
+    var josmUrl= "https//localhost:8112/version",
     var insecure = $( '#jinsecure' ).attr( 'checked' );
     if ( insecure !== null && insecure !== undefined ) {
         josmUrl= 'http//localhost:8111/version';
-    }    
+    }
 
     $.ajax( {
         url: josmUrl,
@@ -168,11 +168,11 @@ function openInJosm( layername ) {
 }
 
 function openAreaInJosm() {
-    var josmUrl: "https//localhost:8112/version",
+    var josmUrl= "https//localhost:8112/version",
     var insecure = $( '#jinsecure' ).attr( 'checked' );
     if ( insecure !== null && insecure !== undefined ) {
         josmUrl= 'http//localhost:8111/version';
-    }    
+    }
 
     $.ajax( {
         url: josmUrl,
@@ -216,11 +216,11 @@ function openAreaInJosm() {
 }
 
 function testJosmVersion() {
-    var josmUrl: "https//localhost:8112/version",
+    var josmUrl= "https//localhost:8112/version",
     var insecure = $( '#jinsecure' ).attr( 'checked' );
     if ( insecure !== null && insecure !== undefined ) {
         josmUrl= 'http//localhost:8111/version';
-    }    
+    }
 
     $.ajax( {
         url: josmUrl,

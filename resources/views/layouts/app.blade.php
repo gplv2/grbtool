@@ -22,7 +22,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="fonts/awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap-social-gh-pages/bootstrap-social.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-3.3.6-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap.slate.min.css">
     <link rel="stylesheet" href="/css/loading-bar.css">
 
@@ -346,12 +346,13 @@
                 </div>
             </div>
             <p class="text-muted credit">
-            <span style="text-align: left; float: left">&copy; 2016 - Made with <!-- {!! Html::image('img/vim-icon.png', 'VIM powerd logo',  array('class' => 'vim')) !!} --!!>VI</span> <span style="text-align: right; float: right">Powered by: <a href="http://laravel.com/" alt="Laravel 5.2">Laravel 5.2</a></span>
+            <span style="text-align: left; float: left">&copy; 2016 - Made with {!! Html::image('img/vim-icon.png', 'VIM powerd logo',  array('class' => 'vim')) !!} VI</span> <span style="text-align: right; float: right">Powered by: <a href="http://laravel.com/" alt="Laravel 5.2">Laravel 5.2</a></span>
             </p>
         </footer>
     <!-- JavaScripts -->
     <script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->
+    <script src="css/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
     <!--<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>

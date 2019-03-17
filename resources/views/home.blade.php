@@ -248,6 +248,8 @@ fieldset {
                     <div class="form-group">
                         <div class="col-md-offset-1 col-lg-2 col-md-2 col-sm-2 col-xs-2">
                              <button id="ostreetview" type="button" class="btn btn-default" tabindex="1">Open in streetview</button>
+                             <button id="vrfyjosm" type="button" class="btn btn-default" tabindex="1">Check JOSM</button>
+                             <button id="rstfilter" type="button" class="btn btn-default" tabindex="1">Reset filters</button>
                         </div>
                     </div>
 		            <div class="help-block">Take GRB actions</div>

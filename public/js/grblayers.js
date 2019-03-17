@@ -1566,6 +1566,24 @@ $( document ).ready( function() {
             //return false;
         } );
 
+        $( "#vrfyjosm" ).click( function( event ) {
+            $('#msg').removeClass().addClass("notice info").html("Action: Checking JOSM link");
+            testJosmVersion();
+            event.preventDefault();
+            return false;
+        });
+
+        $( "#rstfilter" ).click( function( event ) {
+            $('#msg').removeClass().addClass("notice success").html("Action: Reset all filters");
+            filterStrategy.setFilter(null);
+            mergeStrategy.setFilter(null);
+            streetStrategy.setFilter(null);
+            buildingStrategy.setFilter(null);
+            event.preventDefault();
+            return false;
+        });
+
+
         $( "#popupswitch" ).button().click( function( event ) {
             if ( $( this ).prop( "checked" ) ) {
                 $( '#msg' ).removeClass().addClass( "notice info" ).html( "Config: Popup autoloading enabled." );

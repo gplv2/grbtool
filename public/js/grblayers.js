@@ -1649,7 +1649,7 @@ $( document ).ready( function() {
         } ).done( function( data ) {
             if ( data && data.Location && data.Location.panoId ) {
                 var url = '//maps.google.com/maps?layer=c&cbp=0,,,,30&panoid=' + data.Location.panoId;
-                window.open( url, '_blank' );
+                openInNewTab(url);
             } else {
                 $( "#msg" ).html( "Warning : " + "Street View could not allocate position." ).removeClass().addClass( "notice warning" );
             }

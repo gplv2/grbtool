@@ -15,7 +15,7 @@ $(window).resize(function () {
 /* Here the map size is getting set? not sure now */
 var canvaswidth = $( '#map' ).parent().css( 'width' );
 var w = $( "#map" ).width();
-$( '#map' ).css( "height", w * 4 / 7 );
+$( '#map' ).css( "height", w * 4 / 8 );
 
 initmap();
 

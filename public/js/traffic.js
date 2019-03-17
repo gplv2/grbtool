@@ -1,3 +1,6 @@
+/*jslint node: true, maxerr: 50, indent: 4 */
+"use strict";
+
 $( document ).ready( function() {
     /*
     var vectorLayer = new ol.source.Vector({
@@ -10,7 +13,7 @@ $( document ).ready( function() {
        title: 'Traffic layer',
        source: new ol.source.GeoJSON ({
                 url: 'http://traffic.byteless.net/trafficgeo.json',
-                //defaultProjection: 'EPSG:4326', 
+                //defaultProjection: 'EPSG:4326',
                 projection: 'EPSG:3857'
        })
     });

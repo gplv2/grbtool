@@ -274,10 +274,15 @@ legend {
    height:35px;
 }
 
-#layerswitcher.olControlLayerSwitcher {
-    /*font-size:14px !important;*/
-    width: 25em;
+.olControlLayerSwitcher {
+    width: 25em !important;
 }
+
+/*
+#layerswitcher.olControlLayerSwitcher {
+    font-size:14px !important;
+}
+*/
 
 .olControlLayerSwitcher .layersDiv {
     /*background-color:red !important;*/

@@ -113,7 +113,11 @@ function initmap() {
         */
         layers: [
 
-            new OpenLayers.Layer.OSM( "OSM-BE", [ "https://tile.openstreetmap.be/osmbe/${z}/${x}/${y}.png" ], { attribution: "Tiles courtesy of <a href=\"https://geo6.be/\">GEO-6</a>", transitionEffect: "resize" , numZoomLevels: 19 }),
+            new OpenLayers.Layer.OSM( "OSM-BE", [ "https://tile.openstreetmap.be/osmbe/${z}/${x}/${y}.png" ], {
+                attribution: "Tiles courtesy of <a href=\"https://geo6.be/\">GEO-6</a>",
+                transitionEffect: "resize",
+                numZoomLevels: 19
+            } ),
 
             new OpenLayers.Layer.OSM( "OpenStreetMap", null, {
                 numZoomLevels: 20
@@ -1354,9 +1358,9 @@ function getRoadInfo() {
 /**
  * open a link in a new tab trick
  */
-function openInNewTab(url) {
-      var win = window.open(url, '_blank');
-      win.focus();
+function openInNewTab( url ) {
+    var win = window.open( url, '_blank' );
+    win.focus();
 }
 
 /**
@@ -1367,8 +1371,8 @@ function openInCrabtool() {
 
     var postalcode = $( "#postcode" ).val();
     // http://crab-import.osm.be/?pcode=1982&filterStreets=*&collapsedSections=
-    var crab_url= "http://crab-import.osm.be/?pcode="+ postalcode + "&filterStreets=*&collapsedSections=";
-    openInNewTab(crab_url);
+    var crab_url = "http://crab-import.osm.be/?pcode=" + postalcode + "&filterStreets=*&collapsedSections=";
+    openInNewTab( crab_url );
 }
 
 
@@ -1570,21 +1574,21 @@ $( document ).ready( function() {
         } );
 
         $( "#vrfyjosm" ).click( function( event ) {
-            $('#msg').removeClass().addClass("notice info").html("Action: Checking JOSM link");
+            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Checking JOSM link" );
             testJosmVersion();
             event.preventDefault();
             return false;
-        });
+        } );
 
         $( "#rstfilter" ).click( function( event ) {
-            $('#msg').removeClass().addClass("notice success").html("Action: Reset all filters");
-            filterStrategy.setFilter(null);
-            mergeStrategy.setFilter(null);
-            streetStrategy.setFilter(null);
-            buildingStrategy.setFilter(null);
+            $( '#msg' ).removeClass().addClass( "notice success" ).html( "Action: Reset all filters" );
+            filterStrategy.setFilter( null );
+            mergeStrategy.setFilter( null );
+            streetStrategy.setFilter( null );
+            buildingStrategy.setFilter( null );
             event.preventDefault();
             return false;
-        });
+        } );
 
 
         $( "#popupswitch" ).button().click( function( event ) {
@@ -1621,7 +1625,6 @@ $( document ).ready( function() {
         } );
 
 
-
         /*
                 $( "#refreshgrb" ).button().click(function( event ) {
                     $('#msg').removeClass().addClass("notice info");
@@ -1652,7 +1655,7 @@ $( document ).ready( function() {
         } ).done( function( data ) {
             if ( data && data.Location && data.Location.panoId ) {
                 var url = '//maps.google.com/maps?layer=c&cbp=0,,,,30&panoid=' + data.Location.panoId;
-                openInNewTab(url);
+                openInNewTab( url );
             } else {
                 $( "#msg" ).html( "Warning : " + "Street View could not allocate position." ).removeClass().addClass( "notice warning" );
             }

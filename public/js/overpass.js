@@ -56,9 +56,9 @@ function filterForJosm() {
 function returnJosmUrl() {
     var josmUrl = '';
     if ( $( 'input[id="jinsecure"]' ).is( ':checked' ) ) {
-        josmUrl = '//127.0.0.1:8111/';
+        josmUrl = '//127.0.0.1:8111';
     } else if ( $( 'input[id="jsecure"]' ).is( ':checked' ) ) {
-        josmUrl = "//127.0.0.1:8112/";
+        josmUrl = "//127.0.0.1:8112";
     }
     return josmUrl;
 }
@@ -79,7 +79,7 @@ function openInJosm( layername ) {
     }
 
     $.ajax( {
-        url: returnJosmUrl(true),
+        url: returnJosmUrl(),
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {
@@ -89,7 +89,7 @@ function openInJosm( layername ) {
         } else {
             $( '#msg' ).removeClass().addClass( "notice success" ).html( "JOSM is ready" );
 
-            var myurl = returnJosmUrl(true) + "/load_data?new_layer=true&layer_name=" + newlayername + "&data=";
+            var myurl = returnJosmUrl() + "/load_data?new_layer=true&layer_name=" + newlayername + "&data=";
 
             var geoJSON = new OpenLayers.Format.GeoJSON( {
                 internalProjection: map.getProjectionObject(),
@@ -173,7 +173,7 @@ function openInJosm( layername ) {
 function openAreaInJosm() {
 
     $.ajax( {
-        url: returnJosmUrl(true),
+        url: returnJosmUrl(),
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {
@@ -193,7 +193,7 @@ function openAreaInJosm() {
 
             var bounds = map.getExtent();
             bounds.transform( map.getProjectionObject(), geodetic );
-            var myurl = returnJosmUrl(true) + "/load_and_zoom?new_layer=true&layer_name=" + generateId( 10 ) + "&" + "left=" + bounds.left + "&right=" + bounds.right + "&top=" + bounds.top + "&bottom=" + bounds.bottom;
+            var myurl = returnJosmUrl() + "/load_and_zoom?new_layer=true&layer_name=" + generateId( 10 ) + "&" + "left=" + bounds.left + "&right=" + bounds.right + "&top=" + bounds.top + "&bottom=" + bounds.bottom;
             console.log( myurl );
 
             var req = new XMLHttpRequest();
@@ -215,7 +215,7 @@ function openAreaInJosm() {
 
 function testJosmVersion() {
     $.ajax( {
-        url: returnJosmUrl() + 'version',
+        url: returnJosmUrl() + '/version',
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {

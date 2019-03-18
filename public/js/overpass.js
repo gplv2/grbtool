@@ -53,19 +53,14 @@ function filterForJosm() {
     //return true;
 }
 
-function returnJosmUrl(returnbase) {
+function returnJosmUrl() {
     var josmUrl = '';
     if ( $( 'input[id="jinsecure"]' ).is( ':checked' ) ) {
-        josmUrl = '//localhost:8111/version';
+        josmUrl = '//127.0.0.1:8111/';
     } else if ( $( 'input[id="jsecure"]' ).is( ':checked' ) ) {
-        josmUrl = "//localhost:8112/version";
+        josmUrl = "//127.0.0.1:8112/";
     }
-
-    if ( returnbase === null || returnbase === undefined ) {
-        return josmUrl;
-    } else {
-       return josmUrl.split("/")[2];
-    }
+    return josmUrl;
 }
 
 function openInJosm( layername ) {
@@ -220,7 +215,7 @@ function openAreaInJosm() {
 
 function testJosmVersion() {
     $.ajax( {
-        url: returnJosmUrl(),
+        url: returnJosmUrl() + '/version',
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {

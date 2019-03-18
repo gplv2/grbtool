@@ -368,14 +368,12 @@ fieldset {
                          <div id="contentfilters" class="col-md-12" style="clear:both;"> </div>
                     </div>
 
-                    <div class="form-group">
-                       <label for="jmethod" class="col-md-6 col-sm-6 col-xs-6 control-label">JOSM loading method</label>
-                       <div id="jmethod" class="ui-buttonset col-md-3 col-sm-3 col-xs-3">
-                           <input type="radio" name="optionsRadios" id="jinsecure" class="ui-helper-hidden-accessible">
-                           <label for="jinsecure" class="form-control-label ui-state-active ui-button ui-widget ui-button-text-only" role="button"><span class="ui-button-text">Non-SSL</span></label>
-                           <input type="radio" name="optionsRadios" id="jsecure" checked="" class="ui-helper-hidden-accessible">
-                           <label for="jsecure"   class="form-control-label ui-state-active ui-button ui-widget ui-state-default ui-button-text-only" role="button"><span class="ui-button-text">SSL</span></label>
-                       </div>
+                    <div class="help-block">JOSM settings</div>
+                    <div class="radio">
+                        <label class="ui-button-text"><input type="radio" name="optradio" id="jinsecure" class="form-control-label">NON-SSL</label>
+                    </div>
+                    <div class="radio">
+                        <label class="ui-button-text"><input type="radio" name="optradio" id="jsecure" class="form-control-label" checked>SSL</label>
                     </div>
 
                     <div class="checkbox">

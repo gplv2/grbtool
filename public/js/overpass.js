@@ -53,6 +53,16 @@ function filterForJosm() {
     //return true;
 }
 
+function returnJosmUrl() {
+    var josmUrl = '';
+    if ($('input[id="jinsecure"]').is(':checked')) {
+        josmUrl = '//localhost:8111/version';
+    } else if ($('input[id="jsecure"]').is(':checked')) {
+        josmUrl = "//localhost:8112/version";
+    }
+    return josmUrl;
+}
+
 function openInJosm( layername ) {
     /* Default is GRB */
     if ( layername == null || layername === undefined ) {
@@ -68,15 +78,8 @@ function openInJosm( layername ) {
         }
     }
 
-
-    var josmUrl = "//localhost:8112/version";
-    var insecure = $( '#jinsecure' ).attr( 'checked' );
-    if ( insecure !== null && insecure === undefined ) {
-        josmUrl = '//localhost:8111/version';
-    }
-
     $.ajax( {
-        url: josmUrl,
+        url: returnJosmUrl(),
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {
@@ -86,7 +89,7 @@ function openInJosm( layername ) {
         } else {
             $( '#msg' ).removeClass().addClass( "notice success" ).html( "JOSM is ready" );
 
-            var myurl = josmUrl + "/load_data?new_layer=true&layer_name=" + newlayername + "&data=";
+            var myurl = returnJosmUrl() + "/load_data?new_layer=true&layer_name=" + newlayername + "&data=";
 
             var geoJSON = new OpenLayers.Format.GeoJSON( {
                 internalProjection: map.getProjectionObject(),
@@ -168,14 +171,9 @@ function openInJosm( layername ) {
 }
 
 function openAreaInJosm() {
-    var josmUrl = "//localhost:8112/version";
-    var insecure = $( '#jinsecure' ).attr( 'checked' );
-    if ( insecure !== null && insecure === undefined ) {
-        josmUrl = '//localhost:8111/version';
-    }
 
     $.ajax( {
-        url: josmUrl,
+        url: returnJosmUrl(),
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {
@@ -195,7 +193,7 @@ function openAreaInJosm() {
 
             var bounds = map.getExtent();
             bounds.transform( map.getProjectionObject(), geodetic );
-            var myurl = josmUrl + "/load_and_zoom?new_layer=true&layer_name=" + generateId( 10 ) + "&" + "left=" + bounds.left + "&right=" + bounds.right + "&top=" + bounds.top + "&bottom=" + bounds.bottom;
+            var myurl = returnJosmUrl() + "/load_and_zoom?new_layer=true&layer_name=" + generateId( 10 ) + "&" + "left=" + bounds.left + "&right=" + bounds.right + "&top=" + bounds.top + "&bottom=" + bounds.bottom;
             console.log( myurl );
 
             var req = new XMLHttpRequest();
@@ -216,14 +214,8 @@ function openAreaInJosm() {
 }
 
 function testJosmVersion() {
-    var josmUrl = "//localhost:8112/version";
-    var insecure = $( '#jinsecure' ).attr( 'checked' );
-    if ( insecure !== null && insecure === undefined ) {
-        josmUrl = '//localhost:8111/version';
-    }
-
     $.ajax( {
-        url: josmUrl,
+        url: returnJosmUrl(),
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {

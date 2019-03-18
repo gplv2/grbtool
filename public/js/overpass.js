@@ -79,7 +79,7 @@ function openInJosm( layername ) {
     }
 
     $.ajax( {
-        url: returnJosmUrl(),
+        url: returnJosmUrl() + '/version',
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {
@@ -173,7 +173,7 @@ function openInJosm( layername ) {
 function openAreaInJosm() {
 
     $.ajax( {
-        url: returnJosmUrl(),
+        url: returnJosmUrl() + '/version',
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {

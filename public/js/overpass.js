@@ -55,15 +55,15 @@ function filterForJosm() {
 
 function openInJosm( layername ) {
     /* Default is GRB */
-    if ( layername == null || layername == undefined ) {
+    if ( layername == null || layername === undefined ) {
         /* default to GRB */
         layername = 'GRB - Vector Source';
-        if ( newlayername == null && newlayername == undefined ) {
+        if ( newlayername == null && newlayername === undefined ) {
             newlayername = 'grb-diff';
         }
     } else {
         layername = 'WR OSM - Differences';
-        if ( newlayername == null && newlayername == undefined ) {
+        if ( newlayername == null && newlayername === undefined ) {
             newlayername = 'nwr-diff';
         }
     }
@@ -71,7 +71,7 @@ function openInJosm( layername ) {
 
     var josmUrl = "//localhost:8112/version";
     var insecure = $( '#jinsecure' ).attr( 'checked' );
-    if ( insecure !== null && insecure == undefined ) {
+    if ( insecure !== null && insecure === undefined ) {
         josmUrl = '//localhost:8111/version';
     }
 
@@ -170,7 +170,7 @@ function openInJosm( layername ) {
 function openAreaInJosm() {
     var josmUrl = "//localhost:8112/version";
     var insecure = $( '#jinsecure' ).attr( 'checked' );
-    if ( insecure !== null && insecure == undefined ) {
+    if ( insecure !== null && insecure === undefined ) {
         josmUrl = '//localhost:8111/version';
     }
 
@@ -218,7 +218,7 @@ function openAreaInJosm() {
 function testJosmVersion() {
     var josmUrl = "//localhost:8112/version";
     var insecure = $( '#jinsecure' ).attr( 'checked' );
-    if ( insecure !== null && insecure == undefined ) {
+    if ( insecure !== null && insecure === undefined ) {
         josmUrl = '//localhost:8111/version';
     }
 

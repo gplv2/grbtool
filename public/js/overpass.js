@@ -61,8 +61,6 @@ function returnJosmUrl(returnbase) {
         josmUrl = "//localhost:8112/version";
     }
 
-
-
     if ( returnbase === null || returnbase === undefined ) {
         return josmUrl;
     } else {
@@ -86,7 +84,7 @@ function openInJosm( layername ) {
     }
 
     $.ajax( {
-        url: returnJosmUrl(),
+        url: returnJosmUrl(true),
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {
@@ -96,7 +94,7 @@ function openInJosm( layername ) {
         } else {
             $( '#msg' ).removeClass().addClass( "notice success" ).html( "JOSM is ready" );
 
-            var myurl = returnJosmUrl() + "/load_data?new_layer=true&layer_name=" + newlayername + "&data=";
+            var myurl = returnJosmUrl(true) + "/load_data?new_layer=true&layer_name=" + newlayername + "&data=";
 
             var geoJSON = new OpenLayers.Format.GeoJSON( {
                 internalProjection: map.getProjectionObject(),
@@ -180,7 +178,7 @@ function openInJosm( layername ) {
 function openAreaInJosm() {
 
     $.ajax( {
-        url: returnJosmUrl(),
+        url: returnJosmUrl(true),
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {
@@ -200,7 +198,7 @@ function openAreaInJosm() {
 
             var bounds = map.getExtent();
             bounds.transform( map.getProjectionObject(), geodetic );
-            var myurl = returnJosmUrl() + "/load_and_zoom?new_layer=true&layer_name=" + generateId( 10 ) + "&" + "left=" + bounds.left + "&right=" + bounds.right + "&top=" + bounds.top + "&bottom=" + bounds.bottom;
+            var myurl = returnJosmUrl(true) + "/load_and_zoom?new_layer=true&layer_name=" + generateId( 10 ) + "&" + "left=" + bounds.left + "&right=" + bounds.right + "&top=" + bounds.top + "&bottom=" + bounds.bottom;
             console.log( myurl );
 
             var req = new XMLHttpRequest();

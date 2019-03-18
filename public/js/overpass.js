@@ -215,7 +215,7 @@ function openAreaInJosm() {
 
 function testJosmVersion() {
     $.ajax( {
-        url: returnJosmUrl() + '/version',
+        url: returnJosmUrl() + 'version',
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {

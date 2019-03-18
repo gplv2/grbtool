@@ -55,9 +55,9 @@ function filterForJosm() {
 
 function returnJosmUrl() {
     var josmUrl = '';
-    if ($('input[id="jinsecure"]').is(':checked')) {
+    if ( $( 'input[id="jinsecure"]' ).is( ':checked' ) ) {
         josmUrl = '//localhost:8111/version';
-    } else if ($('input[id="jsecure"]').is(':checked')) {
+    } else if ( $( 'input[id="jsecure"]' ).is( ':checked' ) ) {
         josmUrl = "//localhost:8112/version";
     }
     return josmUrl;

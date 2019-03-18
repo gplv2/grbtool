@@ -42,7 +42,7 @@
                 width: 100%;
                 display: table;
                 /*font-family: 'Lato', "Source Sans Pro", sans-serif; */
-                font-size: 12px; 
+                font-size: 12px;
             }
 
             #map-wrap {
@@ -91,7 +91,7 @@
 */
             .panel-heading {
                font-family: 'Oswald';
-               font-size: 16px; 
+               font-size: 16px;
             }
 
             #footerLogo {margin-bottom: 22px;}
@@ -105,10 +105,10 @@
                border-top: 1px solid transparent;
                border-color: #e7e7e7;
             }
-            
+
             /* footer 1 */
             .worksList li{display:inline-block; margin: 0 10px 10px 0;}
-            
+
             /* footer 4 */
             .footer4 #footerRights {text-align: left; background:#e7e7e7;}
             .bigTitle.bigTitleFooter {font-size: 2em; margin-bottom: 0;}
@@ -159,7 +159,7 @@
             }
             .navbar>.container-fluid .navbar-brand {
                 margin-left: -5px;
-            }   
+            }
 */
 
 .navbar-default {
@@ -242,7 +242,7 @@
                height: 100%;
             }
                /* background-color: transparent; */
-            
+
             @media(min-width:992px){
                /* footer 4 */
                .footer4 #footerRights .quickMenu {float:right;}
@@ -336,7 +336,7 @@
                 <div class="footer-icons2">
                             <a href="https://twitter.com/glenn_plas" class="btn btn-social-icon btn-lg btn-twitter" title="follow me on Twitter"><i class="fa fa-twitter"></i></a>
                             <a href="https://www.linkedin.com/in/glennplas" class="btn btn-social-icon btn-lg btn-linkedin" title="follow me on Linkedin"><i class="fa fa-linkedin"></i></a>
-                            <a href="https://bitbucket.org/gplv2/" class="btn btn-social-icon btn-lg btn-bitbucket" title="follow me on Bitbucket"><i class="fa fa-bitbucket"></i></a>
+                            <a href="https://bitbucket.org/gplv2/grbtool" class="btn btn-social-icon btn-lg btn-bitbucket" title="fork me on Bitbucket"><i class="fa fa-bitbucket"></i></a>
                             <a href="https://github.com/gplv2" class="btn btn-social-icon btn-lg btn-github" title="follow me on Github"><i class="fa fa-github"></i></a>
                             <a href="http://stackoverflow.com/users/1417629/glenn-plas" class="btn btn-social-icon btn-lg btn-linkedin" title="See me in action on StackOverflow"><i class="fa fa-stack-overflow"></i></a>
                             <a href="http://gis.stackexchange.com/users/10746/glenn-plas" class="btn btn-social-icon btn-lg btn-linkedin" title="See me in action on StackExchange"><i class="fa fa-stack-exchange"></i></a>

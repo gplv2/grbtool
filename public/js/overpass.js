@@ -161,9 +161,13 @@ function openInJosm( layername ) {
                     testJosmVersion();
             };
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Exporting XML to JOSM" );
-            req.open( "GET", myurl + encodeURIComponent( xml ), true );
-            console.log(myurl + encodeURIComponent( xml ));
-            req.send( null );
+            try {
+                //console.log(myurl + encodeURIComponent( xml ));
+                req.open( "GET", myurl + encodeURIComponent( xml ), true );
+                req.send( null );
+            } catch(err){
+                $( '#msg' ).removeClass().addClass( "notice error" ).html( "Export of objects failed (too big?): " + err );
+            }
         }
     } ).fail( function( jqXHR, textStatus, errorThrown ) {
         $( '#msg' ).removeClass().addClass( "notice error" ).html( "Fail to get JOSM version using remote control, is it running ?" );

@@ -1580,6 +1580,14 @@ $( document ).ready( function() {
             return false;
         } );
 
+        $( "#loadcert" ).click( function( event ) {
+            var url = '//127.0.0.1:8112/version';
+            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Opening JOSM link in new window to trigger Certificate acceptance popup" );
+            openInNewTab( url );
+            event.preventDefault();
+            return false;
+        } );
+
         $( "#rstfilter" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice success" ).html( "Action: Reset all filters" );
             filterStrategy.setFilter( null );

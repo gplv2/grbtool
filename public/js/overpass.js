@@ -162,6 +162,7 @@ function openInJosm( layername ) {
             };
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Exporting XML to JOSM" );
             req.open( "GET", myurl + encodeURIComponent( xml ), true );
+            console.log(myurl + encodeURIComponent( xml ));
             req.send( null );
         }
     } ).fail( function( jqXHR, textStatus, errorThrown ) {

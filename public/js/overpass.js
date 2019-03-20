@@ -165,7 +165,7 @@ function openInJosm( layername ) {
                 //console.log(myurl + encodeURIComponent( xml ));
                 req.open( "GET", myurl + encodeURIComponent( xml ), true );
                 req.send( null );
-            } catch(err){
+            } catch ( err ) {
                 $( '#msg' ).removeClass().addClass( "notice error" ).html( "Export of objects failed (too big?): " + err );
             }
         }

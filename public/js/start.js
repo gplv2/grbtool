@@ -10,14 +10,13 @@ var start_time = 0;
 $(window).resize(function () {
     var canvaswidth=$('#map').parent().css('width');
     var w = $( "#map" ).width();
-    $( '#map' ).css( "height", w * 4 / 8.5 );
-    //$('#map-wrap').css("width", canvaswidth);
+    $( '#map-wrap' ).css( "height", w * 4 / 8.5 );
 });
 
 /* Here the map size is getting set? not sure now */
 var canvaswidth = $( '#map' ).parent().css( 'width' );
 var w = $( "#map" ).width();
-$( '#map' ).css( "height", w * 4 / 8.5 );
+$( '#map-wrap' ).css( "height", w * 4 / 8.5 );
 
 initmap();
 

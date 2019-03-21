@@ -235,6 +235,9 @@ function openInJosm( layername ) {
                 console.log(errorThrown);
             } );
 
+
+            //  GET /import?url=...
+            //
             //console.log(xml);
             json = null;
 

@@ -1125,7 +1125,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
             if ( $( "#posttrack" ).prop( "checked" ) ) {
                 getpostalcode();
             } else {
-                $( '#postcode' ).empty();
+                $( '#postcode' ).val("");
             }
             // if(stuff !== null && stuff !== undefined)
             // console.log(poilayer);

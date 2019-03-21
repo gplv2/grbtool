@@ -20,6 +20,13 @@ $api->version('v1', function ($api) {
       $api->post('batch', 'App\Api\V1\Controllers\CellController@batch');
    });
 
+   $api->group(['middleware' => 'api.auth'], function ($api) {
+      //$api->post('cell/store', 'App\Api\V1\Controllers\CellController@store');
+      $api->get('cell', 'App\Api\V1\Controllers\ExportController@index');
+      $api->get('batch', 'App\Api\V1\Controllers\ExportController@batch');
+      $api->post('batch', 'App\Api\V1\Controllers\ExportController@batch');
+   });
+
 	// example of free route
 	$api->get('free', function() {
 		return \App\User::all();

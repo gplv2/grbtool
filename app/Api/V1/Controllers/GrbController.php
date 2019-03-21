@@ -40,7 +40,7 @@ class GrbController extends Controller
       $srid = '900913';
       if ($request->has('srid')) {
          $srid = $request->input('srid');
-      } 
+      }
 
       $limit=500;
       $sql_limit = '';
@@ -49,7 +49,7 @@ class GrbController extends Controller
 
       if ($request->has('bbox')) {
          $bbox = pg_escape_string($request->input('bbox'));
-      } 
+      }
 
       $sig = md5($srid . '|'. $bbox . '|' . $fields);
 
@@ -73,7 +73,7 @@ class GrbController extends Controller
 
             //dd ($bbox_size);
 
-            //if($bbox_size >  695923.15) 
+            //if($bbox_size >  695923.15)
          if($bbox_size >  504387832.05) {
                $msg=array('error' => 'bounding box size is too large '. round($bbox_size,2) . ' m2');
                $response = new Response();
@@ -114,7 +114,7 @@ class GrbController extends Controller
          }
 
         $output = '{ "type": "FeatureCollection", "features": [ ' . $output . ' ]}';
-        if (strlen($output)){ 
+        if (strlen($output)){
             Cache::put($sig, $output, 60);
         }
       }

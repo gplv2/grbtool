@@ -224,7 +224,7 @@ function openInJosm( layername ) {
                     xhr.setRequestHeader('Content-Type', 'application/xml');
                     xhr.overrideMimeType( 'application/xml' );
                 },
-                dataType: "xml",
+                dataType: "json",
                 contentType: "application/xml",
                 timeout: 5000 // 5 second wait
             } ).done( function( data ) {

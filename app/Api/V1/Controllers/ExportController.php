@@ -59,8 +59,8 @@ class ExportController extends Controller
                     $token = bin2hex($bytes);
                 }
                 if(strlen($token)) {
-                    Storage::disk('local')->put($token, $postbody);
-                    $msg=array('fname' => $token , status => 'stored');
+                    Storage::disk('local')->put($token.'.osm', $postbody);
+                    $msg=array('fname' => $token , 'status' => 'stored');
                 }
             }
         }

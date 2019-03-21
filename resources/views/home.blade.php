@@ -409,6 +409,9 @@ fieldset {
                     </div>
                </div>
             </div>
+        </div>
+     </div>
+     <div class="col-sm-9 col-md-9 sidebar sidebar-right pull-right">
       <!--Body content-->
             <div class="panel panel-default">
                 <div class="panel-heading">

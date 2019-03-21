@@ -1,0 +1,24 @@
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0"
+        author="Marc Gemis"
+        version="0.1"
+        shortdescription="Cleanup GRB"
+        description="Cleanup GRB tags">
+                 <group name="Cleanup GRB">
+                    <item name="Cleanup GRB Tags">
+                        <key key="HN_MAX" value=""/>
+                        <key key="HN_P99" value=""/>
+                        <key key="H_DSM_MAX" value=""/>
+                        <key key="H_DSM_P99" value=""/>
+                        <key key="H_DTM_GEM" value=""/>
+                        <key key="H_DTM_MIN" value=""/>
+                        <key key="auto_building" value=""/>
+                        <key key="auto_target_landuse" value=""/>
+                        <key key="detection_method" value=""/>
+                        <key key="size_grb_building" value=""/>
+                        <key key="size_shared" value=""/>
+                        <key key="size_source_building" value=""/>
+                        <key key="size_source_landuse" value=""/>
+                        <key key="source" value=""/>
+                    </item>
+                  </group>
+</presets>

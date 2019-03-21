@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use JWTAuth;
 // use App\User;
 // use App\Grb;
+use Storage;
 use DB;
 use Dingo\Api\Routing\Helpers;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -37,7 +38,27 @@ class ExportController extends Controller
     public function store(Request $request)
     {
         $currentUser = JWTAuth::parseToken()->authenticate();
-        //
+
+        $length = 32;
+        $token = '';
+
+        if ($request->isMethod('post')) {
+            $postbody='';
+            // Check for presence of a body in the request
+            if (count($request->json()->all())) {
+                $postbody = $request->json()->all();
+                if (function_exists("random_bytes")) {
+                    $bytes = random_bytes(ceil($lenght / 2));
+                    $token = substr(bin2hex($bytes), 0, $lenght);
+                } else {
+                    $bytes = openssl_random_pseudo_bytes(32);
+                    $token = bin2hex($bytes);
+                }
+                if(strlen($token)) {
+                    Storage::disk('local')->put($token, $postbody);
+                }
+            }
+        }
     }
 
     /**

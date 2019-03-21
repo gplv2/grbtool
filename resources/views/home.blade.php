@@ -472,6 +472,7 @@ fieldset {
 {!! Html::script('js/md5.min.js') !!}
 {!! Html::script('js/pointstyle.js') !!}
 {!! Html::script('js/vectorstyle.js') !!}
+{!! Html::script('js/walk.js') !!}
 {!! Html::script('js/grblayers.js') !!}
 {!! Html::script('js/agivlayers.js') !!}
 {!! Html::script('js/wrlayers.js') !!}

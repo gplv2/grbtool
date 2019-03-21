@@ -106,11 +106,66 @@ function openInJosm( layername ) {
                            });
             */
 
+            var json = JSON.parse( geoJSON.write( mylayers[ 0 ].features ) );
 
-            var json = geoJSON.write( mylayers[ 0 ].features );
+            // console.log( json );
+            // Filter out tags we don't want and create our callback configuration
+            var walkConfig = {
+                classMap: {
+                    "poly": "poly",
+                    "properties": "poly"
+                },
+                callbacks: [
+                    {
+                        name: 'changer',
+                        positions: [ 'preWalk' ],
+                        classNames: [ 'poly' ],
+                        containers: [ 'object' ],
+                        callback: function( node ) {
+                            // console.log( node );
+                            // migrate the auto_building value to building key
+                            if ( node.val.auto_building !== null && node.val.auto_building !== undefined ) {
+                                node.val.building = node.val.auto_building;
+                            }
 
-            console.log( json );
-            var mylayers = null;
+                            // create the ref key/val
+                            if ( node.val[ "source:geometry:entity" ] !== null && node.val[ "source:geometry:entity" ] !== undefined ) {
+                                if ( node.val[ "source:geometry:oidn" ] !== null && node.val[ "source:geometry:oidn" ] !== undefined ) {
+                                    node.val[ "source:geometry:ref" ] = node.val[ "source:geometry:entity" ] + '/' + node.val[ "source:geometry:oidn" ];
+                                }
+                            }
+
+                            // Format the date in OSM format
+                            if ( node.val[ "source:geometry:date" ] !== null && node.val[ "source:geometry:date" ] !== undefined ) {
+                                //console.log(node.val[ "source:geometry:date" ]);
+                                var mydate = "";
+                                // make it a string by catting it into one.
+                                mydate = '' + node.val[ "source:geometry:date" ];
+                                var stripped = mydate.replace( /\//g, '-' );
+                                node.val[ "source:geometry:date" ] = stripped;
+                            }
+
+                            // Delete stufff we really don't need in the export
+                            var delarr = [ "size_grb_building", "source:geometry:uidn", "source", "H_DTM_MIN", "H_DTM_GEM", "H_DSM_MAX", "H_DSM_P99", "HN_MAX",
+                                "HN_P99", "detection_method", "size_shared", "size_source_building", "auto_building", "size_source_landuse", "source:geometry:entity",
+                                "source:geometry:oidn", "auto_target_landuse" ];
+
+                            Object.keys( node.val ).forEach( function( key, idx ) {
+                                if ( delarr.includes( key ) ) {
+                                    //console.log("DELETE");
+                                    delete node.val[ key ];
+                                }
+                            } );
+                        }
+                    }
+               ]
+            };
+
+            Walk.walk( json, "poly", walkConfig );
+
+            // console.log( json );
+
+            mylayers = null;
 
             // From npm module
             // console.log(json);
@@ -126,7 +181,7 @@ function openInJosm( layername ) {
                 // console.log("simplifying");
                 var dataset = mapshaper.internal.importContent( {
                     json: {
-                        content: JSON.parse( json )
+                        content: json
                     }
                 } );
 
@@ -149,7 +204,7 @@ function openInJosm( layername ) {
             } else {
                 $( '#msg' ).removeClass().addClass( "notice info" ).html( "Not simplifying." );
                 // console.log("Not simplifying");
-                xml = geos( JSON.parse( json ) );
+                xml = geos( json );
             }
 
             //console.log(xml);

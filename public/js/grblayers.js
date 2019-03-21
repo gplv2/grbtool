@@ -1401,6 +1401,15 @@ function getOsmInfo() {
         "      <has-kv k=\"source:geometry:oidn\" />" +
         "      <bbox-query e=\"" + bounds.right + "\" n=\"" + bounds.top + "\" s=\"" + bounds.bottom + "\" w=\"" + bounds.left + "\"/>" +
         //"      <bbox-query {{bbox}}/>" +
+        "    <query type=\"way\">" +
+        "      <has-kv k=\"source:geometry:ref\"/>" +
+        "      <bbox-query e=\"" + bounds.right + "\" n=\"" + bounds.top + "\" s=\"" + bounds.bottom + "\" w=\"" + bounds.left + "\"/>" +
+        "    </query>" +
+        "    <query type=\"relation\">" +
+        "      <has-kv k=\"source:geometry:ref\" />" +
+        "      <bbox-query e=\"" + bounds.right + "\" n=\"" + bounds.top + "\" s=\"" + bounds.bottom + "\" w=\"" + bounds.left + "\"/>" +
+        //"      <bbox-query {{bbox}}/>" +
+        "    </query>" +
         "    </query>" +
         "  </union>" +
         "  <union>" +

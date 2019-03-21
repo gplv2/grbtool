@@ -1,5 +1,5 @@
 <?php
-	
+
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
@@ -9,22 +9,14 @@ $api->version('v1', function ($api) {
     $api->post('auth/reset', 'App\Api\V1\Controllers\AuthController@reset');
 
 	// example of protected route
-	$api->get('protected', ['middleware' => ['api.auth'], function () {		
+	$api->get('protected', ['middleware' => ['api.auth'], function () {
 		return \App\User::all();
     }]);
 
    $api->group(['middleware' => 'api.auth'], function ($api) {
-      //$api->post('cell/store', 'App\Api\V1\Controllers\CellController@store');
-      $api->get('cell', 'App\Api\V1\Controllers\CellController@index');
-      $api->get('batch', 'App\Api\V1\Controllers\CellController@batch');
-      $api->post('batch', 'App\Api\V1\Controllers\CellController@batch');
-   });
-
-   $api->group(['middleware' => 'api.auth'], function ($api) {
-      //$api->post('cell/store', 'App\Api\V1\Controllers\CellController@store');
-      $api->get('cell', 'App\Api\V1\Controllers\ExportController@index');
-      $api->get('batch', 'App\Api\V1\Controllers\ExportController@batch');
-      $api->post('batch', 'App\Api\V1\Controllers\ExportController@batch');
+      $api->get('export/list', 'App\Api\V1\Controllers\ExportController@index');
+      $api->get('export/download', 'App\Api\V1\Controllers\ExportController@show');
+      $api->post('export/upload', 'App\Api\V1\Controllers\ExportController@store');
    });
 
 	// example of free route

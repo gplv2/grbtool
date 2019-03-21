@@ -41,7 +41,8 @@ class ExportController extends Controller
 
         $length = 32;
         $token = '';
-        $msg ='';
+
+        $msg=array('status' => 'request received');
 
         if ($request->isMethod('post')) {
             $postbody='';

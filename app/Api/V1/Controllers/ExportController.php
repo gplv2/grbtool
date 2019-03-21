@@ -45,6 +45,9 @@ class ExportController extends Controller
         if ($request->isMethod('post')) {
             $postbody='';
             // Check for presence of a body in the request
+
+            dd($request);exit;
+
             if (count($request->json()->all())) {
                 $postbody = $request->json()->all();
                 if (function_exists("random_bytes")) {
@@ -59,6 +62,10 @@ class ExportController extends Controller
                 }
             }
         }
+
+        $response = new Response();
+        $response->header('charset', 'utf-8');
+        return response()->json($msg);
     }
 
     /**

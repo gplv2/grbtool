@@ -399,7 +399,10 @@ fieldset {
                         <label class="form-control-label"><input type="checkbox" value="">Include CRAB data in export</label>
                     </div>
                     <div class="checkbox">
-                        <label class="form-control-label"><input type="checkbox" value="" checked>Enable postalcode tracking</label>
+                        <label class="form-control-label"><input id ="posttrack" type="checkbox" value="" checked>Enable postalcode tracking</label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="form-control-label"><input id ="metaexport" type="checkbox" value="" checked>Filter meta tags before export</label>
                     </div>
                </div>
             </div>

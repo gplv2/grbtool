@@ -52,8 +52,8 @@ class ExportController extends Controller
             if (strlen($request->getContent())) {
                 $postbody = $request->getContent();
                 if (function_exists("random_bytes")) {
-                    $bytes = random_bytes(ceil($lenght / 2));
-                    $token = substr(bin2hex($bytes), 0, $lenght);
+                    $bytes = random_bytes(ceil($length / 2));
+                    $token = substr(bin2hex($bytes), 0, $length);
                 } else {
                     $bytes = openssl_random_pseudo_bytes(32);
                     $token = bin2hex($bytes);

@@ -41,6 +41,7 @@ class ExportController extends Controller
 
         $length = 32;
         $token = '';
+        $msg ='';
 
         if ($request->isMethod('post')) {
             $postbody='';
@@ -48,8 +49,8 @@ class ExportController extends Controller
 
             dd($request);exit;
 
-            if (count($request->json()->all())) {
-                $postbody = $request->json()->all();
+            if (strlen($request->getContent())) {
+                $postbody = $request->getContent();
                 if (function_exists("random_bytes")) {
                     $bytes = random_bytes(ceil($lenght / 2));
                     $token = substr(bin2hex($bytes), 0, $lenght);
@@ -59,6 +60,7 @@ class ExportController extends Controller
                 }
                 if(strlen($token)) {
                     Storage::disk('local')->put($token, $postbody);
+                    $msg=array('fname' => $token , status => 'stored');
                 }
             }
         }

@@ -124,3 +124,8 @@
   text-align: right;
   font-weight: bold;
 }
+
+.help-block {
+    margin-top: 15px !important;
+    margin-bottom: 5px !important;
+}

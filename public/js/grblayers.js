@@ -1121,8 +1121,12 @@ dotlayer.events.register('loadend', this, onloaddotend);
     function onloadvectorend( evt ) {
         // isvecup = null; Always do this now
         isvecup = null;
-        if ( isvecup == null || isvecup == undefined ) {
-            getpostalcode();
+        if ( isvecup === null || isvecup === undefined ) {
+            if ( $( "#posttrack" ).prop( "checked" ) ) {
+                getpostalcode();
+            } else {
+                $( '#postcode' ).empty();
+            }
             // if(stuff !== null && stuff !== undefined)
             // console.log(poilayer);
             $( '#cntain' ).css( "width", 'auto' );

@@ -47,7 +47,7 @@ class ExportController extends Controller
             $postbody='';
             // Check for presence of a body in the request
 
-            dd($request);exit;
+            // dd($request);exit;
 
             if (strlen($request->getContent())) {
                 $postbody = $request->getContent();

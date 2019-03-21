@@ -377,6 +377,7 @@ fieldset {
                         <label class="ui-button-text"><input type="radio" name="optradio" id="jsecure" class="form-control-label" checked>SSL</label>
                     </div>
 
+                    <div class="help-block">Layer settings</div>
                     <div class="checkbox">
                         <label class="form-control-label"><input type="checkbox" value="" checked>Enable CRAB layer</label>
                     </div>
@@ -395,12 +396,14 @@ fieldset {
                     <div class="checkbox">
                         <label class="form-control-label"><input id ="grbinfo" type="checkbox" value="" checked>Show GRB object info</label>
                     </div>
+                    <div class="help-block">Crab settings</div>
                     <div class="checkbox">
-                        <label class="form-control-label"><input type="checkbox" value="">Include CRAB data in export</label>
+                        <label class="form-control-label"><input type="checkbox" value="">Include CRAB data in export (not implemented)</label>
                     </div>
                     <div class="checkbox">
                         <label class="form-control-label"><input id ="posttrack" type="checkbox" value="" checked>Enable postalcode tracking</label>
                     </div>
+                    <div class="help-block">Advanced settings</div>
                     <div class="checkbox">
                         <label class="form-control-label"><input id ="metaexport" type="checkbox" value="" >Include meta tags for auto-building detection (debug)</label>
                     </div>

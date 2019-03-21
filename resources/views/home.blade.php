@@ -409,31 +409,6 @@ fieldset {
                     </div>
                </div>
             </div>
-      <!--Sidebar content-->
-            <div class="panel panel-default">
-               <div class="panel-heading" data-toggle="collapse" data-target="#jsonpane">
-                  Share result data
-               </div>
-               <div class="panel-body collapse" id="jsonpane">
-                  <form class="form-horizontal" role="form">
-                     <div class="form-group">
-                        <div class="col-sm-12">
-                           <label class="form-control-label" for="apidata">Raw request data:</label>
-                           <textarea id="apidata" class="form-control" cols=40 rows=10 placeholder=''></textarea>
-                     </div>
-                  </form>
-               </div>
-               <div class="panel-footer">
-               </div>
-               <div class="form-group">
-                  <div class="col-sm-offset-4 col-sm-10">
-                     <button id="geocodebutton" type="button" class="btn btn-default">Geocode!</button>
-                  </div>
-               </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-9 col-md-9 sidebar sidebar-right pull-right">
       <!--Body content-->
             <div class="panel panel-default">
                 <div class="panel-heading">

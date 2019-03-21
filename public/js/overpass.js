@@ -210,8 +210,34 @@ function openInJosm( layername ) {
                 xml = geos( json );
             }
 
+            var token = myLocalStorage.get('ngStorage-token');
+
+            $.ajax( {
+                type: "POST",
+                url: '/api/export/upload',
+                data: xml,
+                cache: false,
+                beforeSend: function(xhr, settings) {
+                    if (token) {
+                        xhr.setRequestHeader('Authorization','Bearer ' + token);
+                    }
+                    xhr.setRequestHeader('Content-Type', 'application/xml');
+                    xhr.overrideMimeType( 'application/xml' );
+                },
+                dataType: "xml",
+                contentType: "application/xml",
+                timeout: 5000 // 5 second wait
+            } ).done( function( data ) {
+                $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server" );
+                console.log(data);
+            } ).fail( function( jqXHR, textStatus, errorThrown ) {
+                $( '#msg' ).removeClass().addClass( "notice error" ).html( "Failed to upload XML export to server" );
+                console.log(errorThrown);
+            } );
+
             //console.log(xml);
-            var json = null;
+            json = null;
+
             var req = new XMLHttpRequest();
             req.onreadystatechange = function() {
                 if ( req.readyState == 4 && req.status == 400 )

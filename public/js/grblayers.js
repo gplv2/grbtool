@@ -1563,6 +1563,7 @@ $( document ).ready( function() {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading vector GRB data in a new JOSM layer" );
             $( 'body' ).css( 'cursor', 'wait' );
             openInJosm();
+            //openInJosm();
             $( 'body' ).css( 'cursor', 'default' );
             event.preventDefault();
             return false;

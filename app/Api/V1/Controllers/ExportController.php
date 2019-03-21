@@ -61,7 +61,7 @@ class ExportController extends Controller
                 }
                 if(strlen($token)) {
                     Storage::disk('public')->put($token.'.osm', $postbody);
-                    $msg=array('fname' => $token , 'status' => 'stored');
+                    $msg=array('fname' => $token.'.osm' , 'status' => 'stored');
                 }
             }
         }

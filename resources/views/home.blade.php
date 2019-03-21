@@ -402,7 +402,7 @@ fieldset {
                         <label class="form-control-label"><input id ="posttrack" type="checkbox" value="" checked>Enable postalcode tracking</label>
                     </div>
                     <div class="checkbox">
-                        <label class="form-control-label"><input id ="metaexport" type="checkbox" value="" checked>Filter meta tags before export</label>
+                        <label class="form-control-label"><input id ="metaexport" type="checkbox" value="" >Include meta tags for auto-building detection (debug)</label>
                     </div>
                </div>
             </div>

@@ -109,6 +109,7 @@ function openInJosm( layername ) {
             var json = JSON.parse( geoJSON.write( mylayers[ 0 ].features ) );
 
             // console.log( json );
+
             // Filter out tags we don't want and create our callback configuration
             var walkConfig = {
                 classMap: {
@@ -161,8 +162,10 @@ function openInJosm( layername ) {
                ]
             };
 
-            Walk.walk( json, "poly", walkConfig );
-
+            // Filter meta tags before export
+            if ( !$( 'input[id="metaexport"]' ).is( ':checked' ) ) {
+                Walk.walk( json, "poly", walkConfig );
+            }
             // console.log( json );
 
             mylayers = null;

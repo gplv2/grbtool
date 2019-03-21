@@ -109,7 +109,7 @@ function openInJosm( layername ) {
 
             var json = geoJSON.write( mylayers[ 0 ].features );
 
-            //console.log(json);
+            console.log( json );
             var mylayers = null;
 
             // From npm module

@@ -3,7 +3,6 @@
 // vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 
-
 "use strict";
 
 var my_history = new Object();

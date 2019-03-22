@@ -228,10 +228,14 @@ function openInJosm( layername ) {
                 contentType: "application/xml",
                 timeout: 5000 // 5 second wait
             } ).done( function( data ) {
-                $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server" );
+                if (data.status == 'stored') {
+                    $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server: <a href=" + data.url + ">"+ data.fname +"</a>");
+                } else
+                    $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server");
+            }
                 console.log(data);
             } ).fail( function( jqXHR, textStatus, errorThrown ) {
-                $( '#msg' ).removeClass().addClass( "notice error" ).html( "Failed to upload XML export to server" );
+                $( '#msg' ).removeClass().addClass( "notice error" ).html( "Failed to upload XML export to server: " . textStatus );
                 console.log(errorThrown);
             } );
 

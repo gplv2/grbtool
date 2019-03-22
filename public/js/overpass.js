@@ -75,7 +75,7 @@ function openFileInJosm(file) {
         } else {
             $( '#msg' ).removeClass().addClass( "notice success" ).html( "JOSM is ready" );
 
-            var myurl = returnJosmUrl() + "/import?url=" + document.location.origin + "/" + file;
+            var myurl = returnJosmUrl() + "/import?url=" + document.location.origin + "/" + file + "?dummyparam";
 
             $.ajax( {
                 type: "GET",

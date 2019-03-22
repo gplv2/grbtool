@@ -75,14 +75,14 @@ function openFileInJosm(file) {
         } else {
             $( '#msg' ).removeClass().addClass( "notice success" ).html( "JOSM is ready" );
 
-            var myurl = returnJosmUrl() + "/import?url=" + encodeURI(file);
+            var myurl = returnJosmUrl() + "/import?url=" + document.location.origin + "/" + file;
 
             $.ajax( {
                 type: "GET",
                 url: myurl,
                 cache: false,
                 //dataType: "json",
-                contentType: "application/xml",
+                //contentType: "application/xml",
                 timeout: 5000 // 5 second wait
             } ).done( function( data ) {
                 $( '#msg' ).removeClass().addClass( "notice info" ).html( "Opening file in JOSM" );

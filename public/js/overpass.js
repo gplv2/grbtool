@@ -63,7 +63,7 @@ function returnJosmUrl() {
     return josmUrl;
 }
 
-function openFileJosm(file) {
+function openFileInJosm(file) {
     $.ajax( {
         url: returnJosmUrl() + '/version',
         dataType: "json",

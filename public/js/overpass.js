@@ -267,7 +267,7 @@ function openInJosm( layername ) {
                     $( "#lfilejosm" ).click( function( event ) {
                         // $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Instructing JOSM to dowload file" );
                         $( 'body' ).css( 'cursor', 'wait' );
-                        openFileInJosm();
+                        openFileInJosm(data.url);
                         $( 'body' ).css( 'cursor', 'default' );
                         event.preventDefault();
                         return false;

@@ -230,9 +230,9 @@ function openInJosm( layername ) {
             } ).done( function( data ) {
                 if (data.status == 'stored') {
                     $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server: <a href=" + data.url + ">"+ data.fname +"</a>");
-                } else
+                } else {
                     $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server");
-            }
+                }
                 console.log(data);
             } ).fail( function( jqXHR, textStatus, errorThrown ) {
                 $( '#msg' ).removeClass().addClass( "notice error" ).html( "Failed to upload XML export to server: " . textStatus );

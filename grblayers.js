@@ -444,7 +444,7 @@ function initmap() {
               // bounds.transform(map.getProjectionObject(), geodetic);
 
 
-              //var path = 'tile_' + z + "_" + x + "-" + y + "." + this.type; 
+              //var path = 'tile_' + z + "_" + x + "-" + y + "." + this.type;
               var path = z + "/" + x + "/" + y + "." + this.type;
               //console.log(path);
               var url = this.url;
@@ -600,7 +600,7 @@ function initmap() {
         "boxselectionstart": onbox
     } );
 
-    /* Enable events for the layers(this seems not to be needed ...)  
+    /* Enable events for the layers(this seems not to be needed ...)
    dotlayer.events.on({
          "featureselected": report,
          "featureunselected": report
@@ -695,7 +695,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
             //console.log(feature);
         }
         var content = '<div id="plopper"><fieldset>' + "<legend>" + encHTML( featid ) + '</legend>' +
-            // '<li>' + encHTML(feature.attributes.description) 
+            // '<li>' + encHTML(feature.attributes.description)
             //+ "<li>Building : "+ feature.attributes.building +"</li>"
             //+ "<li>Source    : "+ feature.attributes.source +"</li>"
             getdetails( feature.attributes ) +
@@ -753,7 +753,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
     map.addControl( highlightvector );
     highlightvector.activate();
 
-    // lon + lat + zoom 
+    // lon + lat + zoom
     var retrievedObject = JSON.parse( localStorage.getItem( 'defaultlocation' ) );
     if ( retrievedObject ) {
         // var setObject = { 'lat': center.lat, 'lon': center.lon, 'zoom':  map.getZoom() };
@@ -766,7 +766,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
         map.setCenter( lonLat, zoom );
     }
 
-    /* remove existing overpass layer 
+    /* remove existing overpass layer
     var layers = map.getLayersByName('OverPass');
     for(var layerIndex = 0; layerIndex < layers.length; layerIndex++) {
        map.removeLayer(layers[layerIndex]);
@@ -995,7 +995,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
     /*
              event_layer = new OpenLayers.Layer.Vector('BXL - Traffic events/works', {
                 styleMap: eventlayer_style,
-                strategies: [new OpenLayers.Strategy.BBOX(), rrefresh ], 
+                strategies: [new OpenLayers.Strategy.BBOX(), rrefresh ],
                 // projection: new OpenLayers.Projection("EPSG:31370"),
                 // projection: geodetic,
                 displayProjection: geodetic,
@@ -1006,7 +1006,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
                 //zoomOffset: 10, resolutions: [76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627, 0.5971642833948135],
                 protocol: new OpenLayers.Protocol.HTTP({
                        url: "http://grbtiles.byteless.net/proxy/traffic.php?",
-                       format: new OpenLayers.Format.GeoJSON({ 
+                       format: new OpenLayers.Format.GeoJSON({
                             internalProjection: map.getProjectionObject(),
                             externalProjection: lambert,
                          })
@@ -1060,7 +1060,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
                         var postcode = '';
                         var city = '';
                         //var obj = jQuery.parseJSON(mdata);
-                        //if (obj.length<=0) 
+                        //if (obj.length<=0)
                         //$('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
                         /*
 			if(geocode.address.road !== null && geocode.address.road !== undefined) {
@@ -1105,7 +1105,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
         isvecup = null;
         if ( isvecup == null || isvecup == undefined ) {
             getpostalcode();
-            // if(stuff !== null && stuff !== undefined) 
+            // if(stuff !== null && stuff !== undefined)
             // console.log(poilayer);
             $( '#cntain' ).css( "width", 'auto' );
             $( '#contentfilters' ).empty();
@@ -1283,7 +1283,7 @@ function getRoadInfo() {
     req.onreadystatechange = function() {
         switch ( req.readyState ) {
             case 0:
-                // 0: request not initialized 
+                // 0: request not initialized
                 overpasserror = 'Overpass request not initialized';
                 break;
             case 1:
@@ -1291,11 +1291,11 @@ function getRoadInfo() {
                 overpasserror = 'Overpass server connection established';
                 break;
             case 2:
-                // 2: request received 
+                // 2: request received
                 overpasserror = 'Overpass request received';
                 break;
             case 3:
-                // 3: processing request 
+                // 3: processing request
                 overpasserror = 'Overpass processing request';
                 break;
             case 4:
@@ -1328,7 +1328,7 @@ function getRoadInfo() {
         //$("#msg").html("Info : " + "Parsing JSON").removeClass().addClass("notice info");
         //console.log(data);
         osmRoadInfo = osmtogeojson( data );
-        //console.log(osmInfo); 
+        //console.log(osmInfo);
         addOverpassRoadLayer();
         //$("#msg").html("Info : " + "Added GEOJSON to map").removeClass().addClass("notice success");
     }
@@ -1345,7 +1345,7 @@ function getOsmInfo() {
 
     var bounds = map.getExtent();
     bounds.transform( map.getProjectionObject(), geodetic );
-    //bounds.toBBOX(); 
+    //bounds.toBBOX();
     //console.log(bounds.toBBOX());
 
     var query = "<osm-script output=\"json\" timeout=\"250\">" +
@@ -1374,7 +1374,7 @@ function getOsmInfo() {
     req.onreadystatechange = function() {
         switch ( req.readyState ) {
             case 0:
-                // 0: request not initialized 
+                // 0: request not initialized
                 overpasserror = 'Overpass request not initialized';
                 break;
             case 1:
@@ -1382,11 +1382,11 @@ function getOsmInfo() {
                 overpasserror = 'Overpass server connection established';
                 break;
             case 2:
-                // 2: request received 
+                // 2: request received
                 overpasserror = 'Overpass request received';
                 break;
             case 3:
-                // 3: processing request 
+                // 3: processing request
                 overpasserror = 'Overpass processing request';
                 break;
             case 4:
@@ -1419,7 +1419,7 @@ function getOsmInfo() {
         //$("#msg").html("Info : " + "Parsing JSON").removeClass().addClass("notice info");
         //console.log(data);
         osmInfo = osmtogeojson( data );
-        //console.log(osmInfo); 
+        //console.log(osmInfo);
         addOverpassLayer();
         //$("#msg").html("Info : " + "Added GEOJSON to map").removeClass().addClass("notice success");
     }
@@ -1476,7 +1476,7 @@ $( document ).ready( function() {
             getOsmInfo();
             $( 'body' ).css( 'cursor', 'default' );
             //event.preventDefault();
-            //return false; 
+            //return false;
         } );
 
         $( "#diffwr" ).button().click( function( event ) {
@@ -1485,7 +1485,7 @@ $( document ).ready( function() {
             addDiffLayer();
             $( 'body' ).css( 'cursor', 'default' );
             //event.preventDefault();
-            //return false; 
+            //return false;
         } );
 
 
@@ -1495,7 +1495,7 @@ $( document ).ready( function() {
             getRoadInfo();
             $( 'body' ).css( 'cursor', 'default' );
             //event.preventDefault();
-            //return false; 
+            //return false;
         } );
 
         $( "#loadgrb" ).button().click(function( event ) {
@@ -1504,7 +1504,7 @@ $( document ).ready( function() {
             openInJosm();
             $('body').css('cursor', 'default');
             event.preventDefault();
-            return false; 
+            return false;
         });
 
         $( "#loadnwr" ).button().click(function( event ) {
@@ -1513,7 +1513,7 @@ $( document ).ready( function() {
             openInJosm('WR OSM - Differences');
             $('body').css('cursor', 'default');
             event.preventDefault();
-            return false; 
+            return false;
         });
 
         $( "#fpass" ).button().click( function( event ) {
@@ -1522,7 +1522,7 @@ $( document ).ready( function() {
             filterForJosm();
             $( 'body' ).css( 'cursor', 'default' );
             //event.preventDefault();
-            //return false; 
+            //return false;
         } );
 
         $( "#popupswitch" ).button().click( function( event ) {
@@ -1567,7 +1567,7 @@ $( document ).ready( function() {
                     vector_layer.setVisibility(true);
                     vector_layer.refresh();
                     event.preventDefault();
-                    return false; 
+                    return false;
                 });
         */
         $( "#loadarea" ).button().click( function( event ) {

@@ -63,6 +63,40 @@ function returnJosmUrl() {
     return josmUrl;
 }
 
+function openFileJosm(file) {
+    $.ajax( {
+        url: returnJosmUrl() + '/version',
+        dataType: "json",
+        timeout: 5000 // 5 second wait
+    } ).done( function( data ) {
+        var version = data.protocolversion;
+        if ( version.minor < 6 ) {
+            $( '#msg' ).removeClass().addClass( "notice error" ).html( "Your JOSM installation does not yet support load_data requests. Please update JOSM to version 7643 or newer" );
+        } else {
+            $( '#msg' ).removeClass().addClass( "notice success" ).html( "JOSM is ready" );
+
+            var myurl = returnJosmUrl() + "/import?url=" + file;
+
+            $.ajax( {
+                type: "GET",
+                url: myurl,
+                cache: false,
+                //dataType: "json",
+                contentType: "application/xml",
+                timeout: 5000 // 5 second wait
+            } ).done( function( data ) {
+                $( '#msg' ).removeClass().addClass( "notice info" ).html( "Opening file in JOSM" );
+            } ).fail( function( jqXHR, textStatus, errorThrown ) {
+                $( '#msg' ).removeClass().addClass( "notice error" ).html( "Failed to open file in JOSM" );
+                console.log(errorThrown);
+            } );
+        }
+    } ).fail( function( jqXHR, textStatus, errorThrown ) {
+        $( '#msg' ).removeClass().addClass( "notice error" ).html( "Fail to get JOSM version using remote control, is it running ?" );
+        //console.log(errorThrown);
+    } );
+}
+
 function openInJosm( layername ) {
     /* Default is GRB */
     if ( layername == null || layername === undefined ) {
@@ -229,7 +263,15 @@ function openInJosm( layername ) {
                 timeout: 5000 // 5 second wait
             } ).done( function( data ) {
                 if (data.status == 'stored') {
-                    $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server: <a href=" + data.url + ">"+ data.fname +"</a>");
+                    $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server: <a href=" + data.url + ">"+ data.fname +"</a> <button id=\"lfilejosm\" type=\"button\" class=\"btn btn-default\" tabindex=\"6\">JOSM</button>");
+                    $( "#lfilejosm" ).click( function( event ) {
+                        // $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Instructing JOSM to dowload file" );
+                        $( 'body' ).css( 'cursor', 'wait' );
+                        openFileInJosm();
+                        $( 'body' ).css( 'cursor', 'default' );
+                        event.preventDefault();
+                        return false;
+                    } );
                 } else {
                     $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server");
                 }

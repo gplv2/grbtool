@@ -2,7 +2,7 @@
 "use strict";
 
 // vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-
+//
 var agiv_layer;
 var isagivup = null;
 var stylemap = null;

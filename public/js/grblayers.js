@@ -1411,7 +1411,6 @@ function getOsmInfo() {
         "      <bbox-query e=\"" + bounds.right + "\" n=\"" + bounds.top + "\" s=\"" + bounds.bottom + "\" w=\"" + bounds.left + "\"/>" +
         //"      <bbox-query {{bbox}}/>" +
         "    </query>" +
-        "    </query>" +
         "  </union>" +
         "  <union>" +
         "    <item/>" +

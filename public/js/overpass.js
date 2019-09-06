@@ -123,7 +123,7 @@ function openInJosm( layername ) {
         } else {
             $( '#msg' ).removeClass().addClass( "notice success" ).html( "JOSM is ready" );
 
-            var myurl = returnJosmUrl() + "/load_data?new_layer=true&layer_name=" + newlayername + "&data=";
+            var myurl = returnJosmUrl() + "/load_data?upload_policy=never&new_layer=true&layer_name=" + newlayername + "&data=";
 
             var geoJSON = new OpenLayers.Format.GeoJSON( {
                 internalProjection: map.getProjectionObject(),

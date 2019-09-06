@@ -218,8 +218,9 @@ fieldset {
 {!! Html::script('js/mapshaper.js') !!}
 {!! Html::script('js/pizza.js') !!}
 {!! Html::script('js/fixlistener.js') !!}
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaPvbu-B8-JS0N_zAH5BiI6foAvccFBDY" type="text/javascript"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
+<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaPvbu-B8-JS0N_zAH5BiI6foAvccFBDY" type="text/javascript"></script> -->
+<!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script> -->
+{!! Html::script('js/openlayrs/OpenLayers.js') !!}
 
 @stop
 
@@ -322,8 +323,10 @@ fieldset {
                                 <div id="radio" class="ui-buttonset col-md-8 col-sm-8 col-xs-8">
                                     <input type="radio" name="optionsRadios" id="sosm" checked="" class="ui-helper-hidden-accessible">
                                         <label for="sosm" class="form-control-label ui-state-active ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left" role="button"><span class="ui-button-text">OSM</span></label>
+<!--
                                     <input type="radio" name="optionsRadios" id="sgoogle" class="ui-helper-hidden-accessible">
                                         <label for="sgoogle" class="form-control-label ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" role="button"><span class="ui-button-text">Google</span></label>
+-->
                                 </div>
                             </div>
                     </div>

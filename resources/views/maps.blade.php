@@ -229,7 +229,9 @@
                             <input id="address" type="text" style="" class="ui-autocomplete-input" autocomplete="off" title="Zoek via nominatim">
                             <div id="radio" class="ui-buttonset">
                                 <input type="radio" name="radio" id="sosm" checked="" class="ui-helper-hidden-accessible"><label for="sosm" class="ui-state-active ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left" role="button"><span class="ui-button-text">OSM</span></label>
+<!--
                                 <input type="radio" name="radio" id="sgoogle" class="ui-helper-hidden-accessible"><label for="sgoogle" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" role="button"><span class="ui-button-text">Google</span></label>
+-->
                             </div>
                             <input class="ui-button ui-state-default ColVis_Button" type="button" name="clearsearch" value="X" id="clssearch" title="Wissen zoekbox"></div>
                         </div>

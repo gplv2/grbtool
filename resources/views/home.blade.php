@@ -217,6 +217,7 @@ fieldset {
 @section('page-script')
 {!! Html::script('js/mapshaper.js') !!}
 {!! Html::script('js/pizza.js') !!}
+{!! Html::script('js/fixlistener.js') !!}
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaPvbu-B8-JS0N_zAH5BiI6foAvccFBDY" type="text/javascript"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
 

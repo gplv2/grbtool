@@ -350,16 +350,24 @@
             </p>
         </footer>
     <!-- JavaScripts -->
-    <script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    {!! Html::script('js/jquery-2.2.4.min.js') !!}
+    <!-- <script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
     <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->
-    <script src="css/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    {!! Html::script('js/bootstrap/dist/js/bootstrap.min.js') !!}
+    <!-- <script src="css/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script> -->
+
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
+   -->
+
+    <script src="js/angular/angular.js"></script>
+    <script src="js/angular/angular-route.min.js"></script>
+
     <!--<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-route.min.js"></script> -->
     <script src="/js/loading-bar.js"></script>
     <!-- Token storage -->
-    <script src="//cdn.jsdelivr.net/ngstorage/0.3.11/ngStorage.min.js"></script>
+    <script src="js/ngstorage/ngStorage.min.js"></script>
     <!-- Application -->
     <script src="/js/app.js"></script>
     <script src="/js/controllers.js"></script>

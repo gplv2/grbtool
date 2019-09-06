@@ -253,8 +253,10 @@ $( document ).ready( function() {
         } );
     } );
 
-    //var bounds = new OpenLayers.Bounds (3.54635, 49.94169, 5.47995, 51.53569);
-    geocoder = new google.maps.Geocoder();
+    if (isMapsApiLoaded) {
+       //var bounds = new OpenLayers.Bounds (3.54635, 49.94169, 5.47995, 51.53569);
+       geocoder = new google.maps.Geocoder();
+    }
 
     // map.addControl(geocoder);
     /*

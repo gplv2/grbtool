@@ -121,7 +121,13 @@ function initmap() {
 
             new OpenLayers.Layer.OSM( "OpenStreetMap", null, {
                 numZoomLevels: 20
-            } ),
+            } )
+        ]
+    } );
+
+   if (isMapsApiLoaded) {
+
+   var googlelayers = [
             new OpenLayers.Layer.Google(
                 "Google Physical", {
                     type: google.maps.MapTypeId.TERRAIN
@@ -145,8 +151,10 @@ function initmap() {
                     numZoomLevels: 21
                 }
             )
-        ]
-    } );
+        ];
+
+    map.addLayers( googlelayers );
+}
 
     // This will record the last place where you clicked in the map as lat/lon. you can then open this in streetview
     OpenLayers.Control.Click = OpenLayers.Class( OpenLayers.Control, {

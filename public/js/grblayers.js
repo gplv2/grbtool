@@ -1384,9 +1384,13 @@ function openInCrabtool() {
     var postalcode = $( "#postcode" ).val();
     // http://crab-import.osm.be/?pcode=1982&filterStreets=*&collapsedSections=
     var crab_url = "http://crab-import.osm.be/?pcode=" + postalcode + "&filterStreets=*&collapsedSections=";
+    try {
+        javascript:_paq.push(['trackEvent', 'OpenInCrab', crab_url]);
+    } catch(err) {
+        // tracking api probably blocked by user
+    }
     openInNewTab( crab_url );
 }
-
 
 /**
  * Get the data from osm, ret should be an empty array
@@ -1484,6 +1488,11 @@ function getOsmInfo() {
         //$("#msg").html("Info : " + "Added GEOJSON to map").removeClass().addClass("notice success");
     }
     //console.log("Overpass query:\n" + query);
+    try {
+        javascript:_paq.push(['trackEvent', 'getOsmInfo', query]);
+    } catch(err) {
+        // tracking api probably blocked by user
+    }
     req.open( "GET", overpassapi + encodeURIComponent( query ), true );
     req.send( null );
 }
@@ -1677,6 +1686,11 @@ $( document ).ready( function() {
     $( "#msg" ).html( "Action: docReadydone" );
 
     function openStreetview( lat, lon ) {
+        try {
+            javascript:_paq.push(['trackEvent', 'openStreetView', lat, lon]);
+        } catch(err) {
+            // tracking api probably blocked by user
+        }
         var dataUrl = '//cbk0.google.com/cbk?output=json&ll=' + lat + ',' + lon + '&';
         $.ajax( {
             url: dataUrl,

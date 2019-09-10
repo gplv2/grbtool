@@ -21,6 +21,12 @@ function filterForJosm() {
     } );
     filterStrategy.setFilter( filter1 );
 
+    try {
+        javascript:_paq.push(['trackEvent', 'filterForJosm', bounds]);
+    } catch(err) {
+        // tracking api probably blocked by user
+    }
+
     /* Filter out all buildings that come back via overpass from source vector layer */
     var overpassfilter = new OpenLayers.Filter.Comparison( {
         type: OpenLayers.Filter.Comparison.LIKE,
@@ -64,6 +70,11 @@ function returnJosmUrl() {
 }
 
 function openFileInJosm(file) {
+    try {
+        javascript:_paq.push(['trackEvent', 'openFileInJosm', file]);
+    } catch(err) {
+        // tracking api probably blocked by user
+    }
     $.ajax( {
         url: returnJosmUrl() + '/version',
         dataType: "json",
@@ -111,6 +122,7 @@ function openInJosm( layername ) {
             newlayername = 'nwr-diff';
         }
     }
+
 
     $.ajax( {
         url: returnJosmUrl() + '/version',
@@ -262,6 +274,11 @@ function openInJosm( layername ) {
                 contentType: "application/xml",
                 timeout: 5000 // 5 second wait
             } ).done( function( data ) {
+                try {
+                    javascript:_paq.push(['trackEvent', 'openInJosm', '/api/export/upload']);
+                } catch(err) {
+                    // tracking api probably blocked by user
+                }
                 if (data.status == 'stored') {
                     $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server: <a href=" + data.url + ">"+ data.fname +"</a> <button id=\"lfilejosm\" type=\"button\" class=\"btn btn-default\" tabindex=\"6\">JOSM</button>");
                     $( "#lfilejosm" ).click( function( event ) {
@@ -296,6 +313,11 @@ function openInJosm( layername ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Exporting XML to JOSM" );
             try {
                 //console.log(myurl + encodeURIComponent( xml ));
+                try {
+                    javascript:_paq.push(['trackEvent', 'openInJosm', myurl ]);
+                } catch(err) {
+                    // tracking api probably blocked by user
+                }
                 req.open( "GET", myurl + encodeURIComponent( xml ), true );
                 req.send( null );
             } catch ( err ) {
@@ -332,7 +354,14 @@ function openAreaInJosm() {
             var bounds = map.getExtent();
             bounds.transform( map.getProjectionObject(), geodetic );
             var myurl = returnJosmUrl() + "/load_and_zoom?new_layer=true&layer_name=" + generateId( 10 ) + "&" + "left=" + bounds.left + "&right=" + bounds.right + "&top=" + bounds.top + "&bottom=" + bounds.bottom;
-            console.log( myurl );
+
+            try {
+                javascript:_paq.push(['trackEvent', 'openAreaInJosm', myurl ]);
+            } catch(err) {
+                // tracking api probably blocked by user
+            }
+
+            // console.log( myurl );
 
             var req = new XMLHttpRequest();
             req.onreadystatechange = function() {
@@ -352,6 +381,11 @@ function openAreaInJosm() {
 }
 
 function testJosmVersion() {
+    try {
+        javascript:_paq.push(['trackEvent', 'testJosmVersion', myurl ]);
+    } catch(err) {
+        // tracking api probably blocked by user
+    }
     $.ajax( {
         url: returnJosmUrl() + '/version',
         dataType: "json",

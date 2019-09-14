@@ -37,6 +37,7 @@ function filterForJosm() {
                 //console.log("testing " + feature.attributes['source:geometry:oidn']);
                 //console.log(item)k;
                 //console.log(feature.attributes);
+/*
                 if ( !item.attributes.tags[ 'source:geometry:ref' ] ) { 
                     $( "#msg" ).html( "Warning : " + "The features from overpass are missing the entity tag, add the entity (Gbg, Knw ..) , this will improve and correct the filtering." ).removeClass().addClass( "notice warn" );
                     // Entity is missing, probably a legacy test import
@@ -45,22 +46,29 @@ function filterForJosm() {
                         ret = false;
                     }
                 } else {
-                    var dotcomma = .indexOf(";");
-                    if (dotcomma) {
-                        // combined ref key needs different approach
-                        var refArray = feature.attributes[ 'source:geometry:ref' ].split(';');
-                        console.log(refArray);
-                        $.each( refArray , function( j, ref ) {
-                            if ( item.attributes.tags[ 'source:geometry:ref' ] === ref ) {
-                                ret = false; 
-                            }
-                        });
-                    } else  {
-                        if ( item.attributes.tags[ 'source:geometry:ref' ] === feature.attributes[ 'source:geometry:ref' ] ) {
-                            ret = false;
-                        }
+*/
+                    if ( item.attributes.tags[ 'source:geometry:ref' ] ) { 
+                       // console.log(item);
+                       // console.log(item.attributes.tags[ 'source:geometry:ref' ]); 
+                       var dotcomma = item.attributes.tags[ 'source:geometry:ref' ].indexOf(";");
+                       if (dotcomma) {
+                           // combined ref key needs different approach
+                           var refArray = item.attributes.tags[ 'source:geometry:ref' ].split(';');
+                           // console.log(refArray);
+                           // console.log(feature.attributes[ 'source:geometry:ref' ]);
+                           $.each( refArray , function( j, ref ) {
+                               if ( feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] === ref ) {
+                                   // console.log(ref);
+                                   ret = false;
+                               }
+                           });
+                       } else  {
+                           if ( item.attributes.tags[ 'source:geometry:ref' ] === feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ]) {
+                               ret = false;
+                           }
+                       }
                     }
-                }
+                //}
             } );
             return ret;
         }

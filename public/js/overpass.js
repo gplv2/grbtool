@@ -30,14 +30,14 @@ function filterForJosm() {
     /* Filter out all buildings that come back via overpass from source vector layer */
     var overpassfilter = new OpenLayers.Filter.Comparison( {
         type: OpenLayers.Filter.Comparison.LIKE,
-        property: "source:geometry:oidn",
+        property: "source:geometry:ref",
         evaluate: function( feature ) {
             var ret = true;
             $.each( overpass_layer.features, function( i, item ) {
                 //console.log("testing " + feature.attributes['source:geometry:oidn']);
                 //console.log(item)k;
                 //console.log(feature.attributes);
-                if ( !item.attributes.tags[ 'source:geometry:entity' ] ) {
+                if ( !item.attributes.tags[ 'source:geometry:ref' ] ) { 
                     $( "#msg" ).html( "Warning : " + "The features from overpass are missing the entity tag, add the entity (Gbg, Knw ..) , this will improve and correct the filtering." ).removeClass().addClass( "notice warn" );
                     // Entity is missing, probably a legacy test import
                     if ( item.attributes.tags[ 'source:geometry:oidn' ] === feature.attributes[ 'source:geometry:oidn' ] ) {
@@ -45,9 +45,20 @@ function filterForJosm() {
                         ret = false;
                     }
                 } else {
-                    if ( item.attributes.tags[ 'source:geometry:oidn' ] === feature.attributes[ 'source:geometry:oidn' ] &&
-                        item.attributes.tags[ 'source:geometry:entity' ] === feature.attributes[ 'source:geometry:entity' ] ) {
-                        ret = false;
+                    var dotcomma = .indexOf(";");
+                    if (dotcomma) {
+                        // combined ref key needs different approach
+                        var refArray = feature.attributes[ 'source:geometry:ref' ].split(';');
+                        console.log(refArray);
+                        $.each( refArray , function( j, ref ) {
+                            if ( item.attributes.tags[ 'source:geometry:ref' ] === ref ) {
+                                ret = false; 
+                            }
+                        });
+                    } else  {
+                        if ( item.attributes.tags[ 'source:geometry:ref' ] === feature.attributes[ 'source:geometry:ref' ] ) {
+                            ret = false;
+                        }
                     }
                 }
             } );

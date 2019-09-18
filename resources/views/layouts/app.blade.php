@@ -372,11 +372,8 @@
     <!-- <script src="css/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script> -->
 
     <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script> -->
 
-    <script src="js/angular/angular.js"></script>
-    <script src="js/angular/angular-route.min.js"></script>
-   -->
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-route.min.js"></script>

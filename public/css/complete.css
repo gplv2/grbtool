@@ -57,7 +57,7 @@
 }
 
 .error:before {
-  content: "X";
+  content: "X - ";
   background-color: #FF4136;
 }
 

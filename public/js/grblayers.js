@@ -1014,7 +1014,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
     //overpass_layer.refresh();
     //console.log(overpass_layer);
 
-    loadagivlayer();
+    // loadagivlayer();
     loadwrlayer();
 
     //console.log(eventlayer_style);

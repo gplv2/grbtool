@@ -54,7 +54,7 @@
                     <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import">GRB wiki page</a></td><td>GRB landing page</td><td>static</td><td>-</td></tr>
                     <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/Import_plan">Import plan</a></td><td>Import plan, more like a merge plan as we do not really import blindly</td><td>Up to date</td><td>-</td></tr>
                     <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/Background">GRB details</a></td><td>Background information on the GRB data</td><td>static</td><td>-</td></tr>
-                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/The_import_guidelines_applied">Import guidelines flow"</a></td><td>Information and flow of how we followed the guidelines</td><td>static</td><td>-</td></tr>
+                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/The_import_guidelines_applied">Import guidelines flow</a></td><td>Information and flow of how we followed the guidelines</td><td>static</td><td>-</td></tr>
                     </tbody>
                   </table>
                 </div>

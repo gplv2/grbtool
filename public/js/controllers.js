@@ -47,7 +47,7 @@
                     };
 
                     Auth.signup( formData, successAuth, function( res ) {
-                        $rootScope.error = res.error || 'Failed to sign up.';
+                        $rootScope.error = res.errors[0][0] || 'Failed to sign up.';
                     } )
                 };
 

@@ -50,11 +50,11 @@
                     <th>Remark</th>
                     </thead>
                     <tbody>
-                    <tr><td><a href="https://hackmd.io/@qiTythlKSE-TswFl_PrlrA/HkqtMWE8E?type=view#">Working notes</a></td>Hackpad Working notes<td>Updated regulary</td><td>-</td></tr>
-                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import">GRB wiki page</a></td>GRB landing page<td>static</td><td>-</td></tr>
-                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/Import_plan">Import plan</a></td>Import plan, more like a merge plan as we do not really import blindly<td>Up to date</td><td>-</td></tr>
-                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/Background">GRB details</a></td>Background information on the GRB data<td>static</td><td>-</td></tr>
-                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/The_import_guidelines_applied">Import guidelines flow"</a></td>Information and flow of how we followed the guidelines<td>static</td><td>-</td></tr>
+                    <tr><td><a href="https://hackmd.io/@qiTythlKSE-TswFl_PrlrA/HkqtMWE8E?type=view#">Working notes</a></td><td>Hackpad Working notes<td>Updated regulary</td><td>-</td></tr>
+                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import">GRB wiki page</a></td><td>GRB landing page<td>static</td><td>-</td></tr>
+                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/Import_plan">Import plan</a></td><td>Import plan, more like a merge plan as we do not really import blindly<td>Up to date</td><td>-</td></tr>
+                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/Background">GRB details</a></td><td>Background information on the GRB data<td>static</td><td>-</td></tr>
+                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/The_import_guidelines_applied">Import guidelines flow"</a></td><td>Information and flow of how we followed the guidelines<td>static</td><td>-</td></tr>
                     </tbody>
                   </table>
                 </div>

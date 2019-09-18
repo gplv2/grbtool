@@ -28,47 +28,38 @@
     <div class="col-sm-8 col-md-8 sidebar sidebar-right pull-left">
           <div class="panel panel-default">
                 <div class="panel-heading">
-                  A word about this data
+                  A word about this tool
                </div>
                 <div class="panel-body">
-                The data in our database is open.  We limited the scope of the data in this site to Belgian mobile phone operators.  Feel free to get in touch in order to get a deal on providing batch geocoding and/or other data layers we have in our store.
+                This tool wants to be the middleware in between the official Belgian open dataset for buildings and OSM. Behind the scene's, data is projected to lean more towards OSM as such make it easier to merge with existing data and keep the best of both worlds. 
                 </div>
          </div>
     </div>
     <div class="col-sm-8 col-md-8 sidebar sidebar-right pull-left">
           <div class="panel panel-default">
                 <div class="panel-heading">
-                  Operators in Belgium
+                  Handy links
                </div>
                 <div class="panel-body">
                   <table class="table table-striped">
                     <thead>
                     <tr>
-                    <th>MCC</th>
-                    <th>MNC</th>
-                    <th>Brand</th>
-                    <th>Operator</th>
+                    <th>Link</th>
+                    <th>Description</th>
                     <th>Status</th>
-                    <th>Frequency Bands</th>
                     <th>Remark</th>
                     </thead>
                     <tbody>
-                    <tr><td>206 </td><td> 00 </td><td> Proximus </td><td> Belgacom Mobile </td><td> Unknown </td><td> Unknown </td><td></td></tr>
-                    <tr><td>206 </td><td> 01 </td><td> Proximus </td><td> Belgacom Mobile </td><td> Operational </td><td> GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 1800 </td><td></td></tr>
-                    <tr><td>206 </td><td> 02 </td><td> NMBS </td><td> National Railway Company of Belgium</td><td> Operational </td><td> GSM-R </td><td></td></tr>
-                    <tr><td>206 </td><td> 05 </td><td> Telenet Belgium</td><td> Telenet</td><td> Operational </td><td> MVNO </td><td> MVNO using Mobistar's Network</td></tr>
-                    <tr><td>206 </td><td> 06 </td><td> Lycamobile </td><td> Lycamobile sprl </td><td> Operational </td><td> MVNO </td><td></td></tr>
-                    <tr><td>206 </td><td> 07 </td><td> Vectone Mobile </td><td> Mundio Mobile Belgium nv </td><td> Reserved </td><td> MVNO </td><td></td></tr>
-                    <tr><td>206 </td><td> 09 </td><td> Voxbone </td><td> Voxbone mobile </td><td> Operational </td><td> MVNO </td><td> Cloud MVNO-provider, that provides mobile VOIP services on a wholesale basis</td></tr>
-                    <tr><td>206 </td><td> 10 </td><td> Mobistar </td><td> Orange S.A. </td><td> Operational </td><td> GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 </td><td></td></tr>
-                    <tr><td>206 </td><td> 15 </td><td> Elephant Talk</td><td> Elephant Talk Communications Schweiz GmbH </td><td> Not operational </td><td> Unknown </td><td> Withdrawn</td></tr>
-                    <tr><td>206 </td><td> 20 </td><td> BASE</td><td> KPN Group Belgium </td><td> Operational </td><td> GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 1800 </td><td></td></tr>
-                    <tr><td>206 </td><td> 40 </td><td> JOIN </td><td> JOIN Experience Belgium </td><td> Operational </td><td> MVNO </td><td></td></tr>
+                    <tr><td><a href="https://hackmd.io/@qiTythlKSE-TswFl_PrlrA/HkqtMWE8E?type=view#" title="working notes"/></td>Hackpad Working notes<td>Updated regulary</td><td>-</td></tr>
+                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import" title="working notes"/></td>GRB landing page<td>static</td><td>-</td></tr>
+                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/Import_plan" title="Import plan"/></td>Import plan, more like a merge plan as we do not really import blindly<td>Up to date</td><td>-</td></tr>
+                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/Background" title="GRB details"/></td>Background information on the GRB data<td>static</td><td>-</td></tr>
+                    <tr><td><a href="https://wiki.openstreetmap.org/wiki/AIV_GRB_building_import/The_import_guidelines_applied" title="Import guidelines flow"/></td>Information and flow of how we followed the guidelines<td>static</td><td>-</td></tr>
                     </tbody>
                   </table>
                 </div>
           <div class="panel-footer">
-            For a complete list of operators worldwide, I recommend to check {!! Html::link('https://en.wikipedia.org/wiki/Mobile_country_code', $title = 'wikipedia mobile country code' ) !!} page.
+            For a complete list of URLS, code, tools and much more information it's best to browse the OSM wiki pages.
           </div>
           </div>
 <!-- 

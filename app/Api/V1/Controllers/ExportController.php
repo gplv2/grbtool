@@ -8,8 +8,10 @@ use Illuminate\Http\Response;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use JWTAuth;
-// use App\User;
 // use App\Grb;
+use Validator;
+use App\User;
+use App\DataExport;
 use Storage;
 use DB;
 use Dingo\Api\Routing\Helpers;
@@ -63,6 +65,19 @@ class ExportController extends Controller
                     Storage::disk('public')->put($token.'.osm', $postbody);
                     $msg=array('fname' => $token . '.osm', 'url' => 'public/'. $token .'.osm' , 'status' => 'stored');
                 }
+
+                $validator = Validator::make($request->all(), $this->rules());
+                if ($validator->fails()) {
+                    $reply = $validator->messages();
+                    return response()->json($reply,428);
+                };
+
+                $dataexport = new DataExport([
+                        'filename' => $token.'.osm',
+                        'user' => $currentUser
+                        ]);
+
+                $dataexport->save();
             }
         }
 
@@ -77,10 +92,18 @@ class ExportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($export_id)
     {
         $currentUser = JWTAuth::parseToken()->authenticate();
-        //
+
+        $type='application/json'; // ->header('Content-Type', $type);
+
+        $response = new Response();
+        $response->header('charset', 'utf-8');
+
+        $export = DataExport::where('id', $export_id)->firstOrFail();
+
+        return response()->json(compact('export'),200);
     }
 
     /**
@@ -93,5 +116,20 @@ class ExportController extends Controller
     {
         $currentUser = JWTAuth::parseToken()->authenticate();
         //
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        // 'label', 'dsn', 'priority',
+        return [
+            //'id'   => 'required',
+            'filename'     => 'required|min:5'
+            //'user'     => 'required|min:2'
+            ];
     }
 }

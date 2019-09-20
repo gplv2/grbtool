@@ -11,7 +11,7 @@ use JWTAuth;
 // use App\Grb;
 use Validator;
 use App\User;
-use App\DataExport;
+//use App\DataExport;
 use Storage;
 use DB;
 use Dingo\Api\Routing\Helpers;
@@ -112,7 +112,7 @@ class ExportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function list()
+    public function showlist()
     {
         $currentUser = JWTAuth::parseToken()->authenticate();
 

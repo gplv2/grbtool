@@ -107,6 +107,27 @@ class ExportController extends Controller
     }
 
     /**
+     * Display all exports .
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {
+        $currentUser = JWTAuth::parseToken()->authenticate();
+
+        $type='application/json'; // ->header('Content-Type', $type);
+
+        $response = new Response();
+        $response->header('charset', 'utf-8');
+
+        $exports = DataExport::all();
+
+        return response()->json(compact('exports'),200);
+    }
+
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

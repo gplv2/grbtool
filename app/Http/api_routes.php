@@ -15,6 +15,7 @@ $api->version('v1', function ($api) {
 
    $api->group(['middleware' => 'api.auth'], function ($api) {
       $api->get('export/list', 'App\Api\V1\Controllers\ExportController@index');
+      $api->get('export/listall', 'App\Api\V1\Controllers\ExportController@showlist');
       $api->get('export/download', 'App\Api\V1\Controllers\ExportController@show');
       $api->post('export/upload', 'App\Api\V1\Controllers\ExportController@store');
    });

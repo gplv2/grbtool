@@ -27,4 +27,9 @@ class MapController extends Controller
     {
         return view('about');
     }
+
+    public function showExports()
+    {
+        return view('exports');
+    }
 }

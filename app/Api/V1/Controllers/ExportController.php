@@ -11,7 +11,7 @@ use JWTAuth;
 // use App\Grb;
 use Validator;
 use App\User;
-//use App\DataExport;
+use App\DataExport;
 use Storage;
 use DB;
 use Dingo\Api\Routing\Helpers;
@@ -65,19 +65,21 @@ class ExportController extends Controller
                     Storage::disk('public')->put($token.'.osm', $postbody);
                     $msg=array('fname' => $token . '.osm', 'url' => 'public/'. $token .'.osm' , 'status' => 'stored');
                 }
-
+/*
                 $validator = Validator::make($request->all(), $this->rules());
                 if ($validator->fails()) {
                     $reply = $validator->messages();
                     return response()->json($reply,428);
                 };
-
+*/
+                DataExport::unguard();
                 $dataexport = new DataExport([
                         'filename' => $token.'.osm',
                         'user' => $currentUser
                         ]);
 
                 $dataexport->save();
+                DataExport::reguard();
             }
         }
 
@@ -149,7 +151,8 @@ class ExportController extends Controller
         // 'label', 'dsn', 'priority',
         return [
             //'id'   => 'required',
-            'filename'     => 'required|min:5'
+            //'filename'     => 'required|min:5'
+            'body' => 'required'
             //'user'     => 'required|min:2'
             ];
     }

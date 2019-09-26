@@ -284,6 +284,7 @@
             </button>
         <a class="navbar-brand{{ (Request::is('/') ? ' active' : '')}}" href="{{ url('/') }}#/"> Home </a>
         <a class="navbar-brand{{ (Request::is('about') ? ' active' : '')}}" href="{{ url('/about') }}#/"> About </a>
+        <a class="navbar-brand{{ (Request::is('exports') ? ' active' : '')}}" href="{{ url('/exports') }}#/"> Exports </a>
         </div>
 
             <div class="navbar-collapse collapse">
@@ -314,6 +315,8 @@
                     <a href="{{ url('/about') }}">About</a>
                     ·
                     <a href="{{ url('/maps') }}">maps</a>
+                    ·
+                    <a href="{{ url('/exports') }}">exports</a>
                 </p>
 
                 <p class="footer-company-name">GRB-Site &nocopy; 2016</p>

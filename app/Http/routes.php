@@ -29,3 +29,7 @@ Route::resource('about', 'MapController@showAbout', ['only' => [
     'index', 'show'
 ]]);
 
+Route::resource('exports', 'MapController@showExports', ['only' => [
+    'index', 'show'
+]]);
+

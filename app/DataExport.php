@@ -8,6 +8,6 @@ class DataExport extends Model
 {
    public function exports()
    {
-      return $this->hasMany('App\DataExport');
+       return $this->hasMany('App\User');
    }
 }

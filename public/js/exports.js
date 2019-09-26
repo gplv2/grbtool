@@ -37,7 +37,7 @@ $( document ).ready( function() {
        layout:"fitColumns",
        placeholder:"No Data Set",
        columns:[
-           {title:"User", field:"user", sorter:"string", width:200},
+           {title:"User", field:"user_id", sorter:"string", width:200},
            //{title:"Progress", field:"progress", sorter:"number", formatter:"progress"},
            {title:"Filename", field:"filename", sorter:"string"},
            //{title:"Rating", field:"rating", formatter:"star", align:"center", width:100},

@@ -123,8 +123,14 @@ class ExportController extends Controller
         $response = new Response();
         $response->header('charset', 'utf-8');
 
-        $exports = DataExport::all();
+        $exports = DataExport::with(['user'])->get();
 
+        // $exports = $exports[1]->user->name;
+
+        //$exports = DataExport::with('user.name')->get();
+
+
+        //return response()->json($exports);
         return response()->json(compact('exports'),200);
     }
 

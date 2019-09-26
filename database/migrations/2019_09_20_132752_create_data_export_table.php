@@ -14,7 +14,7 @@ class CreateDataExportTable extends Migration
     {
         Schema::create('data_export', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user');
+            $table->string('user_id');
             $table->string('filename')->unique();
             $table->timestamps();
         });

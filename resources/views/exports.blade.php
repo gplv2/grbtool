@@ -17,7 +17,7 @@
          padding: 8px; 
       }
 </style>
-<link rel="stylesheet" href="js/tabulator-master/dist/css/tabulator_simple.css">
+<link rel="stylesheet" href="js/tabulator-master/dist/css/tabulator_midnight.css">
 
 @stop
 @section('bodydef')
@@ -68,6 +68,7 @@
 
 @section('page-bottom-script')
 
+{!! Html::script('js/moment-with-locales.min.js') !!}
 {!! Html::script('js/tabulator-master/dist/js/tabulator.min.js') !!}
 {!! Html::script('js/exports.js') !!}
 

@@ -6,6 +6,8 @@
 var streets = []; // list of streets with the addresses divided in several categories + extra info
 
 // REMOTECONTROL BINDINGS FOR JOSM
+var josmUrl = 'http://127.0.0.1:8111';
+
 function filterForJosm() {
     filterStrategy.setFilter( null );
     mergeStrategy.setFilter( null );
@@ -78,16 +80,6 @@ function filterForJosm() {
     //return true;
 }
 
-function returnJosmUrl() {
-    var josmUrl = '';
-    if ( $( 'input[id="jinsecure"]' ).is( ':checked' ) ) {
-        josmUrl = '//127.0.0.1:8111';
-    } else if ( $( 'input[id="jsecure"]' ).is( ':checked' ) ) {
-        josmUrl = "//127.0.0.1:8112";
-    }
-    return josmUrl;
-}
-
 function openFileInJosm(file) {
     try {
         javascript:_paq.push(['trackEvent', 'openFileInJosm', file]);
@@ -95,7 +87,7 @@ function openFileInJosm(file) {
         // tracking api probably blocked by user
     }
     $.ajax( {
-        url: returnJosmUrl() + '/version',
+        url: josmUrl + '/version',
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {
@@ -105,7 +97,7 @@ function openFileInJosm(file) {
         } else {
             $( '#msg' ).removeClass().addClass( "notice success" ).html( "JOSM is ready" );
 
-            var myurl = returnJosmUrl() + "/import?url=" + document.location.origin + "/" + file + "?dummyparam";
+            var myurl = josmUrl + "/import?url=" + document.location.origin + "/" + file + "?dummyparam";
 
             $.ajax( {
                 type: "GET",
@@ -144,7 +136,7 @@ function openInJosm( layername ) {
 
 
     $.ajax( {
-        url: returnJosmUrl() + '/version',
+        url: josmUrl + '/version',
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {
@@ -154,7 +146,7 @@ function openInJosm( layername ) {
         } else {
             $( '#msg' ).removeClass().addClass( "notice success" ).html( "JOSM is ready" );
 
-            var myurl = returnJosmUrl() + "/load_data?upload_policy=never&new_layer=true&layer_name=" + newlayername + "&data=";
+            var myurl = josmUrl + "/load_data?upload_policy=never&new_layer=true&layer_name=" + newlayername + "&data=";
 
             var geoJSON = new OpenLayers.Format.GeoJSON( {
                 internalProjection: map.getProjectionObject(),
@@ -352,7 +344,7 @@ function openInJosm( layername ) {
 function openAreaInJosm() {
 
     $.ajax( {
-        url: returnJosmUrl() + '/version',
+        url: josmUrl + '/version',
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {
@@ -372,7 +364,7 @@ function openAreaInJosm() {
 
             var bounds = map.getExtent();
             bounds.transform( map.getProjectionObject(), geodetic );
-            var myurl = returnJosmUrl() + "/load_and_zoom?new_layer=true&layer_name=" + generateId( 10 ) + "&" + "left=" + bounds.left + "&right=" + bounds.right + "&top=" + bounds.top + "&bottom=" + bounds.bottom;
+            var myurl = josmUrl + "/load_and_zoom?new_layer=true&layer_name=" + generateId( 10 ) + "&" + "left=" + bounds.left + "&right=" + bounds.right + "&top=" + bounds.top + "&bottom=" + bounds.bottom;
 
             try {
                 javascript:_paq.push(['trackEvent', 'openAreaInJosm', myurl ]);
@@ -406,7 +398,7 @@ function testJosmVersion() {
         // tracking api probably blocked by user
     }
     $.ajax( {
-        url: returnJosmUrl() + '/version',
+        url: josmUrl + '/version',
         dataType: "json",
         timeout: 5000 // 5 second wait
     } ).done( function( data ) {

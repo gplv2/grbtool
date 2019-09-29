@@ -33,3 +33,6 @@ Route::resource('exports', 'MapController@showExports', ['only' => [
     'index', 'show'
 ]]);
 
+Route::resource('options', 'MapController@showOptions', ['only' => [
+    'index', 'show'
+]]);

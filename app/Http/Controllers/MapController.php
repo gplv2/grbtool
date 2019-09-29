@@ -32,4 +32,9 @@ class MapController extends Controller
     {
         return view('exports');
     }
+
+    public function showOptions()
+    {
+        return view('options');
+    }
 }

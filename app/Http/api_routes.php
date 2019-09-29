@@ -18,6 +18,7 @@ $api->version('v1', function ($api) {
       $api->get('export/listall', 'App\Api\V1\Controllers\ExportController@showlist');
       $api->get('export/download', 'App\Api\V1\Controllers\ExportController@show');
       $api->post('export/upload', 'App\Api\V1\Controllers\ExportController@store');
+      $api->get('option', 'App\Api\V1\Controllers\OptionController@index');
    });
 
 	// example of free route

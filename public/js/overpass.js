@@ -38,7 +38,7 @@ function filterForJosm() {
                 //console.log(item)k;
                 //console.log(feature.attributes);
 /*
-                if ( !item.attributes.tags[ 'source:geometry:ref' ] ) { 
+                if ( !item.attributes.tags[ 'source:geometry:ref' ] ) {
                     $( "#msg" ).html( "Warning : " + "The features from overpass are missing the entity tag, add the entity (Gbg, Knw ..) , this will improve and correct the filtering." ).removeClass().addClass( "notice warn" );
                     // Entity is missing, probably a legacy test import
                     if ( item.attributes.tags[ 'source:geometry:oidn' ] === feature.attributes[ 'source:geometry:oidn' ] ) {
@@ -47,9 +47,9 @@ function filterForJosm() {
                     }
                 } else {
 */
-                    if ( item.attributes.tags[ 'source:geometry:ref' ] ) { 
+                    if ( item.attributes.tags[ 'source:geometry:ref' ] ) {
                        // console.log(item);
-                       // console.log(item.attributes.tags[ 'source:geometry:ref' ]); 
+                       // console.log(item.attributes.tags[ 'source:geometry:ref' ]);
                        var dotcomma = item.attributes.tags[ 'source:geometry:ref' ].indexOf(";");
                        if (dotcomma) {
                            // combined ref key needs different approach
@@ -81,9 +81,9 @@ function filterForJosm() {
 function returnJosmUrl() {
     var josmUrl = '';
     if ( $( 'input[id="jinsecure"]' ).is( ':checked' ) ) {
-        josmUrl = '//127.0.0.1:8111';
+        josmUrl = 'http://127.0.0.1:8111';
     } else if ( $( 'input[id="jsecure"]' ).is( ':checked' ) ) {
-        josmUrl = "//127.0.0.1:8112";
+        josmUrl = "https://127.0.0.1:8112";
     }
     return josmUrl;
 }

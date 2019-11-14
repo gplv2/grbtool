@@ -36,6 +36,6 @@ class User extends Authenticatable
 
     public function options()
     {
-        return $this->hasMany('App\Option');
+        return $this->hasMany(Option::Class);
     }
 }

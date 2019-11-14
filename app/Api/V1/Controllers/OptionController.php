@@ -32,7 +32,9 @@ class OptionController extends Controller
         $response = new Response();
         $response->header('charset', 'utf-8');
 
+        //$options = User::where('id', $currentUser->id)->with('options')->get();
         $options = Option::where('user_id', $currentUser->id)->get();
+        //$options = User::find($currentUser->id)->with('options');
         //$options = Option::all();
         //dd($options);
 

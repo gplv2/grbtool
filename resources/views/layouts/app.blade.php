@@ -379,10 +379,12 @@
 
     <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script> -->
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script> -->
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-route.min.js"></script> -->
 
+    {!! Html::script('js/angular.min.js') !!}
+    {!! Html::script('js/angular-route.min.js') !!}
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-route.min.js"></script>
     <script src="/js/loading-bar.js"></script>
     <!-- Token storage -->
     <script src="js/ngstorage/ngStorage.min.js"></script>

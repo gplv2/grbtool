@@ -38,6 +38,16 @@
                     } )
                 };
 
+                $scope.recovery = function() {
+                    var formData = {
+                        email: $scope.email
+                    };
+
+                    Auth.recovery( formData, successAuth, function() {
+                        $rootScope.error = 'Invalid recovery.';
+                    } )
+                };
+
                 $scope.signup = function() {
                     var formData = {
                         name: $scope.name,

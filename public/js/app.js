@@ -26,6 +26,10 @@
                 templateUrl: 'partials/signin.html',
                 controller: 'HomeController'
             } ).
+            when( '/recovery', {
+                templateUrl: 'partials/recovery.html',
+                controller: 'HomeController'
+            } ).
             when( '/signup', {
                 templateUrl: 'partials/signup.html',
                 controller: 'HomeController'

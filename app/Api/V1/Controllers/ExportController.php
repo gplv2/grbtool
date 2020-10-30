@@ -75,7 +75,7 @@ class ExportController extends Controller
                 DataExport::unguard();
                 $dataexport = new DataExport([
                         'filename' => $token.'.osm',
-                        'user' => $currentUser.id
+                        'user_id' => $currentUser['id']
                         ]);
 
                 $dataexport->save();

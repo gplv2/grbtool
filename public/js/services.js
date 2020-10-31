@@ -102,7 +102,7 @@
 
                     $http.post( urls.BASE_API + '/auth/login', dta, config ).success( success ).error( error )
                 },
-                recovery: function( data, success, error ) {
+                recover: function( data, success, error ) {
                      console.log(data);
 
                     var dta = "";
@@ -120,6 +120,25 @@
                     }
 
                     $http.post( urls.BASE_API + '/auth/recovery', dta, config ).success( success ).error( error )
+                },
+                reset: function( data, success, error ) {
+                     console.log(data);
+
+                    var dta = "";
+                    for ( var key in data ) {
+                        if ( dta != "" ) {
+                            dta += "&";
+                        }
+                        dta += key + "=" + encodeURIComponent( data[ key ] );
+                    }
+
+                    var config = {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                        }
+                    }
+
+                    $http.post( urls.BASE_API + '/auth/reset', dta, config ).success( success ).error( error )
                 },
                 logout: function( success ) {
                     tokenClaims = {};

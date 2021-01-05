@@ -84,7 +84,7 @@
                     $http.post( urls.BASE_API + '/auth/signup', dta, config ).success( success ).error( error )
                 },
                 signin: function( data, success, error ) {
-                     console.log(data);
+                     //console.log(data);
 
                     var dta = "";
                     for ( var key in data ) {
@@ -103,7 +103,7 @@
                     $http.post( urls.BASE_API + '/auth/login', dta, config ).success( success ).error( error )
                 },
                 recover: function( data, success, error ) {
-                     console.log(data);
+                     //console.log(data);
 
                     var dta = "";
                     for ( var key in data ) {
@@ -122,7 +122,7 @@
                     $http.post( urls.BASE_API + '/auth/recovery', dta, config ).success( success ).error( error )
                 },
                 reset: function( data, success, error ) {
-                     console.log(data);
+                     //console.log(data);
 
                     var dta = "";
                     for ( var key in data ) {

@@ -1505,7 +1505,7 @@ $( document ).ready( function() {
         $( "#dpslider" ).slider( {
             range: "min",
             max: 100,
-            value: 82,
+            value: 87,
             min: 66,
             create: function() {
                 handle.text( $( this ).slider( "value" ) + '%' ).css( 'width', 'initial' );

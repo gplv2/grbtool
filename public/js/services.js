@@ -38,12 +38,27 @@
                         user[ key ] = dateString;
                     } else if ( key == 'exp' ) {
                         var theDate = new Date( user[ key ] * 1000 );
+                        var expDate = theDate;
                         var dateString = theDate.toGMTString();
                         user[ key ] = dateString;
                     } else if ( key == 'nbf' ) {
                         var theDate = new Date( user[ key ] * 1000 );
                         dateString = theDate.toGMTString();
                         user[ key ] = dateString;
+                    }
+                }
+                if ( user['exp'] ) {
+                    //console.log(user);
+                    //var theDate = new Date( user['exp'] * 1000 );
+                    var nowDate = new Date();
+                    //console.log("tokendate " +expDate);
+                    //console.log("nowdate " + nowDate);
+                    if (expDate < nowDate ) {
+                        // purge expired token 
+                        tokenClaims = {};
+                        console.log("DELETED");
+                        delete $localStorage.token;
+                        return null;
                     }
                 }
                 //console.log(user);

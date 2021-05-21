@@ -38,7 +38,7 @@ function filterForJosm() {
                 //console.log(item)k;
                 //console.log(feature.attributes);
 /*
-                if ( !item.attributes.tags[ 'source:geometry:ref' ] ) { 
+                if ( !item.attributes.tags[ 'source:geometry:ref' ] ) {
                     $( "#msg" ).html( "Warning : " + "The features from overpass are missing the entity tag, add the entity (Gbg, Knw ..) , this will improve and correct the filtering." ).removeClass().addClass( "notice warn" );
                     // Entity is missing, probably a legacy test import
                     if ( item.attributes.tags[ 'source:geometry:oidn' ] === feature.attributes[ 'source:geometry:oidn' ] ) {
@@ -46,24 +46,39 @@ function filterForJosm() {
                         ret = false;
                     }
                 } else {
-*/
-                    if ( item.attributes.tags[ 'source:geometry:ref' ] ) { 
+*/          
+                    // Format the date in OSM format
+                  	if ( feature.attributes[ "source:geometry:date" ] !== null && feature.attributes[ "source:geometry:date" ] !== undefined ) {
+                        //console.log(node.val[ "source:geometry:date" ]);
+                        var mydate = "";
+                        // make it a string by catting it into one.
+                        mydate = '' + feature.attributes[ "source:geometry:date" ];
+                        var stripped = mydate.replace( /\//g, '-' );
+                        var object_date = stripped;
+                        //console.log(stripped);
+                    }
+
+                    if ( item.attributes.tags[ 'source:geometry:ref' ] ) {
                        // console.log(item);
-                       // console.log(item.attributes.tags[ 'source:geometry:ref' ]); 
+                       // console.log(item.attributes.tags[ 'source:geometry:ref' ]);
                        var dotcomma = item.attributes.tags[ 'source:geometry:ref' ].indexOf(";");
                        if (dotcomma) {
                            // combined ref key needs different approach
                            var refArray = item.attributes.tags[ 'source:geometry:ref' ].split(';');
+                           var dateArray = item.attributes.tags[ 'source:geometry:date' ].split(';');
                            // console.log(refArray);
                            // console.log(feature.attributes[ 'source:geometry:ref' ]);
                            $.each( refArray , function( j, ref ) {
-                               if ( feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] === ref ) {
+                               if ( feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] === ref && 
+                                    dateArray[j] === object_date ) {
                                    // console.log(ref);
                                    ret = false;
                                }
                            });
                        } else  {
-                           if ( item.attributes.tags[ 'source:geometry:ref' ] === feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ]) {
+                           if ( item.attributes.tags[ 'source:geometry:ref' ] === feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] && 
+                                item.attributes.tags[ 'source:geometry:date' === object_date ]
+                           ) {
                                ret = false;
                            }
                        }
@@ -81,9 +96,9 @@ function filterForJosm() {
 function returnJosmUrl() {
     var josmUrl = '';
     if ( $( 'input[id="jinsecure"]' ).is( ':checked' ) ) {
-        josmUrl = '//127.0.0.1:8111';
+        josmUrl = 'http://127.0.0.1:8111';
     } else if ( $( 'input[id="jsecure"]' ).is( ':checked' ) ) {
-        josmUrl = "//127.0.0.1:8112";
+        josmUrl = "https://127.0.0.1:8112";
     }
     return josmUrl;
 }

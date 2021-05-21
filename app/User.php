@@ -33,4 +33,9 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = \Hash::make($value);
     }
+
+    public function options()
+    {
+        return $this->hasMany(Option::Class);
+    }
 }

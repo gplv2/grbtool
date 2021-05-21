@@ -381,10 +381,10 @@ window.mapsCallback = function () {
 
                     <div class="help-block">JOSM settings</div>
                     <div class="radio">
-                        <label class="ui-button-text"><input type="radio" name="optradio" id="jinsecure" class="form-control-label">NON-SSL</label>
+                        <label class="ui-button-text"><input type="radio" name="optradio" id="jinsecure" class="form-control-label" checked>NON-SSL</label>
                     </div>
                     <div class="radio">
-                        <label class="ui-button-text"><input type="radio" name="optradio" id="jsecure" class="form-control-label" checked>SSL</label>
+                        <label class="ui-button-text"><input type="radio" name="optradio" id="jsecure" class="form-control-label">SSL</label>
                     </div>
 
                     <div class="help-block">Layer settings</div>

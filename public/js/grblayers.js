@@ -1505,7 +1505,7 @@ $( document ).ready( function() {
         $( "#dpslider" ).slider( {
             range: "min",
             max: 100,
-            value: 82,
+            value: 87,
             min: 66,
             create: function() {
                 handle.text( $( this ).slider( "value" ) + '%' ).css( 'width', 'initial' );
@@ -1579,8 +1579,37 @@ $( document ).ready( function() {
         $( "#loadgrb" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Loading vector GRB data in a new JOSM layer" );
             $( 'body' ).css( 'cursor', 'wait' );
-            openInJosm();
-            //openInJosm();
+
+            var token = myLocalStorage.get('ngStorage-token');
+
+            $.ajax( {
+                type: "POST",
+                url: '/api/auth/verify',
+                //data: null,
+                cache: false,
+                beforeSend: function(xhr, settings) {
+                    if (token) {
+                        xhr.setRequestHeader('Authorization','Bearer ' + token);
+                    }
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.overrideMimeType( 'application/json' );
+                },
+                dataType: "json",
+                contentType: "application/json",
+                timeout: 2000 // 2 second wait
+            } ).done( function( data ) {
+                //console.log(data);
+                try {
+                    javascript:_paq.push(['trackEvent', 'verifyAuth', '/api/auth/verify']);
+                } catch(err) {
+                    // tracking api probably blocked by user
+                }
+                openInJosm();
+            } ).fail( function( jqXHR, textStatus, errorThrown ) {
+                $( '#msg' ).removeClass().addClass( "notice error" ).html( "Please log in to export the data to josm");
+                //console.log(errorThrown);
+            } );
+
             $( 'body' ).css( 'cursor', 'default' );
             event.preventDefault();
             return false;

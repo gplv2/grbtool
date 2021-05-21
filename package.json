@@ -2,7 +2,7 @@
   "name": "GRB_GIMT",
   "version": "1.0.0",
   "private": true,
-  "description": "Website and backend script to load GRB data into postgis and explore.  GRB GUI Import and Merge Tool", 
+  "description": "Website and backend script to load GRB data into postgis and explore.  GRB GUI Import and Merge Tool",
   "main": "index.js",
   "dependencies": {
     "apidoc": "^0.16.1",
@@ -45,4 +45,3 @@
   "author": "Glenn Plas",
   "license": "GPL-3.0+"
 }
-

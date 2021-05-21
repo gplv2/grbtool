@@ -7,6 +7,7 @@ use Validator;
 use Config;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Mail\Message;
 use Dingo\Api\Routing\Helpers;
 use App\Http\Controllers\Controller;
@@ -90,6 +91,18 @@ class AuthController extends Controller
             case Password::INVALID_USER:
                 return $this->response->errorNotFound();
         }
+    }
+
+    public function verify(Request $request)
+    {
+        try {
+            $currentUser = JWTAuth::parseToken()->authenticate();
+        } catch (JWTException $e) {
+            return $this->response->errorUnauthorized();
+        }
+
+        $msg=array('status' => 'validation request accepted');
+        return response()->json($msg);
     }
 
     public function reset(Request $request)

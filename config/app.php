@@ -164,7 +164,8 @@ return [
         Barryvdh\Cors\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Phaza\LaravelPostgis\DatabaseServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
+	Laravel\Socialite\SocialiteServiceProvider::class,
+	Fideloper\Proxy\TrustedProxyServiceProvider::class,
     ],
 
     /*

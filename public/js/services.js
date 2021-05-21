@@ -38,12 +38,27 @@
                         user[ key ] = dateString;
                     } else if ( key == 'exp' ) {
                         var theDate = new Date( user[ key ] * 1000 );
+                        var expDate = theDate;
                         var dateString = theDate.toGMTString();
                         user[ key ] = dateString;
                     } else if ( key == 'nbf' ) {
                         var theDate = new Date( user[ key ] * 1000 );
                         dateString = theDate.toGMTString();
                         user[ key ] = dateString;
+                    }
+                }
+                if ( user['exp'] ) {
+                    //console.log(user);
+                    //var theDate = new Date( user['exp'] * 1000 );
+                    var nowDate = new Date();
+                    //console.log("tokendate " +expDate);
+                    //console.log("nowdate " + nowDate);
+                    if (expDate < nowDate ) {
+                        // purge expired token 
+                        tokenClaims = {};
+                        console.log("DELETED");
+                        delete $localStorage.token;
+                        return null;
                     }
                 }
                 //console.log(user);
@@ -84,7 +99,7 @@
                     $http.post( urls.BASE_API + '/auth/signup', dta, config ).success( success ).error( error )
                 },
                 signin: function( data, success, error ) {
-                    // console.log(data);
+                     //console.log(data);
 
                     var dta = "";
                     for ( var key in data ) {
@@ -101,6 +116,44 @@
                     }
 
                     $http.post( urls.BASE_API + '/auth/login', dta, config ).success( success ).error( error )
+                },
+                recover: function( data, success, error ) {
+                     //console.log(data);
+
+                    var dta = "";
+                    for ( var key in data ) {
+                        if ( dta != "" ) {
+                            dta += "&";
+                        }
+                        dta += key + "=" + encodeURIComponent( data[ key ] );
+                    }
+
+                    var config = {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                        }
+                    }
+
+                    $http.post( urls.BASE_API + '/auth/recovery', dta, config ).success( success ).error( error )
+                },
+                reset: function( data, success, error ) {
+                     //console.log(data);
+
+                    var dta = "";
+                    for ( var key in data ) {
+                        if ( dta != "" ) {
+                            dta += "&";
+                        }
+                        dta += key + "=" + encodeURIComponent( data[ key ] );
+                    }
+
+                    var config = {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                        }
+                    }
+
+                    $http.post( urls.BASE_API + '/auth/reset', dta, config ).success( success ).error( error )
                 },
                 logout: function( success ) {
                     tokenClaims = {};

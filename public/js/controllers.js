@@ -8,6 +8,8 @@
     angular.module( 'app' )
         .controller( 'HomeController', [ '$rootScope', '$scope', '$location', '$localStorage', 'Auth',
             function( $rootScope, $scope, $location, $localStorage, Auth ) {
+                $scope.email = $location.search().email;
+                $scope.resettoken = $location.search().resettoken;
                 function successAuth( res ) {
                     $localStorage.token = res.token;
 
@@ -22,9 +24,9 @@
                     $( '#map-wrap' ).css( "width", canvaswidth );
                     // window.location = "/console#/";
                     setTimeout( function() {
-                        location.assign( "/console#/" );
+                        location.assign( "/#/" );
                         location.reload( true );
-                    }, 100 );
+                    }, 50 );
                 }
 
                 $scope.signin = function() {
@@ -38,6 +40,16 @@
                     } )
                 };
 
+                $scope.recover = function() {
+                    var formData = {
+                        email: $scope.email
+                    };
+
+                    Auth.recover( formData, successAuth, function() {
+                        $rootScope.error = 'Invalid recovery.';
+                    } )
+                };
+
                 $scope.signup = function() {
                     var formData = {
                         name: $scope.name,
@@ -48,6 +60,20 @@
 
                     Auth.signup( formData, successAuth, function( res ) {
                         $rootScope.error = res.errors[0][0] || 'Failed to sign up.';
+                    } )
+                };
+
+                $scope.reset = function() {
+                    var formData = {
+                        email: $scope.email,
+                        password: $scope.password,
+                        password_confirmation: $scope.password_confirmation,
+                        token: $scope.resettoken
+                    };
+
+                    Auth.reset( formData, successAuth, function( res ) {
+			    console.log(res);
+                        $rootScope.error = res.errors[0][0] || 'Failed to reset password.';
                     } )
                 };
 
@@ -75,5 +101,5 @@
             }, function() {
                 $rootScope.error = 'Failed to fetch restricted API content.';
             } );
-        } ] );
+        } ] ) ;
 } )();

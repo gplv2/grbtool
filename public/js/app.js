@@ -26,6 +26,14 @@
                 templateUrl: 'partials/signin.html',
                 controller: 'HomeController'
             } ).
+            when( '/recover', {
+                templateUrl: 'partials/recover.html',
+                controller: 'HomeController'
+            } ).
+            when( '/reset', {
+                templateUrl: 'partials/reset.html',
+                controller: 'HomeController'
+            } ).
             when( '/signup', {
                 templateUrl: 'partials/signup.html',
                 controller: 'HomeController'
@@ -64,5 +72,25 @@
                     }
                 }
             } );
+        /*
+            } );
+            $rootScope.$on( "$routeChangeSuccess", function( event, next ) {
+                console.log("change success!");
+                if ( next.templateUrl === "partials/reset.html" ) {
+                    var token = $location.search().token;
+                    var email = $location.search().email;
+                    //self.document.forms[0][0].value=email;
+                    //self.document.forms[0][1].value=token;
+                }
+            } );
+            $rootScope.$watch('$viewContentLoaded', function(event) {
+                var token = $location.search().token;
+                var email = $location.search().email;
+                self.document.forms[0][0].value=email;
+                self.document.forms[0][1].value=token;
+                console.log("URL changed!");
+                console.log(self);
+            });
+        */
         } );
 } )();

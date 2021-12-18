@@ -35,6 +35,99 @@ var lambert = null;
 function initmap() {
     $( 'body' ).css( 'cursor', 'wait' );
 
+    var myLocalStorage = {
+        set: function( item, value ) {
+            localStorage.setItem( item, JSON.stringify( value ) );
+        },
+        get: function( item ) {
+            return JSON.parse( localStorage.getItem( item ) );
+        }
+    };
+    
+    var myOption = {
+        set: function( item, value ) {
+            var token = myLocalStorage.get('ngStorage-token');
+            // Store the default location in database
+            $.ajax( {
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({ "name": item , "value": value }),
+                beforeSend: function(xhr, settings) {
+                    if (token) {
+                        xhr.setRequestHeader('Authorization','Bearer ' + token);
+                    }
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.overrideMimeType( 'application/json' );
+                },
+                cache: false,
+                async: true,
+                global: false,
+                url: '/api/option',
+                contentType: "application/json",
+                timeout: 500, // 2 second wait
+                success: function( data ) {
+                    //console.log(data);
+                    if ( data.status !== null && data.status !== undefined ) {
+                        $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location saved in user profile" );
+                    } else {
+                        $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location value save problem" );
+                    }
+
+                    $( 'body' ).css( 'cursor', 'default' );
+                },
+                statusCode: {
+                    404: function() {
+                        $( '#msg' ).removeClass().addClass( "notice error" ).html( "Error: Problem with option saver" );
+                    }
+                }
+            } );
+            // Done storing
+        },
+        get: function( item ) {
+            var token = myLocalStorage.get('ngStorage-token');
+            // Store the default location in database
+            return new Promise((resolve, reject) => {
+                $.ajax( {
+                    type: "GET",
+                    dataType: "json",
+                    data: { "name": item },
+                    beforeSend: function(xhr, settings) {
+                        if (token) {
+                            xhr.setRequestHeader('Authorization','Bearer ' + token);
+                        }
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.overrideMimeType( 'application/json' );
+                    },
+                    cache: false,
+                    async: true,
+                    global: false,
+                    url: '/api/option',
+                    contentType: "application/json",
+                    timeout: 500, // 0.5 second wait
+                    success: function( data ) {
+                        //console.log(data);
+                        if ( data !== null && data !== undefined ) {
+                            $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location retrieved from user profile" );
+                           //console.log(data.options.value);
+                            resolve(data.options.value);
+                        } else {
+                            $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location value retrieval problem" );
+                            resolve(undefined);
+                        }
+                        $( 'body' ).css( 'cursor', 'default' );
+                    },
+                    statusCode: {
+                        404: function() {
+                            $( '#msg' ).removeClass().addClass( "notice error" ).html( "Error: Problem with option saver" );
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        reject(textStatus);
+                    }
+                } );
+            } );
+        }
+    };
     /*
         $(function() {
           // setup graphic EQ
@@ -202,6 +295,57 @@ function initmap() {
             'zoom': map.getZoom()
         };
         localStorage.setItem( 'defaultlocation', JSON.stringify( setObject ) );
+        // Option.set('defaultlocation', JSON.stringify( setObject ) );
+        
+/*
+        var option;
+        Option.get('defaultlocation').then(function (result) {
+            //localStorage.setItem( 'defaultlocation', result );
+            option=result;
+            console.log(option);
+        }).catch(function (error) {
+            console.error(error);
+        });
+*/
+
+	    /*
+        var token = myLocalStorage.get('ngStorage-token');
+	    $.ajax( {
+		    type: "POST",
+		    dataType: "json",
+		    //data: { name: 'dpslider', value: ui.value },
+		    data: JSON.stringify({ "name": "defaultlocation", "value": JSON.stringify(setObject) }),
+		    beforeSend: function(xhr, settings) {
+			    if (token) {
+				    xhr.setRequestHeader('Authorization','Bearer ' + token);
+			    }
+			    xhr.setRequestHeader('Content-Type', 'application/json');
+			    xhr.overrideMimeType( 'application/json' );
+		    },
+		    cache: false,
+		    async: true,
+		    global: false,
+		    url: '/api/option',
+		    contentType: "application/json",
+		    timeout: 500, // 2 second wait
+		    success: function( data ) {
+			    //console.log(data);
+			    if ( data.status !== null && data.status !== undefined ) {
+				    //$( '#postcode' ).val( geocode.address.postcode );
+				    $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location saved in user profile" );
+			    } else {
+				    $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location value save problem" );
+			    }
+
+			    $( 'body' ).css( 'cursor', 'default' );
+		    },
+		    statusCode: {
+			    404: function() {
+				    $( '#msg' ).removeClass().addClass( "notice error" ).html( "Error: Problem with option saver" );
+			    }
+		    }
+	    } );
+	    */
         //var retrievedObject = JSON.parse(localStorage.getItem('defaultlocation'));
         //console.log(retrievedObject);
         /*
@@ -789,6 +933,16 @@ dotlayer.events.register('loadend', this, onloaddotend);
         var lonLat = new OpenLayers.LonLat( lon, lat ).transform( geodetic, map.getProjectionObject() );
         map.setCenter( lonLat, zoom );
     }
+
+    var bounds = map.getExtent();
+    bounds.transform( map.getProjectionObject(), geodetic );
+    var center = bounds.getCenterLonLat();
+    var setObject = {
+        'lat': center.lat,
+        'lon': center.lon,
+        'zoom': map.getZoom()
+    };
+
 
     /* remove existing overpass layer
     var layers = map.getLayersByName('OverPass');
@@ -1501,6 +1655,7 @@ $( document ).ready( function() {
     $( "#msg" ).html( "Action: DocReady" );
 
     $( function() {
+        var token = myLocalStorage.get('ngStorage-token');
         var handle = $( "#percentage" );
         $( "#dpslider" ).slider( {
             range: "min",
@@ -1515,6 +1670,41 @@ $( document ).ready( function() {
                 handle.text( ui.value + '%' ).css( 'width', 'initial' );
                 //$( "#percentage" ).val( $( "#dpslider" ).slider( "value" ) + '%' );
                 //$( "#percentage" ).val( ui.value + "%");
+                $.ajax( {
+                    type: "POST",
+                    dataType: "json",
+                    //data: { name: 'dpslider', value: ui.value },
+                    data: JSON.stringify({ "name": "dpslider", "value": ui.value }),
+                    beforeSend: function(xhr, settings) {
+                        if (token) {
+                            xhr.setRequestHeader('Authorization','Bearer ' + token);
+                        }
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.overrideMimeType( 'application/json' );
+                    },
+                    cache: false,
+                    async: true,
+                    global: false,
+                    url: '/api/option',
+                    contentType: "application/json",
+                    timeout: 500, // 2 second wait
+                    success: function( data ) {
+			//console.log(data);
+                        if ( data.status !== null && data.status !== undefined ) {
+                            //$( '#postcode' ).val( geocode.address.postcode );
+                            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Slider default value saved in user profile" );
+                        } else {
+                            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Slider option value save problem" );
+                        }
+
+                        $( 'body' ).css( 'cursor', 'default' );
+                    },
+                    statusCode: {
+                        404: function() {
+                            $( '#msg' ).removeClass().addClass( "notice error" ).html( "Error: Problem with option saver" );
+                        }
+                    }
+                } );
             }
         } );
         $( "#percentage" ).val( $( "#dpslider" ).slider( "value" ) + '%' ).css( 'width', 'initial' );

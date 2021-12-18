@@ -378,6 +378,10 @@ window.mapsCallback = function () {
                     <div class="form-group">
                          <div id="contentfilters" class="col-md-12" style="clear:both;"> </div>
                     </div>
+                    <div class="help-block">Export settings</div>
+                    <div class="checkbox">
+                        <label class="form-control-label"><input type="checkbox" value="">Include steps in export (not active yet)</label>
+                    </div>
 
                     <div class="help-block">JOSM settings</div>
                     <div class="radio">

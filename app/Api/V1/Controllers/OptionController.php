@@ -23,7 +23,7 @@ class OptionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $currentUser = JWTAuth::parseToken()->authenticate();
 
@@ -31,11 +31,15 @@ class OptionController extends Controller
 
         $response = new Response();
         $response->header('charset', 'utf-8');
+        $options = array();
+	$data = $request->toArray();
 
-        //$options = User::where('id', $currentUser->id)->with('options')->get();
-        $options = Option::where('user_id', $currentUser->id)->get();
-        //$options = User::find($currentUser->id)->with('options');
-        //$options = Option::all();
+	if (!empty($data['name'])) {
+		$options = Option::where('user_id', $currentUser->id)->where('name', '=', $data['name'])->get()->first();
+	} else {
+		$options = Option::where('user_id', $currentUser->id)->get();
+	}
+
         //dd($options);
 
         return response()->json(compact('options'),200);
@@ -59,7 +63,51 @@ class OptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $currentUser = JWTAuth::parseToken()->authenticate();
+
+        // $options = Option::where('user_id', $currentUser->id)->get();
+        $response = new Response();
+
+        $length = 32;
+        $token = '';
+
+        $msg=array('status' => 'option created');
+
+        if ($request->isMethod('post')) {
+            //dd($request->all());exit;
+            if (strlen($request->getContent())) {
+                $data = $request->toArray();
+
+                $validator = Validator::make($data, $this->rules());
+                if ($validator->fails()) {
+                    $reply = $validator->messages();
+                    return response()->json($reply,428);
+                };
+
+                Option::unguard();
+                $option = Option::where('user_id', $currentUser->id)->where('name', '=', $data['name'])->get()->first();
+                if (empty($option)) {
+                    $option = new Option();
+                    $option->user_id = $currentUser->id;
+                } else {
+                    $msg=array('status' => 'option updated');
+                }
+                $option->name = $data['name'];
+                $option->value = $data['value'];
+
+                if($option->save()){
+                    $response->status = "STATUS_OK";
+                    //$response->code = $response::code_ok;
+                    $response->result = $msg;
+                }
+                Option::reguard();
+            }
+        }
+
+        $type='application/json'; // ->header('Content-Type', $type);
+        $response->header('Content-Type', $type);
+        $response->header('charset', 'utf-8');
+        return response()->json($msg);
     }
 
     /**
@@ -104,5 +152,16 @@ class OptionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function rules()
+    {
+        // 'label', 'dsn', 'priority',
+        return [
+            //'id'   => 'required',
+            'name'     => 'required|min:5',
+            'value' => 'required'
+            //'user'     => 'required|min:2'
+            ];
     }
 }

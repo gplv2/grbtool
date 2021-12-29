@@ -267,7 +267,7 @@ window.mapsCallback = function () {
                <div id="tools" class="panel-body collapse in">
                 <form id="reqform2" class="form-horizontal ng-pristine ng-valid" role="form">
                   <div class="col-md-offset-0 col-md-8">
-		            <div class="help-block">CRAB actions</div>
+		            <div class="help-block">CRAB</div>
                     <div class="form-group">
                         <label for="postcode" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Postcode</label>
                         <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -277,7 +277,7 @@ window.mapsCallback = function () {
                              <button id="ocrab" type="button" class="btn btn-default" tabindex="1" onclick="javascript:_paq.push(['trackEvent', 'OpenInCrab']);">Open in CRAB import</button>
                         </div>
                     </div>
-		            <div class="help-block">Additional actions</div>
+		            <div class="help-block">Optional actions</div>
                     <div class="form-group">
                         <div class="col-md-offset-1 col-lg-2 col-md-2 col-sm-2 col-xs-2">
                              <button id="ostreetview" type="button" class="btn btn-default" tabindex="2" onclick="javascript:_paq.push(['trackEvent', 'OpenStreetview']);">Open in streetview</button>
@@ -286,7 +286,7 @@ window.mapsCallback = function () {
                              <button id="loadcert" type="button" class="btn btn-default" tabindex="5" onclick="javascript:_paq.push(['trackEvent', 'LoadCertificate']);">Load Certificate</button>
                         </div>
                     </div>
-		            <div class="help-block">Take GRB actions</div>
+		            <div class="help-block">Export data actions</div>
                     <div class="form-group">
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                              <button id="opass" type="button" class="btn btn-default" tabindex="6" onclick="javascript:_paq.push(['trackEvent', 'LoadOSMData']);">Load OSM data</button>

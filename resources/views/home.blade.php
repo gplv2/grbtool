@@ -290,9 +290,9 @@ window.mapsCallback = function () {
                     <div class="form-group">
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                              <button id="opass" type="button" class="btn btn-default" tabindex="6" onclick="javascript:_paq.push(['trackEvent', 'LoadOSMData']);">Load OSM data</button>
-                             <button id="fpass" type="button" class="btn btn-default" tabindex="7" onclick="javascript:_paq.push(['trackEvent', 'FilterGRBLayer']);">Filter GRB layer</button>
+                             <button id="fpass" type="button" class="btn btn-default" tabindex="7" onclick="javascript:_paq.push(['trackEvent', 'FilterGRBLayer']);">Filter Export layer</button>
                              <button id="loadarea" type="button" class="btn btn-default" tabindex="8" onclick="javascript:_paq.push(['trackEvent', 'OpenAreaInJosm']);">Open Area in JOSM</button>
-                             <button id="loadgrb" type="button" class="btn btn-default" tabindex="9" onclick="javascript:_paq.push(['trackEvent', 'ExportGRB']);">Export GRB</button>
+                             <button id="loadgrb" type="button" class="btn btn-default" tabindex="9" onclick="javascript:_paq.push(['trackEvent', 'ExportGRB']);">Export data to JOSM</button>
                          </div>
                     </div>
 <!--

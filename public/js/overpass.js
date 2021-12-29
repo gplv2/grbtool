@@ -89,7 +89,7 @@ function filterForJosm() {
         }
     } );
     mergeStrategy.setFilter( overpassfilter );
-    $( "#msg" ).html( "<br/>Info : " + "Filtered vector layer GRB with overpass data" ).removeClass().addClass( "notice success" );
+    $( "#msg" ).html( "<br/>Info : " + "Filtered Export Vector Layer with overpass data" ).removeClass().addClass( "notice success" );
     //return true;
 }
 

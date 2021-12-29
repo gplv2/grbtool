@@ -226,6 +226,7 @@ window.mapsCallback = function () {
 {!! Html::script('js/mapshaper.js') !!}
 {!! Html::script('js/pizza.js') !!}
 {!! Html::script('js/fixlistener.js') !!}
+{!! Html::script('js/proj4-src.js') !!}
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaPvbu-B8-JS0N_zAH5BiI6foAvccFBDY&callback=mapsCallback" type="text/javascript"></script>
 <!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script> -->
 {!! Html::script('js/openlayers/OpenLayers.js') !!}
@@ -463,6 +464,28 @@ window.mapsCallback = function () {
 <script src="/js/controllers.js"></script>
 <script src="/js/services.js"></script>
 -->
+<script>
+//Snippet comes from http://osgeo-org.1560.x6.nabble.com/OL-2-13-1-latest-Proj4js-td5081636.html
+//
+var Proj4js = window["Proj4js"] = window["Proj4js"] || {
+    Proj: function(code) {
+        var result = proj4(code);
+        result.srsCode = code; // for ol2 compatibility
+        return result;
+    },
+    defs: proj4.defs,
+    transform: proj4
+};
+/*
+window.Proj4js = {
+Proj: function(code) {
+    return proj4(Proj4js.defs[code]);
+},
+    defs: proj4.defs,
+    transform: proj4
+};
+ */
+</script>
 {!! Html::script('js/turf.min.js') !!}
 {!! Html::script('js/osmtogeojson/osmtogeojson.js') !!}
 {!! Html::script('js/md5.min.js') !!}

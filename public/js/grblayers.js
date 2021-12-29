@@ -155,7 +155,7 @@ function initmap() {
 
     webmercator = new OpenLayers.Projection( "EPSG:3857" );
     geodetic = new OpenLayers.Projection( "EPSG:4326" );
-    mercator = new OpenLayers.Projection( "EPSG:900913" ); // Spherical Mercator Projection
+    mercator = new OpenLayers.Projection( "EPSG:900913" ); // Spherical Mercator Projection , the default map projection
     lambert = new OpenLayers.Projection( "EPSG:31370" );
     //projection: "EPSG:31370",
 
@@ -166,6 +166,33 @@ function initmap() {
         //$('#map').css("height",canvasheight);
         //$('#map').css("width",canvaswidth);
     } );
+
+    var get_my_url = function (bounds) {
+        console.log(bounds);
+        bounds.transform(mercator, lambert);
+        var res = map.getResolution();
+        console.log(bounds);
+        console.log(res);
+        var x = Math.round ((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
+        var y = Math.round ((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
+        var z = this.map.getZoom();
+        if(!x || !y || !z) {
+            console.log(x + ' / ' + y + ' / ' + z);
+        }
+        // var bounds = map.getExtent();
+        // bounds.transform(map.getProjectionObject(), geodetic);
+        //console.log(this);
+
+        //var path = 'tile_' + z + "_" + x + "-" + y + "." + this.type;
+        var path = z + "/" + y + "/" + x;
+        console.log(path);
+        var url = this.url;
+        if (url instanceof Array) {
+            url = this.selectUrl(path, url);
+        }
+        return url + path;
+    };
+
 
     $( "#msg" ).html( "Initializing map" );
     var layerswitcher = new OpenLayers.Control.LayerSwitcher();
@@ -211,13 +238,73 @@ function initmap() {
                 transitionEffect: "resize",
                 numZoomLevels: 19
             } ),
-
+// https://geoservices.wallonie.be/arcgis/rest/services/IMAGERIE/ORTHO_LAST/MapServer/tile/16/33553/22053
+// https://services.arcgisonline.com/arcgis/rest/services/Elevation/World_Hillshade/MapServer/tile/15/11028/16778
+            //
+            // 15 ARCGIS : https://geoservices.wallonie.be/arcgis/rest/services/IMAGERIE/ORTHO_LAST/MapServer/tile/15/609444/531784
+            // 15 GOOGLE : https://khms0.googleapis.com/kh?v=908&hl=en-US&x=268440&y=176447&z=19
+            // 15 PICC   : https://geoservices.wallonie.be/arcgis/rest/services/IMAGERIE/ORTHO_LAST/MapServer/tile/15/16782/11029
+            // 15 PICC def : https://geoservices.wallonie.be/arcgis/rest/services/IMAGERIE/ORTHO_LAST/MapServer/tile/16/22053/33551
+            //  https://geoservices.wallonie.be/arcgis/rest/services/IMAGERIE/ORTHO_LAST/MapServer/tile/15/11025/16781
+	        new OpenLayers.Layer.XYZ(
+			//"PICC O", [ "https://geoservices.wallonie.be/arcgis/rest/services/IMAGERIE/ORTHO_LAST/MapServer/tile/${z}/${x}/${y}" ], {
+			"PICC O", [ "https://geoservices.wallonie.be/arcgis/rest/services/IMAGERIE/ORTHO_LAST/MapServer/tile/" ], {
+				attribution: 'Service public de Wallonie',
+                //crs: 'EPSG:31370',
+				sphericalMercator: true,
+                maxZoomlevel: 16,
+                minZoomlevel: 0,
+				wrapDateLine: true,
+				transitionEffect: "resize",
+				buffer: 1,
+				//type: 'png',
+                //format: 'image/png',
+                format : "image/jpg",
+				layername: 'picc_ortho',
+				getURL: get_my_url,
+				transparent: "true",
+                //projection: mercator,
+				numZoomLevels: 17,
+				strategies: [ new OpenLayers.Strategy.BBOX( {
+					ratio: 2,
+					resFactor: 2
+				} ) ],
+				tiled: true,
+				isBaseLayer: true,
+				visibility: false
+			} ),
+	        new OpenLayers.Layer.XYZ(
+			"PICC DEF", [ "https://geoservices.wallonie.be/arcgis/rest/services/IMAGERIE/ORTHO_LAST/MapServer/tile/${z}/${y}/${x}" ], {
+				attribution: 'Service public de Wallonie',
+				sphericalMercator: true,
+                maxZoomlevel: 16,
+                minZoomlevel: 0,
+				wrapDateLine: true,
+				transitionEffect: "resize",
+				buffer: 1,
+				//type: 'png',
+                //format: 'image/png',
+                format : "image/jpg",
+				layername: 'picc_ortho_def',
+				//getURL: get_my_url,
+				transparent: "true",
+                //projection: mercator,
+				numZoomLevels: 17,
+				strategies: [ new OpenLayers.Strategy.BBOX( {
+					ratio: 2,
+					resFactor: 2
+				} ) ],
+				tiled: true,
+				isBaseLayer: true,
+				visibility: false
+			} ),
             new OpenLayers.Layer.OSM( "OpenStreetMap", null, {
                 numZoomLevels: 20
             } )
         ]
     } );
 
+        console.log(map.getProjectionObject());
     if (isMapsApiLoaded) {
 
         var googlelayers = [
@@ -437,6 +524,32 @@ function initmap() {
     map.addLayer( grb_wms );
     map.setLayerIndex( grb_wms, 2 );
 
+    var picc_wms = new OpenLayers.Layer.WMS(
+        "PICC base",
+            //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB-basiskaart/wmsgr?",
+            "https://geoservices.wallonie.be/arcgis/services/TOPOGRAPHIE/PICC_VDIFF/MapServer/WMSServer?", {
+            // https://geoservices.wallonie.be/arcgis/services/TOPOGRAPHIE/PICC_VDIFF/MapServer/WMSServer?request=GetCapabilities&service=WMS
+            //LAYERS: 'GRB_BASISKAART',
+            //LAYERS: 'TOPONYMIE,CONSTR_BATIEMPRISE,CONSTRUCTIONS,HYDROG_EMPRISE,HYDROGRAPHIE',
+            LAYERS: 'CONSTR_BATIEMPRISE',
+            transparent: "true",
+            //format: "image/png"
+        }, {
+            strategies: [ new OpenLayers.Strategy.BBOX( {
+                ratio: 2,
+                resFactor: 2
+            } ), refresh ],
+            tiled: true,
+            isBaseLayer: true,
+            projection: mercator,
+            visibility: true
+        }
+    );
+	// https://geoservices.wallonie.be/arcgis/services/TOPOGRAPHIE/PICC_VDIFF/MapServer/WMSServer?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=19&WIDTH=2726&HEIGHT=601&CRS=EPSG%3A3857&STYLES=&BBOX=471638.7922577386%2C6566516.63052325%2C472235.6378822547%2C6566648.216810974
+
+    map.addLayer( picc_wms );
+    map.setLayerIndex( picc_wms, 3 );
+
     var grb_wbn = new OpenLayers.Layer.WMS(
         "GRB - WBN+ Weg/water",
         "http://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB/wms?", {
@@ -593,31 +706,6 @@ function initmap() {
 
     map.addLayer( wr_combo );
     map.setLayerIndex( wr_combo, 4 );
-
-    /*
-             var get_my_url = function (bounds) {
-                var res = map.getResolution();
-                var x = Math.round ((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
-                var y = Math.round ((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
-                var z = this.map.getZoom();
-             if(!x || !y || !z) {
-                console.log(x + ' / ' + y + ' / ' + z);
-             }
-              // var bounds = map.getExtent();
-              // bounds.transform(map.getProjectionObject(), geodetic);
-
-
-              //var path = 'tile_' + z + "_" + x + "-" + y + "." + this.type;
-              var path = z + "/" + x + "/" + y + "." + this.type;
-              //console.log(path);
-              var url = this.url;
-              if (url instanceof Array) {
-                 url = this.selectUrl(path, url);
-              }
-              return url + path;
-           }
-    */
-
 
     var wr_combo_trans = new OpenLayers.Layer.WMS(
         "Nat. Wegenregister",

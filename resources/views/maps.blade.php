@@ -306,6 +306,8 @@
 <script src="/js/controllers.js"></script>
 <script src="/js/services.js"></script>
 -->
+-->
+{!! Html::script('js/proj4.js') !!}
 {!! Html::script('js/celllayers.js') !!}
 {!! Html::script('js/cellstyle.js') !!}
 {!! Html::script('js/start.js') !!}

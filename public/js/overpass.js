@@ -33,56 +33,88 @@ function filterForJosm() {
         property: "source:geometry:ref",
         evaluate: function( feature ) {
             var ret = true;
-            $.each( overpass_layer.features, function( i, item ) {
+            $.each( overpass_layer.features, function( i, overpass ) {
                 //console.log("testing " + feature.attributes['source:geometry:oidn']);
-                //console.log(item)k;
+                //console.log(overpass)k;
                 //console.log(feature.attributes);
-/*
-                if ( !item.attributes.tags[ 'source:geometry:ref' ] ) {
+                /*
+                if ( !overpass.attributes.tags[ 'source:geometry:ref' ] ) {
                     $( "#msg" ).html( "Warning : " + "The features from overpass are missing the entity tag, add the entity (Gbg, Knw ..) , this will improve and correct the filtering." ).removeClass().addClass( "notice warn" );
-                    // Entity is missing, probably a legacy test import
-                    if ( item.attributes.tags[ 'source:geometry:oidn' ] === feature.attributes[ 'source:geometry:oidn' ] ) {
-                        //console.log("found match: " + item.attributes.tags['source:geometry:oidn']);
+    // Entity is missing, probably a legacy test import
+                    if ( overpass.attributes.tags[ 'source:geometry:oidn' ] === feature.attributes[ 'source:geometry:oidn' ] ) {
+                //console.log("found match: " + overpass.attributes.tags['source:geometry:oidn']);
                         ret = false;
                     }
                 } else {
-*/          
-                    // Format the date in OSM format
-                  	if ( feature.attributes[ "source:geometry:date" ] !== null && feature.attributes[ "source:geometry:date" ] !== undefined ) {
-                        //console.log(node.val[ "source:geometry:date" ]);
-                        var mydate = "";
-                        // make it a string by catting it into one.
-                        mydate = '' + feature.attributes[ "source:geometry:date" ];
-                        var stripped = mydate.replace( /\//g, '-' );
-                        var object_date = stripped;
-                        //console.log(stripped);
-                    }
+                */          
+                // Format the date in OSM format
+                // GRB + PICC
+                if ( feature.attributes[ "source:geometry:date" ] !== null && feature.attributes[ "source:geometry:date" ] !== undefined ) {
+                    //console.log(node.val[ "source:geometry:date" ]);
+                    var mydate = "";
+                    // make it a string by catting it into one.
+                    mydate = '' + feature.attributes[ "source:geometry:date" ];
+                    var stripped = mydate.replace( /\//g, '-' );
+                    var object_date = stripped;
+                    //console.log(stripped);
+                }
+                // URBIS
+                if ( feature.attributes[ "source:geometry:version" ] !== null && feature.attributes[ "source:geometry:version" ] !== undefined ) {
+                    var myversion = "";
+                    // make it a string by catting it into one.
+                    var object_version = '' + feature.attributes[ "source:geometry:version" ];
+                }
 
-                    if ( item.attributes.tags[ 'source:geometry:ref' ] ) {
-                       // console.log(item);
-                       // console.log(item.attributes.tags[ 'source:geometry:ref' ]);
-                       var dotcomma = item.attributes.tags[ 'source:geometry:ref' ].indexOf(";");
-                       if (dotcomma) {
-                           // combined ref key needs different approach
-                           var refArray = item.attributes.tags[ 'source:geometry:ref' ].split(';');
-                           var dateArray = item.attributes.tags[ 'source:geometry:date' ].split(';');
-                           // console.log(refArray);
-                           // console.log(feature.attributes[ 'source:geometry:ref' ]);
-                           $.each( refArray , function( j, ref ) {
-                               if ( feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] === ref && 
+                // ref tag present in overpass data
+                if ( overpass.attributes.tags[ 'source:geometry:ref' ] ) {
+                    // See if a ; is present
+                    var dotcomma = overpass.attributes.tags[ 'source:geometry:ref' ].indexOf(";");
+                    // If a dotcomma is present in the overpass tags, this means a combined ref key of multiple objects
+                    if (dotcomma) {
+                        // combined ref key needs different approach
+                        var refArray = overpass.attributes.tags[ 'source:geometry:ref' ].split(';');
+                        // What entity are we dealing with, if URBIS we need the version approach and not the date
+                        //console.log(refArray);
+                        //console.log(entity);
+                        
+                        if ( overpass.attributes.tags[ 'source:geometry:version' ]){
+                            var versionArray = overpass.attributes.tags[ 'source:geometry:version' ].split(';');
+                            $.each( refArray , function( j, ref ) {
+                                // Compair, assuming ref and date have same number of elements
+                                if ( feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] === ref && 
+                                    versionArray[j] === object_version ) {
+                                    // This object seems up to date with source
+                                    ret = false;
+                                }
+                            });
+                        }
+
+                        if (overpass.attributes.tags[ 'source:geometry:date' ]) {
+                            var dateArray = overpass.attributes.tags[ 'source:geometry:date' ].split(';');
+                            $.each( refArray , function( j, ref ) {
+                                // Compair, assuming ref and date have same number of elements
+                                if ( feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] === ref && 
                                     dateArray[j] === object_date ) {
-                                   // console.log(ref);
-                                   ret = false;
-                               }
-                           });
-                       } else  {
-                           if ( item.attributes.tags[ 'source:geometry:ref' ] === feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] && 
-                                item.attributes.tags[ 'source:geometry:date' === object_date ]
-                           ) {
-                               ret = false;
-                           }
-                       }
+                                    // This object seems up to date with source
+                                    ret = false;
+                                }
+                            });
+                        }
+                    } else  {
+                        // pic grb
+                        if ( overpass.attributes.tags[ 'source:geometry:ref' ] === feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] && 
+                            overpass.attributes.tags[ 'source:geometry:date' === object_date ]
+                        ) {
+                            ret = false;
+                        }
+                        //urbis
+                        if ( overpass.attributes.tags[ 'source:geometry:ref' ] === feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] && 
+                            overpass.attributes.tags[ 'source:geometry:version' === object_version ]
+                        ) {
+                            ret = false;
+                        }
                     }
+                }
                 //}
             } );
             return ret;
@@ -179,8 +211,8 @@ function openInJosm( layername ) {
             var mylayers = map.getLayersByName( layername );
             //console.log(mylayers[0].features);
             /*
-                           $.each(mylayers.features, function(i, item) {
-                              if(!item.attributes.tags['source:geometry:entity']) {
+                           $.each(mylayers.features, function(i, overpass) {
+                              if(!overpass.attributes.tags['source:geometry:entity']) {
                                     ret = false;
                               }
                            });

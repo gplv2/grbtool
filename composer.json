@@ -16,7 +16,8 @@
         "phaza/laravel-postgis": "^3.1",
         "fideloper/proxy": "^3.3",
         "swiftmailer/swiftmailer": "^5.2",
-        "jbelien/oauth2-openstreetmap": "^0.1.2"
+        "jbelien/oauth2-openstreetmap": "^0.1.2",
+        "league/oauth2-client": "^2.6"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

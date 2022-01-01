@@ -220,7 +220,7 @@ function openInJosm( layername ) {
 
             var json = JSON.parse( geoJSON.write( mylayers[ 0 ].features ) );
 
-            // console.log( json );
+            //console.log( json );
 
             // Filter out tags we don't want and create our callback configuration
             var walkConfig = {
@@ -274,11 +274,12 @@ function openInJosm( layername ) {
                ]
             };
 
+            //console.log(json);
             // Filter meta tags before export
             if ( !$( 'input[id="metaexport"]' ).is( ':checked' ) ) {
                 Walk.walk( json, "poly", walkConfig );
             }
-            // console.log( json );
+            //console.log( json );
 
             mylayers = null;
 
@@ -299,6 +300,7 @@ function openInJosm( layername ) {
                         content: json
                     }
                 } );
+                //console.log(dataset);
 
                 var opts = {
                     pct: ( threshhold / 100 ),
@@ -307,14 +309,19 @@ function openInJosm( layername ) {
                 };
 
                 var ms = mapshaper.simplify( dataset, opts );
+                //console.log(ms);
 
                 var output = mapshaper.internal.exportFileContent( dataset, {
                     format: 'geojson'
                 } );
 
                 $( '#msg' ).removeClass().addClass( "notice info" ).html( "export to OSM-XML format" );
-
-                xml = geos( JSON.parse( output[ 0 ].content ) );
+                if (output[0] && output[1]) {
+			        var mergedGeoJSON = gmerge.merge([ JSON.parse(output[0].content) , JSON.parse(output[1].content) ]);
+                    xml = geos( mergedGeoJSON );
+                }  else  {
+                    xml = geos( JSON.parse( output[ 0 ].content ) );
+                }
                 //var xml = geos(JSON.parse(json));
             } else {
                 $( '#msg' ).removeClass().addClass( "notice info" ).html( "Not simplifying." );

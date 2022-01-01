@@ -171,7 +171,7 @@ vectorlayer_style.styles[ 'default' ].addRules( [
             fontColor: "#333333",
             //strokeColor: "${speed_color}",
             fontWeight: "bolder",
-            pointRadius: 8,
+            pointRadius: 2,
             fontSize: "20px"
         }
     } )

@@ -498,6 +498,7 @@ Proj: function(code) {
 {!! Html::script('js/agivlayers.js') !!}
 {!! Html::script('js/wrlayers.js') !!}
 {!! Html::script('js/start.js') !!}
+{!! Html::script('js/gmerge.js') !!}
 {!! Html::script('js/overpass.js') !!}
 {!! Html::script('js/nwr.js') !!}
 <!-- {!! Html::script('js/celllayers.js') !!} -->

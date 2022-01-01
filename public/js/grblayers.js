@@ -258,7 +258,7 @@ function initmap() {
         ]
     } );
 
-        console.log(map.getProjectionObject());
+        //console.log(map.getProjectionObject());
     if (isMapsApiLoaded) {
 
         var googlelayers = [

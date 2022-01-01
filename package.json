@@ -5,6 +5,7 @@
   "description": "Website and backend script to load GRB data into postgis and explore.  GRB GUI Import and Merge Tool",
   "main": "index.js",
   "dependencies": {
+    "@mapbox/geojson-merge": "^1.1.1",
     "@mapbox/geojson-normalize": "0.0.1",
     "@mapbox/tile-reduce": "^3.3.1",
     "@mapbox/tilebelt": "^1.0.1",

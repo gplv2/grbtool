@@ -5,6 +5,8 @@ namespace App\Api\V1\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Mail\Message;
+use Mail;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use JWTAuth;
@@ -79,8 +81,15 @@ class ExportController extends Controller
                         ]);
 
                 $dataexport->save();
-                DataExport::reguard();
-            }
+		DataExport::reguard();
+		/*
+		Mail::send('emails.firstexport', $data, function ($message) {
+			$message->from('grb@grbosm.site', 'GRB tool exports');
+			$message->subject('Your first GRB export');
+			$message->to('glenn@bitless.be')->cc('glenn.plas@telenet.be');
+		});
+		 */
+	    }
         }
 
         $response = new Response();

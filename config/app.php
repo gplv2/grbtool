@@ -158,6 +158,7 @@ return [
 
         /*
          * Third Party Providers...
+	 * // jbelien/oauth2-openstreetmap/src/Provider/OpenStreetMap
          */
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
@@ -166,6 +167,9 @@ return [
         Phaza\LaravelPostgis\DatabaseServiceProvider::class,
 	Laravel\Socialite\SocialiteServiceProvider::class,
 	Fideloper\Proxy\TrustedProxyServiceProvider::class,
+	//League\OAuth2\Client\Provider\GenericProvider::class,
+	//vendor/league/oauth2-client/src/Provider/GenericProvider.php
+	//JBelien\OAuth2\Client\Provider\OpenStreetMap::class,
     ],
 
     /*
@@ -220,6 +224,7 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        //'Oauth2' => \JBelien\OAuth2\Client\Provider\OpenStreetMap::class,
     ],
 
 ];

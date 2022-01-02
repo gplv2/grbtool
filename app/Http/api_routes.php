@@ -20,6 +20,7 @@ $api->version('v1', function ($api) {
       $api->get('export/download', 'App\Api\V1\Controllers\ExportController@show');
       $api->post('export/upload', 'App\Api\V1\Controllers\ExportController@store');
       $api->get('option', 'App\Api\V1\Controllers\OptionController@index');
+      $api->post('option', 'App\Api\V1\Controllers\OptionController@store');
    });
 
     // example of free route

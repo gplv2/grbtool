@@ -35,6 +35,99 @@ var lambert = null;
 function initmap() {
     $( 'body' ).css( 'cursor', 'wait' );
 
+    var myLocalStorage = {
+        set: function( item, value ) {
+            localStorage.setItem( item, JSON.stringify( value ) );
+        },
+        get: function( item ) {
+            return JSON.parse( localStorage.getItem( item ) );
+        }
+    };
+    
+    var myOption = {
+        set: function( item, value ) {
+            var token = myLocalStorage.get('ngStorage-token');
+            // Store the default location in database
+            $.ajax( {
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({ "name": item , "value": value }),
+                beforeSend: function(xhr, settings) {
+                    if (token) {
+                        xhr.setRequestHeader('Authorization','Bearer ' + token);
+                    }
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.overrideMimeType( 'application/json' );
+                },
+                cache: false,
+                async: true,
+                global: false,
+                url: '/api/option',
+                contentType: "application/json",
+                timeout: 500, // 2 second wait
+                success: function( data ) {
+                    //console.log(data);
+                    if ( data.status !== null && data.status !== undefined ) {
+                        $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location saved in user profile" );
+                    } else {
+                        $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location value save problem" );
+                    }
+
+                    $( 'body' ).css( 'cursor', 'default' );
+                },
+                statusCode: {
+                    404: function() {
+                        $( '#msg' ).removeClass().addClass( "notice error" ).html( "Error: Problem with option saver" );
+                    }
+                }
+            } );
+            // Done storing
+        },
+        get: function( item ) {
+            var token = myLocalStorage.get('ngStorage-token');
+            // Store the default location in database
+            return new Promise((resolve, reject) => {
+                $.ajax( {
+                    type: "GET",
+                    dataType: "json",
+                    data: { "name": item },
+                    beforeSend: function(xhr, settings) {
+                        if (token) {
+                            xhr.setRequestHeader('Authorization','Bearer ' + token);
+                        }
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.overrideMimeType( 'application/json' );
+                    },
+                    cache: false,
+                    async: true,
+                    global: false,
+                    url: '/api/option',
+                    contentType: "application/json",
+                    timeout: 500, // 0.5 second wait
+                    success: function( data ) {
+                        //console.log(data);
+                        if ( data !== null && data !== undefined ) {
+                            $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location retrieved from user profile" );
+                           //console.log(data.options.value);
+                            resolve(data.options.value);
+                        } else {
+                            $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location value retrieval problem" );
+                            resolve(undefined);
+                        }
+                        $( 'body' ).css( 'cursor', 'default' );
+                    },
+                    statusCode: {
+                        404: function() {
+                            $( '#msg' ).removeClass().addClass( "notice error" ).html( "Error: Problem with option saver" );
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        reject(textStatus);
+                    }
+                } );
+            } );
+        }
+    };
     /*
         $(function() {
           // setup graphic EQ
@@ -62,8 +155,13 @@ function initmap() {
 
     webmercator = new OpenLayers.Projection( "EPSG:3857" );
     geodetic = new OpenLayers.Projection( "EPSG:4326" );
-    mercator = new OpenLayers.Projection( "EPSG:900913" ); // Spherical Mercator Projection
-    lambert = new OpenLayers.Projection( "EPSG:31370" );
+    mercator = new OpenLayers.Projection( "EPSG:900913" ); // Spherical Mercator Projection , the default map projection
+
+    // proj troubles
+    //proj4.defs('EPSG:31370','+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=106.869,-52.2978,103.724,-0.33657,0.456955,-1.84218,1 +units=m +no_defs');
+
+    //lambert = new OpenLayers.Projection( "EPSG:31370" );
+
     //projection: "EPSG:31370",
 
     $( window ).resize( function() {
@@ -73,6 +171,42 @@ function initmap() {
         //$('#map').css("height",canvasheight);
         //$('#map').css("width",canvaswidth);
     } );
+
+    /*  Extent:
+        XMin: 42000
+        YMin: 20000
+        XMax: 296000
+        YMax: 168000
+        Spatial Reference: 31370  (31370)
+    */
+
+    var get_my_url = function (bounds) {
+        //console.log(bounds);
+        //var bb = bounds;
+        //bounds.transform(mercator, geodetic);
+        var res = map.getResolution();
+        //console.log(res);
+        //console.log(this.maxExtent.left);
+        var x = Math.round ((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
+        var y = Math.round ((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
+        var z = this.map.getZoom();
+        if(!x || !y || !z) {
+            console.log(x + ' / ' + y + ' / ' + z);
+        }
+        // var bounds = map.getExtent();
+        // bounds.transform(map.getProjectionObject(), geodetic);
+        //console.log(this);
+
+        //var path = 'tile_' + z + "_" + x + "-" + y + "." + this.type;
+        var path = z + "/" + y + "/" + x;
+        console.log(path);
+        var url = this.url;
+        if (url instanceof Array) {
+            url = this.selectUrl(path, url);
+        }
+        return url + path;
+    };
+
 
     $( "#msg" ).html( "Initializing map" );
     var layerswitcher = new OpenLayers.Control.LayerSwitcher();
@@ -117,14 +251,14 @@ function initmap() {
                 attribution: "Tiles courtesy of <a href=\"https://geo6.be/\">GEO-6</a>",
                 transitionEffect: "resize",
                 numZoomLevels: 19
-            } ),
-
+			} ),
             new OpenLayers.Layer.OSM( "OpenStreetMap", null, {
                 numZoomLevels: 20
             } )
         ]
     } );
 
+        //console.log(map.getProjectionObject());
     if (isMapsApiLoaded) {
 
         var googlelayers = [
@@ -202,6 +336,57 @@ function initmap() {
             'zoom': map.getZoom()
         };
         localStorage.setItem( 'defaultlocation', JSON.stringify( setObject ) );
+        // Option.set('defaultlocation', JSON.stringify( setObject ) );
+        
+/*
+        var option;
+        Option.get('defaultlocation').then(function (result) {
+            //localStorage.setItem( 'defaultlocation', result );
+            option=result;
+            console.log(option);
+        }).catch(function (error) {
+            console.error(error);
+        });
+*/
+
+	    /*
+        var token = myLocalStorage.get('ngStorage-token');
+	    $.ajax( {
+		    type: "POST",
+		    dataType: "json",
+		    //data: { name: 'dpslider', value: ui.value },
+		    data: JSON.stringify({ "name": "defaultlocation", "value": JSON.stringify(setObject) }),
+		    beforeSend: function(xhr, settings) {
+			    if (token) {
+				    xhr.setRequestHeader('Authorization','Bearer ' + token);
+			    }
+			    xhr.setRequestHeader('Content-Type', 'application/json');
+			    xhr.overrideMimeType( 'application/json' );
+		    },
+		    cache: false,
+		    async: true,
+		    global: false,
+		    url: '/api/option',
+		    contentType: "application/json",
+		    timeout: 500, // 2 second wait
+		    success: function( data ) {
+			    //console.log(data);
+			    if ( data.status !== null && data.status !== undefined ) {
+				    //$( '#postcode' ).val( geocode.address.postcode );
+				    $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location saved in user profile" );
+			    } else {
+				    $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location value save problem" );
+			    }
+
+			    $( 'body' ).css( 'cursor', 'default' );
+		    },
+		    statusCode: {
+			    404: function() {
+				    $( '#msg' ).removeClass().addClass( "notice error" ).html( "Error: Problem with option saver" );
+			    }
+		    }
+	    } );
+	    */
         //var retrievedObject = JSON.parse(localStorage.getItem('defaultlocation'));
         //console.log(retrievedObject);
         /*
@@ -273,7 +458,7 @@ function initmap() {
     var grb_wms = new OpenLayers.Layer.WMS(
         "GRB Basiskaart",
         //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB-basiskaart/wmsgr?",
-        "http://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms?", {
+        "https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms?", {
             //LAYERS: 'GRB_BASISKAART',
             LAYERS: 'GRB_BSK',
             transparent: "false",
@@ -292,6 +477,8 @@ function initmap() {
 
     map.addLayer( grb_wms );
     map.setLayerIndex( grb_wms, 2 );
+
+	// https://geoservices.wallonie.be/arcgis/services/IMAGERIE/ORTHO_LAST/MapServer/WMSServer?WIDTH=256&HEIGHT=256&VERSION=1.3.0&LAYERS=0&TRANSPARENT=false&FORMAT=image%2Fjpeg&EXCEPTIONS=INIMAGE&SERVICE=WMS&REQUEST=GetMap&STYLES=&CRS=EPSG%3A900913&BBOX=483082.01869507,6549124.5825623,483693.51492126,6549736.0787885
 
     var grb_wbn = new OpenLayers.Layer.WMS(
         "GRB - WBN+ Weg/water",
@@ -395,14 +582,13 @@ function initmap() {
     );
     map.addLayer( grb_gba );
 
-
     var geojson_format = new OpenLayers.Format.GeoJSON( {
         internalProjection: map.getProjectionObject(),
         externalProjection: geodetic
     } );
 
     var grb_ortho = new OpenLayers.Layer.WMS(
-        "Agiv Ortho",
+        "AGIV Ortho",
         //"http://geo.agiv.be/ogc/wms/omkl?VERSION=1.1.1&",
         "http://geoservices.informatievlaanderen.be/raadpleegdiensten/OMW/wms?", {
             WIDTH: 512,
@@ -424,6 +610,56 @@ function initmap() {
 
     map.addLayer( grb_ortho );
     map.setLayerIndex( grb_ortho, 3 );
+
+    var picc_wms = new OpenLayers.Layer.WMS(
+        "PICC Ortho",
+        //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB-basiskaart/wmsgr?",
+        "https://geoservices.wallonie.be/arcgis/services/IMAGERIE/ORTHO_LAST/MapServer/WMSServer?", {
+            //VERSION: '1.3.0',
+            LAYERS: '0',
+            transparent: "false",
+            format: "image/jpeg"
+        }, {
+            strategies: [ new OpenLayers.Strategy.BBOX( {
+                ratio: 2,
+                resFactor: 2
+            } ), refresh ],
+            tiled: true,
+            isBaseLayer: true,
+            projection: 'EPSG:3857',
+            visibility: true
+        }
+    );
+
+
+    map.addLayer( picc_wms );
+    map.setLayerIndex( picc_wms, 4 );
+
+    var urbis_wms = new OpenLayers.Layer.WMS(
+        "URBIS Ortho",
+        //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB-basiskaart/wmsgr?",
+        "https://geoservices-urbis.irisnet.be/geoserver/ows?", {
+		// extent 2.3056402404670271,49.2930727325656406 : 6.2282414692048640,51.4863972109605683
+            //VERSION: '1.3.0',
+	    LAYERS: 'Urbis:Ortho2020',
+            transparent: "false",
+            format: "image/jpeg"
+        }, {
+            strategies: [ new OpenLayers.Strategy.BBOX( {
+                ratio: 2,
+                resFactor: 2
+            } ), refresh ],
+            tiled: true,
+            isBaseLayer: true,
+            projection: 'EPSG:3857',
+            visibility: true
+        }
+    );
+
+    map.addLayer( urbis_wms );
+    map.setLayerIndex( urbis_wms, 5 );
+
+	// https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB/wms?LAYERS=GRB_WBN%2CGRB_WVB%2CGRB_SBN%2CGRB_WTZ%2CGRB_WLAS%2CGRB_WGR%2CGRB_WGO%2CGRB_WRL%2CGRB_WKN%2CGRB_SNM%2CGRB_SNM_LINKS%2CGRB_SNM_RECHTS&TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A900913&BBOX=503872.89038574,6631065.0768726,506318.87529053,6633511.0617773&WIDTH=256&HEIGHT=256
 
     var wr_combo = new OpenLayers.Layer.WMS(
         "Nat. Wegenregister",
@@ -448,32 +684,7 @@ function initmap() {
     );
 
     map.addLayer( wr_combo );
-    map.setLayerIndex( wr_combo, 4 );
-
-    /*
-             var get_my_url = function (bounds) {
-                var res = map.getResolution();
-                var x = Math.round ((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
-                var y = Math.round ((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
-                var z = this.map.getZoom();
-             if(!x || !y || !z) {
-                console.log(x + ' / ' + y + ' / ' + z);
-             }
-              // var bounds = map.getExtent();
-              // bounds.transform(map.getProjectionObject(), geodetic);
-
-
-              //var path = 'tile_' + z + "_" + x + "-" + y + "." + this.type;
-              var path = z + "/" + x + "/" + y + "." + this.type;
-              //console.log(path);
-              var url = this.url;
-              if (url instanceof Array) {
-                 url = this.selectUrl(path, url);
-              }
-              return url + path;
-           }
-    */
-
+    map.setLayerIndex( wr_combo, 6 );
 
     var wr_combo_trans = new OpenLayers.Layer.WMS(
         "Nat. Wegenregister",
@@ -498,7 +709,7 @@ function initmap() {
     );
 
     map.addLayer( wr_combo_trans );
-    map.setLayerIndex( wr_combo_trans, 5 );
+    map.setLayerIndex( wr_combo_trans, 7 );
 
     var cdark_all = new OpenLayers.Layer.XYZ(
         "Carto basemap Dark", [
@@ -516,7 +727,6 @@ function initmap() {
             buffer: 1,
             type: 'png',
             layername: 'dark_all',
-            //getURL: get_my_url,
             transparent: "false",
             numZoomLevels: 20,
             //projection: geodetic,
@@ -548,7 +758,6 @@ function initmap() {
             // buffer: 1,
             type: 'png',
             layername: 'dark_all',
-            //getURL: get_my_url,
             transparent: "false",
             numZoomLevels: 20,
             //projection: geodetic,
@@ -564,10 +773,10 @@ function initmap() {
         }
     );
     map.addLayer( clight_all );
-    map.setLayerIndex( clight_all, 6 );
+    map.setLayerIndex( clight_all, 8 );
 
     map.addLayer( cdark_all );
-    map.setLayerIndex( cdark_all, 7 );
+    map.setLayerIndex( cdark_all, 9 );
 
 
     /* shift-mouse1 Easily get bbox string (screen relative) */
@@ -790,6 +999,16 @@ dotlayer.events.register('loadend', this, onloaddotend);
         map.setCenter( lonLat, zoom );
     }
 
+    var bounds = map.getExtent();
+    bounds.transform( map.getProjectionObject(), geodetic );
+    var center = bounds.getCenterLonLat();
+    var setObject = {
+        'lat': center.lat,
+        'lon': center.lon,
+        'zoom': map.getZoom()
+    };
+
+
     /* remove existing overpass layer
     var layers = map.getLayersByName('OverPass');
     for(var layerIndex = 0; layerIndex < layers.length; layerIndex++) {
@@ -954,7 +1173,7 @@ dotlayer.events.register('loadend', this, onloaddotend);
         externalProjection: geodetic
     } );
 
-    overpass_layer = new OpenLayers.Layer.Vector( "Overpass - GRB Data", {
+    overpass_layer = new OpenLayers.Layer.Vector( "Overpass - Export Data", {
         styleMap: overpass_style,
         //maxResolution: map.getResolutionForZoom(15),
         //minScale: 54168.1,
@@ -1102,6 +1321,10 @@ dotlayer.events.register('loadend', this, onloaddotend);
                        	city = geocode.address.city;
                        	}
                         */
+                        if ( geocode.error ){
+                            $( '#msg' ).html( "Error geocode: " + geocode.error );
+                            return null;
+                        }
                         if ( geocode.address.postcode !== null && geocode.address.postcode !== undefined ) {
                             /* we got the postal code for this region, try to load crab streets */
                             $( '#postcode' ).val( geocode.address.postcode );
@@ -1501,6 +1724,7 @@ $( document ).ready( function() {
     $( "#msg" ).html( "Action: DocReady" );
 
     $( function() {
+        var token = myLocalStorage.get('ngStorage-token');
         var handle = $( "#percentage" );
         $( "#dpslider" ).slider( {
             range: "min",
@@ -1515,6 +1739,41 @@ $( document ).ready( function() {
                 handle.text( ui.value + '%' ).css( 'width', 'initial' );
                 //$( "#percentage" ).val( $( "#dpslider" ).slider( "value" ) + '%' );
                 //$( "#percentage" ).val( ui.value + "%");
+                $.ajax( {
+                    type: "POST",
+                    dataType: "json",
+                    //data: { name: 'dpslider', value: ui.value },
+                    data: JSON.stringify({ "name": "dpslider", "value": ui.value }),
+                    beforeSend: function(xhr, settings) {
+                        if (token) {
+                            xhr.setRequestHeader('Authorization','Bearer ' + token);
+                        }
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.overrideMimeType( 'application/json' );
+                    },
+                    cache: false,
+                    async: true,
+                    global: false,
+                    url: '/api/option',
+                    contentType: "application/json",
+                    timeout: 500, // 2 second wait
+                    success: function( data ) {
+			//console.log(data);
+                        if ( data.status !== null && data.status !== undefined ) {
+                            //$( '#postcode' ).val( geocode.address.postcode );
+                            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Slider default value saved in user profile" );
+                        } else {
+                            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Slider option value save problem" );
+                        }
+
+                        $( 'body' ).css( 'cursor', 'default' );
+                    },
+                    statusCode: {
+                        404: function() {
+                            $( '#msg' ).removeClass().addClass( "notice error" ).html( "Error: Problem with option saver" );
+                        }
+                    }
+                } );
             }
         } );
         $( "#percentage" ).val( $( "#dpslider" ).slider( "value" ) + '%' ).css( 'width', 'initial' );
@@ -1625,7 +1884,7 @@ $( document ).ready( function() {
         } );
 
         $( "#fpass" ).click( function( event ) {
-            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Filtering GRB vector layer (overpass data / BBOX)" );
+            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Filtering Export Vector Layer (overpass data / BBOX)" );
             $( 'body' ).css( 'cursor', 'wait' );
             filterForJosm();
             $( 'body' ).css( 'cursor', 'default' );

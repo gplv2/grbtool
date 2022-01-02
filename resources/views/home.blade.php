@@ -492,6 +492,11 @@ Proj: function(code) {
     transform: proj4
 };
  */
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 </script>
 {!! Html::script('js/turf.min.js') !!}
 {!! Html::script('js/osmtogeojson/osmtogeojson.js') !!}

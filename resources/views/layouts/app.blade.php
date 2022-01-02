@@ -374,6 +374,7 @@
     {!! Html::script('js/jquery-2.2.4.min.js') !!}
     <!-- <script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
     <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->
+    {!! Html::script('js/popper.min.js') !!}
     {!! Html::script('js/bootstrap/dist/js/bootstrap.min.js') !!}
     <!-- <script src="css/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script> -->
 

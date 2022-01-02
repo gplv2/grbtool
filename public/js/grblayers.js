@@ -778,6 +778,33 @@ function initmap() {
     map.addLayer( cdark_all );
     map.setLayerIndex( cdark_all, 9 );
 
+    var sunparks_all = new OpenLayers.Layer.XYZ(
+        "Sunparks map", [
+            'https://mapwarper.net/maps/tile/61426/${z}/${x}/${y}.png',
+        ], {
+            attribution: "Mapwarper",
+            sphericalMercator: true,
+            wrapDateLine: true,
+            transitionEffect: "resize",
+            buffer: 1,
+            type: 'png',
+            layername: 'dark_all',
+            transparent: "false",
+            numZoomLevels: 20,
+            //projection: geodetic,
+            //projection: 'EPSG:3857',
+            //displayProjection: mercator
+            strategies: [ new OpenLayers.Strategy.BBOX( {
+                ratio: 2,
+                resFactor: 2
+            } ) ],
+            tiled: true,
+            isBaseLayer: true,
+            visibility: false
+        }
+    );
+    map.addLayer( sunparks_all );
+    map.setLayerIndex( sunparks_all, 10 );
 
     /* shift-mouse1 Easily get bbox string (screen relative) */
     var boxcontrol = new OpenLayers.Control();

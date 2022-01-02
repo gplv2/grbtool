@@ -370,7 +370,7 @@ function openInJosm( layername ) {
                 } else {
                     $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server");
                 }
-                console.log(data);
+                //console.log(data);
             } ).fail( function( jqXHR, textStatus, errorThrown ) {
                 $( '#msg' ).removeClass().addClass( "notice error" ).html( "Failed to upload XML export to server: " . textStatus );
                 console.log(errorThrown);

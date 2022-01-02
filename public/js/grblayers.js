@@ -1607,11 +1607,13 @@ function openInCrabtool() {
     var postalcode = $( "#postcode" ).val();
     // http://crab-import.osm.be/?pcode=1982&filterStreets=*&collapsedSections=
     var crab_url = "http://crab-import.osm.be/?pcode=" + postalcode + "&filterStreets=*&collapsedSections=";
+	/*
     try {
-        javascript:_paq.push(['trackEvent', 'OpenInCrab', crab_url]);
+        //javascript:_paq.push(['trackEvent', 'OpenInCrab', crab_url]);
     } catch(err) {
         // tracking api probably blocked by user
     }
+    */
     openInNewTab( crab_url );
 }
 
@@ -1711,11 +1713,13 @@ function getOsmInfo() {
         //$("#msg").html("Info : " + "Added GEOJSON to map").removeClass().addClass("notice success");
     }
     //console.log("Overpass query:\n" + query);
+	/*
     try {
-        javascript:_paq.push(['trackEvent', 'getOsmInfo', query]);
+        //javascript:_paq.push(['trackEvent', 'getOsmInfo', query]);
     } catch(err) {
         // tracking api probably blocked by user
     }
+    */
     req.open( "GET", overpassapi + encodeURIComponent( query ), true );
     req.send( null );
 }
@@ -1858,11 +1862,13 @@ $( document ).ready( function() {
                 timeout: 2000 // 2 second wait
             } ).done( function( data ) {
                 //console.log(data);
+		    /*
                 try {
-                    javascript:_paq.push(['trackEvent', 'verifyAuth', '/api/auth/verify']);
+                    //javascript:_paq.push(['trackEvent', 'verifyAuth', '/api/auth/verify']);
                 } catch(err) {
                     // tracking api probably blocked by user
                 }
+		*/
                 openInJosm();
             } ).fail( function( jqXHR, textStatus, errorThrown ) {
                 $( '#msg' ).removeClass().addClass( "notice error" ).html( "Please log in to export the data to josm");
@@ -1974,11 +1980,13 @@ $( document ).ready( function() {
     $( "#msg" ).html( "Action: docReadydone" );
 
     function openStreetview( lat, lon ) {
+	    /*
         try {
-            javascript:_paq.push(['trackEvent', 'openStreetView', lat, lon]);
+            //javascript:_paq.push(['trackEvent', 'openStreetView', lat, lon]);
         } catch(err) {
             // tracking api probably blocked by user
         }
+	*/
         var dataUrl = '//cbk0.google.com/cbk?output=json&ll=' + lat + ',' + lon + '&';
         $.ajax( {
             url: dataUrl,

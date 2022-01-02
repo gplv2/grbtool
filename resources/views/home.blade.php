@@ -88,12 +88,12 @@ dd {
     min-height: 600px;
 }
 .container {
-	text-align: left;
-	vertical-align: middle;
+    text-align: left;
+    vertical-align: middle;
 }
 
 .content {
-	text-align: center;
+    text-align: center;
 display: inline-block;
 }
 
@@ -241,7 +241,7 @@ window.mapsCallback = function () {
 <div class="container-fluid">
   <div class="row-fluid">
     <!--Sidebar content-->
-    <div class="col-sm-3 col-md-3 sidebar sidebar-left pull-left">
+    <div class="col-sm-3 col-md-3 col-lg-3 sidebar sidebar-left pull-left">
       <!--Injected angular content-->
             <div class="panel panel-default" ng-view=""></div>
       <!-- Object information -->
@@ -264,38 +264,44 @@ window.mapsCallback = function () {
                   Tools
                </div>
                <div id="tools" class="panel-body collapse in">
-                <form id="reqform2" class="form-horizontal ng-pristine ng-valid" role="form">
-                  <div class="col-md-offset-0 col-md-8">
-		            <div class="help-block">CRAB</div>
-                    <div class="form-group">
-                        <label for="postcode" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Postcode</label>
-                        <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
-                        </div>
-                        <div class="col-md-offset-0 col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                             <button id="ocrab" type="button" class="btn btn-default" tabindex="1" onclick="javascript:_paq.push(['trackEvent', 'OpenInCrab']);">Open in CRAB import</button>
-                        </div>
-                    </div>
-		            <div class="help-block">Optional actions</div>
-                    <div class="form-group">
-                        <div class="col-md-offset-1 col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                             <button id="ostreetview" type="button" class="btn btn-default" tabindex="2" onclick="javascript:_paq.push(['trackEvent', 'OpenStreetview']);">Open in streetview</button>
-                             <button id="vrfyjosm" type="button" class="btn btn-default" tabindex="3" onclick="javascript:_paq.push(['trackEvent', 'CheckJosm']);">Check JOSM</button>
-                             <button id="rstfilter" type="button" class="btn btn-default" tabindex="4" onclick="javascript:_paq.push(['trackEvent', 'ResetFilters']);">Reset filters</button>
-                             <button id="loadcert" type="button" class="btn btn-default" tabindex="5" onclick="javascript:_paq.push(['trackEvent', 'LoadCertificate']);">Load Certificate</button>
+                  <div class="col-md-offset-0 col-md-12">
+<!-- form group 1 -->
+                    <div class="row">
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="help-block col-md-offset-1">Postalcode</div>
+                            <!-- <label for="postcode" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Postcode</label> -->
+                            <div class="col-md-offset-0 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
+                            </div>
+                            <div class="col-md-offset-0 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <button id="ocrab" type="button" class="btn btn-default" tabindex="1" onclick="javascript:_paq.push(['trackEvent', 'OpenInCrab']);">Open in CRAB import</button>
+                            </div>
                         </div>
                     </div>
-		            <div class="help-block">Export data actions</div>
-                    <div class="form-group">
-                         <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                             <button id="opass" type="button" class="btn btn-default" tabindex="6" onclick="javascript:_paq.push(['trackEvent', 'LoadOSMData']);">Load OSM data</button>
-                             <button id="fpass" type="button" class="btn btn-default" tabindex="7" onclick="javascript:_paq.push(['trackEvent', 'FilterGRBLayer']);">Filter Export layer</button>
-                             <button id="loadarea" type="button" class="btn btn-default" tabindex="8" onclick="javascript:_paq.push(['trackEvent', 'OpenAreaInJosm']);">Open Area in JOSM</button>
-                             <button id="loadgrb" type="button" class="btn btn-default" tabindex="9" onclick="javascript:_paq.push(['trackEvent', 'ExportGRB']);">Export data to JOSM</button>
-                         </div>
-                    </div>
+<!-- form group 2 -->
+                    <div class="col-md-offset-0 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<!-- form group 3 -->
+                        <div class="row">
+                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="help-block">Export data actions</div>
+                                <button id="opass" type="button" class="btn btn-default" tabindex="6" onclick="javascript:_paq.push(['trackEvent', 'LoadOSMData']);">Load OSM data</button>
+                                <button id="fpass" type="button" class="btn btn-default" tabindex="7" onclick="javascript:_paq.push(['trackEvent', 'FilterGRBLayer']);">Filter Export layer</button>
+                                <button id="loadarea" type="button" class="btn btn-default" tabindex="8" onclick="javascript:_paq.push(['trackEvent', 'OpenAreaInJosm']);">Open Area in JOSM</button>
+                                <button id="loadgrb" type="button" class="btn btn-default" tabindex="9" onclick="javascript:_paq.push(['trackEvent', 'ExportGRB']);">Export data to JOSM</button>
+                                <button id="rstfilter" type="button" class="btn btn-default" tabindex="4" onclick="javascript:_paq.push(['trackEvent', 'ResetFilters']);">Reset filters</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div class="help-block">Optional actions</div>
+                                <button id="ostreetview" type="button" class="btn btn-default" tabindex="2" onclick="javascript:_paq.push(['trackEvent', 'OpenStreetview']);">Open in streetview</button>
+                                <button id="vrfyjosm" type="button" class="btn btn-default" tabindex="3" onclick="javascript:_paq.push(['trackEvent', 'CheckJosm']);">Check JOSM</button>
+                            </div>
+                        <!-- <button id="loadcert" type="button" class="btn btn-default" tabindex="5" onclick="javascript:_paq.push(['trackEvent', 'LoadCertificate']);">Load Certificate</button> -->
+                        </div>
+<!-- end form group -->
 <!--
-		    <div class="help-block">Take WR actions</div>
+            <div class="help-block">Take WR actions</div>
                      <div class="form-group">
                          <div class="col-md-offset-1 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                              <button id="wropass" type="button" class="btn btn-default" tabindex="2">Load WR data</button>
@@ -306,7 +312,6 @@ window.mapsCallback = function () {
            </div>
 -->
                </div>
-         	</form>
                </div>
             </div>
       <!--Search options -->

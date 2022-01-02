@@ -223,6 +223,12 @@ function openInJosm( layername ) {
 
             var json = JSON.parse( geoJSON.write( mylayers[ 0 ].features ) );
 
+            // See if there is anything in the data that can be exported, if not return with an error
+            if ( json.features.length === 0 ) {
+                $( '#msg' ).removeClass().addClass( "notice error" ).html( "Empty vector layer: There are no features to export. Drag the map to an area with buildings and/or click " +"</a> <button id=\"goresetfilters\" type=\"button\" name=\"help_reset_filters\" onclick=\"javascript:$('#rstfilter').click();\" class=\"btn btn-default\" tabindex=\"6\">Reset Filters</button>" );
+                return false;
+            }
+
             //console.log( json );
 
             // Filter out tags we don't want and create our callback configuration
@@ -298,6 +304,8 @@ function openInJosm( layername ) {
             if ( threshhold != 100 && threshhold ) {
                 $( '#msg' ).removeClass().addClass( "notice info" ).html( "Simplifying ways (overnode removal)..." );
                 // console.log("simplifying");
+                //console.log(json);
+                //console.log(dataset);
                 var dataset = mapshaper.internal.importContent( {
                     json: {
                         content: json
@@ -320,7 +328,7 @@ function openInJosm( layername ) {
 
                 $( '#msg' ).removeClass().addClass( "notice info" ).html( "export to OSM-XML format" );
                 if (output[0] && output[1]) {
-			        var mergedGeoJSON = gmerge.merge([ JSON.parse(output[0].content) , JSON.parse(output[1].content) ]);
+                    var mergedGeoJSON = gmerge.merge([ JSON.parse(output[0].content) , JSON.parse(output[1].content) ]);
                     xml = geos( mergedGeoJSON );
                 }  else  {
                     xml = geos( JSON.parse( output[ 0 ].content ) );

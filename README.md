@@ -5,7 +5,7 @@
 
 # Screenshot
 
-![first screenshot](/screenshots/grbtool_new.png?raw=true "First screenshot")
+![first screenshot](/screenshots/grbtool_new.png?raw=true "screenshot")
 
 # Grbtool
 

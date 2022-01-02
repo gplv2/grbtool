@@ -311,7 +311,8 @@ window.mapsCallback = function () {
                      </div>
            </div>
 -->
-               </div>
+                    </div>
+                </div>
                </div>
             </div>
       <!--Search options -->

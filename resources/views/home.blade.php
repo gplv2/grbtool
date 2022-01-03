@@ -297,6 +297,7 @@ window.mapsCallback = function () {
                                 <button id="ostreetview" type="button" class="btn btn-default" tabindex="2" onclick="javascript:_paq.push(['trackEvent', 'OpenStreetview']);">Open in streetview</button>
                                 <button id="vrfyjosm" type="button" class="btn btn-default" tabindex="3" onclick="javascript:_paq.push(['trackEvent', 'CheckJosm']);">Check JOSM</button>
                             </div>
+                            Download this <a href="https://raw.githubusercontent.com/gplv2/grb-mapcss/master/grb_buildings.css">"MAPCSS"</a> for easy merging.
                         <!-- <button id="loadcert" type="button" class="btn btn-default" tabindex="5" onclick="javascript:_paq.push(['trackEvent', 'LoadCertificate']);">Load Certificate</button> -->
                         </div>
 <!-- end form group -->

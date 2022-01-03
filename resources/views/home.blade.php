@@ -288,13 +288,13 @@ window.mapsCallback = function () {
                                 <button id="fpass" type="button" class="btn btn-default" tabindex="7" onclick="javascript:_paq.push(['trackEvent','josm', 'FilterGRBLayer']);">Filter Export layer</button>
                                 <button id="loadarea" type="button" class="btn btn-default" tabindex="8" onclick="javascript:_paq.push(['trackEvent','josm', 'OpenAreaInJosm']);">Open Area in JOSM</button>
                                 <button id="loadgrb" type="button" class="btn btn-default" tabindex="9" onclick="javascript:_paq.push(['trackEvent','josm', 'ExportGRB']);">Export data to JOSM</button>
-                                <button id="rstfilter" type="button" class="btn btn-default" tabindex="4" onclick="javascript:_paq.push(['trackEvent','josm', 'ResetFilters']);">Reset filters</button>
+                                <button id="rstfilter" type="button" class="btn btn-default" tabindex="4" onclick="javascript:_paq.push(['trackEvent','josm', 'ResetFilters']);">Reset Filters</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <div class="help-block">Optional actions</div>
-                                <button id="ostreetview" type="button" class="btn btn-default" data-toggle="tooltip" title="Click on a road segment in the map to select the position" tabindex="2" onclick="javascript:_paq.push(['trackEvent', 'josm', 'OpenStreetview']);">Open in streetview</button>
+                                <button id="ostreetview" type="button" class="btn btn-default" data-toggle="tooltip" title="Click on a road segment in the map to select the position" tabindex="2" onclick="javascript:_paq.push(['trackEvent', 'josm', 'OpenStreetview']);">Open Streetview</button>
                                 <button id="vrfyjosm" type="button" class="btn btn-default" tabindex="3" onclick="javascript:_paq.push(['trackEvent', 'josm', 'CheckJosm']);">Check JOSM</button>
                             </div>
                         <!-- <button id="loadcert" type="button" class="btn btn-default" tabindex="5" onclick="javascript:_paq.push(['trackEvent', 'LoadCertificate']);">Load Certificate</button> -->

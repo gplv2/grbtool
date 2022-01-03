@@ -149,7 +149,7 @@ $( document ).ready( function() {
                             }
                             // console.log(data);
                             var rdata = $.makeArray( obj );
-                            console.log( rdata );
+                            //console.log( rdata );
                             response( $.map( rdata, function( item ) {
                                 return {
                                     label: item.display_name,

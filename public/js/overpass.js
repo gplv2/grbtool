@@ -20,12 +20,13 @@ function filterForJosm() {
         value: bounds
     } );
     filterStrategy.setFilter( filter1 );
-
+/*
     try {
-        javascript:_paq.push(['trackEvent', 'filterForJosm', bounds]);
+        //javascript:_paq.push(['trackEvent', 'filterForJosm', bounds]);
     } catch(err) {
         // tracking api probably blocked by user
     }
+    */
 
     /* Filter out all buildings that come back via overpass from source vector layer */
     var overpassfilter = new OpenLayers.Filter.Comparison( {
@@ -136,11 +137,13 @@ function returnJosmUrl() {
 }
 
 function openFileInJosm(file) {
+	/*
     try {
-        javascript:_paq.push(['trackEvent', 'openFileInJosm', file]);
+        //javascript:_paq.push(['trackEvent', 'openFileInJosm', file]);
     } catch(err) {
         // tracking api probably blocked by user
     }
+    */
     $.ajax( {
         url: returnJosmUrl() + '/version',
         dataType: "json",
@@ -220,6 +223,12 @@ function openInJosm( layername ) {
 
             var json = JSON.parse( geoJSON.write( mylayers[ 0 ].features ) );
 
+            // See if there is anything in the data that can be exported, if not return with an error
+            if ( json.features.length === 0 ) {
+                $( '#msg' ).removeClass().addClass( "notice error" ).html( "Empty vector layer: There are no features to export. Drag the map to an area with buildings and/or click " +"</a> <button id=\"goresetfilters\" type=\"button\" name=\"help_reset_filters\" onclick=\"javascript:$('#rstfilter').click();\" class=\"btn btn-default\" tabindex=\"6\">Reset Filters</button>" );
+                return false;
+            }
+
             //console.log( json );
 
             // Filter out tags we don't want and create our callback configuration
@@ -295,6 +304,8 @@ function openInJosm( layername ) {
             if ( threshhold != 100 && threshhold ) {
                 $( '#msg' ).removeClass().addClass( "notice info" ).html( "Simplifying ways (overnode removal)..." );
                 // console.log("simplifying");
+                //console.log(json);
+                //console.log(dataset);
                 var dataset = mapshaper.internal.importContent( {
                     json: {
                         content: json
@@ -317,7 +328,7 @@ function openInJosm( layername ) {
 
                 $( '#msg' ).removeClass().addClass( "notice info" ).html( "export to OSM-XML format" );
                 if (output[0] && output[1]) {
-			        var mergedGeoJSON = gmerge.merge([ JSON.parse(output[0].content) , JSON.parse(output[1].content) ]);
+                    var mergedGeoJSON = gmerge.merge([ JSON.parse(output[0].content) , JSON.parse(output[1].content) ]);
                     xml = geos( mergedGeoJSON );
                 }  else  {
                     xml = geos( JSON.parse( output[ 0 ].content ) );
@@ -347,11 +358,13 @@ function openInJosm( layername ) {
                 contentType: "application/xml",
                 timeout: 5000 // 5 second wait
             } ).done( function( data ) {
+		    /*
                 try {
-                    javascript:_paq.push(['trackEvent', 'openInJosm', '/api/export/upload']);
+                    //javascript:_paq.push(['trackEvent', 'openInJosm', '/api/export/upload']);
                 } catch(err) {
                     // tracking api probably blocked by user
                 }
+		*/
                 if (data.status == 'stored') {
                     $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server: <a href=" + data.url + ">"+ data.fname +"</a> <button id=\"lfilejosm\" type=\"button\" class=\"btn btn-default\" tabindex=\"6\">JOSM</button>");
                     $( "#lfilejosm" ).click( function( event ) {
@@ -365,7 +378,7 @@ function openInJosm( layername ) {
                 } else {
                     $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server");
                 }
-                console.log(data);
+                //console.log(data);
             } ).fail( function( jqXHR, textStatus, errorThrown ) {
                 $( '#msg' ).removeClass().addClass( "notice error" ).html( "Failed to upload XML export to server: " . textStatus );
                 console.log(errorThrown);
@@ -386,11 +399,13 @@ function openInJosm( layername ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Exporting XML to JOSM" );
             try {
                 //console.log(myurl + encodeURIComponent( xml ));
+		    /*
                 try {
-                    javascript:_paq.push(['trackEvent', 'openInJosm', myurl ]);
+                    //javascript:_paq.push(['trackEvent', 'openInJosm', myurl ]);
                 } catch(err) {
                     // tracking api probably blocked by user
                 }
+		*/
                 req.open( "GET", myurl + encodeURIComponent( xml ), true );
                 req.send( null );
             } catch ( err ) {
@@ -427,13 +442,13 @@ function openAreaInJosm() {
             var bounds = map.getExtent();
             bounds.transform( map.getProjectionObject(), geodetic );
             var myurl = returnJosmUrl() + "/load_and_zoom?new_layer=true&layer_name=" + generateId( 10 ) + "&" + "left=" + bounds.left + "&right=" + bounds.right + "&top=" + bounds.top + "&bottom=" + bounds.bottom;
-
+/*
             try {
-                javascript:_paq.push(['trackEvent', 'openAreaInJosm', myurl ]);
+                //javascript:_paq.push(['trackEvent', 'openAreaInJosm', myurl ]);
             } catch(err) {
                 // tracking api probably blocked by user
             }
-
+*/
             // console.log( myurl );
 
             var req = new XMLHttpRequest();
@@ -454,11 +469,13 @@ function openAreaInJosm() {
 }
 
 function testJosmVersion() {
+	/*
     try {
-        javascript:_paq.push(['trackEvent', 'testJosmVersion', myurl ]);
+        //javascript:_paq.push(['trackEvent', 'josm', 'testJosmVersion', myurl ]);
     } catch(err) {
         // tracking api probably blocked by user
     }
+    */
     $.ajax( {
         url: returnJosmUrl() + '/version',
         dataType: "json",

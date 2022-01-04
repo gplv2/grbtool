@@ -427,7 +427,7 @@ function initmap() {
         strategies: [ streetStrategy, buildingStrategy, filterStrategy, mergeStrategy, boxStrategy, refresh ],
         maxScale: 420,
         //minScale: 6772,
-        minScale: 3000,
+        minScale: 3500,
         //maxResolution: map.getResolutionForZoom(15),
         //zoomOffset: 9, resolutions: [152.87405654907226, 76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627, 0.5971642833948135],
         //zoomOffset: 10, resolutions: [76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627, 0.5971642833948135],
@@ -1760,7 +1760,7 @@ $( document ).ready( function() {
         $( "#dpslider" ).slider( {
             range: "min",
             max: 100,
-            value: 87,
+            value: 90,
             min: 66,
             create: function() {
                 handle.text( $( this ).slider( "value" ) + '%' ).css( 'width', 'initial' );

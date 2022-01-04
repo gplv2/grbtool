@@ -297,9 +297,9 @@ window.mapsCallback = function () {
                                 <button id="ostreetview" type="button" class="btn btn-default" data-toggle="tooltip" title="Click on a road segment in the map to select the position" tabindex="2" onclick="javascript:_paq.push(['trackEvent', 'josm', 'OpenStreetview']);">Open Streetview</button>
                                 <button id="vrfyjosm" type="button" class="btn btn-default" tabindex="3" onclick="javascript:_paq.push(['trackEvent', 'josm', 'CheckJosm']);">Check JOSM</button>
                             </div>
-                            Download this <a href="https://raw.githubusercontent.com/gplv2/grb-mapcss/master/grb_buildings.css">"MAPCSS"</a> for easy merging.
                         <!-- <button id="loadcert" type="button" class="btn btn-default" tabindex="5" onclick="javascript:_paq.push(['trackEvent', 'LoadCertificate']);">Load Certificate</button> -->
                         </div>
+                        Tip: download the <a href="https://raw.githubusercontent.com/gplv2/grb-mapcss/master/grb_buildings.css">"GRB MAPCSS"</a> for easy merging.
 <!-- end form group -->
 <!--
             <div class="help-block">Take WR actions</div>

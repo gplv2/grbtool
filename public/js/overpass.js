@@ -314,7 +314,7 @@ function openInJosm( layername ) {
                 //console.log(dataset);
 
                 var opts = {
-                    pct: ( threshhold / 100 ),
+                    percentage: ( threshhold / 100 ),
                     method: 'dp',
                     keep_shapes: true
                 };

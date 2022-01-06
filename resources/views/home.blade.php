@@ -385,11 +385,11 @@ window.mapsCallback = function () {
                     <div class="form-group">
                          <div id="contentfilters" class="col-md-12" style="clear:both;"> </div>
                     </div>
-                    <div class="help-block">Export settings</div>
+                    <div class="help-block">Advanced export settings</div>
                     <div class="checkbox">
-                        <label class="form-control-label"><input type="checkbox" value="">Include steps in export (not active yet)</label>
+                        <label class="form-control-label"><input id ="mapshaper_clean" type="checkbox" value="">Perform mapshaper clean on shapes (beta!)</label>
+                        <label class="form-control-label"><input id ="remove_within" type="checkbox" value="">Remove non-relations duplicates (beta!)</label>
                     </div>
-
                     <div class="help-block">JOSM settings</div>
                     <div class="radio">
                         <label class="ui-button-text"><input type="radio" name="optradio" id="jinsecure" class="form-control-label" checked>NON-SSL</label>
@@ -416,10 +416,6 @@ window.mapsCallback = function () {
                     </div>
                     <div class="checkbox">
                         <label class="form-control-label"><input id ="grbinfo" type="checkbox" value="" checked>Show GRB object info</label>
-                    </div>
-                    <div class="help-block">Crab settings</div>
-                    <div class="checkbox">
-                        <label class="form-control-label"><input type="checkbox" value="">Include CRAB data in export (not implemented)</label>
                     </div>
                     <div class="checkbox">
                         <label class="form-control-label"><input id ="posttrack" type="checkbox" value="" checked>Enable postalcode tracking</label>
@@ -501,6 +497,7 @@ $(function () {
 
 </script>
 {!! Html::script('js/turf.min.js') !!}
+{!! Html::script('js/mt.js') !!}
 {!! Html::script('js/osmtogeojson/osmtogeojson.js') !!}
 {!! Html::script('js/md5.min.js') !!}
 {!! Html::script('js/pointstyle.js') !!}

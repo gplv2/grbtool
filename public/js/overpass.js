@@ -137,7 +137,7 @@ function returnJosmUrl() {
 }
 
 function openFileInJosm(file) {
-	/*
+    /*
     try {
         //javascript:_paq.push(['trackEvent', 'openFileInJosm', file]);
     } catch(err) {
@@ -286,6 +286,7 @@ function openInJosm( layername ) {
             //console.log(json);
             // Filter meta tags before export
             if ( !$( 'input[id="metaexport"]' ).is( ':checked' ) ) {
+                $( '#msg' ).removeClass().addClass( "notice info" ).html( "Filtering out META tags" );
                 Walk.walk( json, "poly", walkConfig );
             }
             //console.log( json );
@@ -299,8 +300,185 @@ function openInJosm( layername ) {
             // -simplify 85% dp keep-shapes stats -o format=geojson /home/glenn/out.geojson
 
             var xml = '';
-            //var opts = { pct: 75 , method: 'dp', keep_shapes: true };
             var threshhold = Number( $( "#dpslider" ).slider( "value" ) );
+
+
+            // First detect if a polygon is inside another polygon
+            console.log("Scanning for polygons for problems with overlapping.. ");
+            /*
+            $.each( json.features, function( i, featureA ) {
+                // testing each of them
+                $.each( json.features, function( j, featureB ) {
+                } );
+            } );
+            */
+
+            var deleteIndexes = [];
+
+            if ( $( 'input[id="remove_within"]' ).is( ':checked' ) ) {
+                if ( json.features.length) {
+                    json.features.forEach( function( featureA , i) {
+                        var keep = true;
+                        json.features.forEach( function( featureB, j ) {
+                            if ( i == j ) {
+                                //console.log("Skipping compairing to itself..");
+                                return;
+                            }
+                            if ( j < i ) {
+                                //console.log("Skipping stuff we already tested the other way around ..");
+                                return;
+                            }
+                            if (featureA.geometry.type == 'MultiPolygon' || featureB.geometry.type =='MultiPolygon') {
+                                // Skip multipolgons
+                                return;
+                            }
+                            //console.log("compairing " + i + " with " + j );
+                            var isWithin1 = mturf.booleanWithin( featureA, featureB );
+                            var isWithin2 = mturf.booleanWithin( featureB, featureA );
+                            if ( (isWithin1 !== null && isWithin1 !== undefined && isWithin1) || (isWithin2 !== null && isWithin2 !== undefined && isWithin2) ) {
+                                console.log("feature A is within feature B - properties: ");
+                                console.log(featureA.properties);
+                                console.log(featureB.properties);
+                                var inter = mturf.intersect(featureA,featureB);
+                                console.log("intersection:");
+                                console.log(inter);
+                                if (inter === null) {
+                                    // This geometry B is just sharing borders and doesn't look like it's encompassed inside, it's an adjacent building, keep this
+                                    console.log("Just sharing a border, not deleting");
+                                } else {
+                                    if ( (featureA.properties [ 'source:geometry:ref' ] === null || featureA.properties [ 'source:geometry:ref' ] === undefined) ) {
+                                        console.log("Missing properties on refA where some are expected:");
+                                        console.log(featureA.properties);
+                                        return;
+                                    } else {
+                                        var refA = featureA.properties[ 'source:geometry:ref' ];
+                                    }
+                                    if ( (featureB.properties [ 'source:geometry:ref' ] === null || featureB.properties [ 'source:geometry:ref' ] === undefined) ) {
+                                        console.log("Missing properties on refB where some are expected:");
+                                        console.log(featureB.properties);
+                                        return;
+                                    } else {
+                                        var refB = featureB.properties[ 'source:geometry:ref' ];
+                                    }
+
+                                    if ( (featureA.properties [ 'source:geometry:date' ] !== null && featureA.properties [ 'source:geometry:date' ] !== undefined) ) {
+                                        var dateA = featureA.properties[ 'source:geometry:date' ];
+                                    } else  if ( (featureA.properties [ 'source:geometry:version' ] !== null && featureA.properties [ 'source:geometry:version' ] !== undefined) ) {
+                                        var versionA = featureA.properties[ 'source:geometry:version' ];
+                                    } else {
+                                        console.log("no way to determine version, missing the date or the version");
+                                        return;
+                                    }
+
+                                    if ( (featureB.properties [ 'source:geometry:date' ] !== null && featureB.properties [ 'source:geometry:date' ] !== undefined) ) {
+                                        var dateB = featureB.properties[ 'source:geometry:date' ];
+                                    } else  if ( (featureB.properties [ 'source:geometry:version' ] !== null && featureB.properties [ 'source:geometry:version' ] !== undefined) ) {
+                                        var versionB = featureB.properties[ 'source:geometry:version' ];
+                                    } else {
+                                        console.log("no way to determine version, missing the date or the version");
+                                        return;
+                                    }
+
+
+                                    if (dateA && dateB) {
+                                        var dteA = new Date(dateA);
+                                        var dteB = new Date(dateB);
+                                        if (dteA > dteB ) {
+                                            console.log("date test >");
+                                            // If one geometry is younger but it doesn't have address data, it's problably not the right one to remove
+                                    		if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
+                                                (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
+                                                console.log("remove i ");
+                                                deleteIndexes.push( i );
+                                            } else {
+                                                console.log("remove j ");
+                                                deleteIndexes.push( j );
+                                            }
+                                        } else {
+                                            console.log("date test <");
+                                    		if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
+                                                (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
+                                                deleteIndexes.push( j );
+                                                console.log("remove j ");
+                                            } else{
+                                                console.log("remove i ");
+                                                deleteIndexes.push( i );
+                                            }
+                                            // erase B
+                                        }
+                                    } else if (versionA && versionB) {
+                                        if (versionA > versionB) {
+                                            deleteIndexes.push( j );
+                                            // erase A
+                                        } else {
+                                            deleteIndexes.push( i );
+                                            // erase B
+                                        }
+                                    } else {
+                                        console.log("We cant decide what to delete, we should not get here");
+                                    }
+
+                                    //json.features[i].properties[ 'inter' ] = "detected intersection";
+                                    //json.features[i].properties[ 'fixme' ] = "help I'm a duplicate";
+                                }
+                            /* } else {
+                                var isOverlapped = mturf.booleanOverlap( featureA, featureB );
+                                if ( isOverlapped !== null && isOverlapped !== undefined && isOverlapped ) {
+                                    var inter = mturf.intersect(featureB,featureA);
+                                    if ( inter === null || inter === undefined) {
+                                        // no overlap , only crossing ?
+                                        //console.log("only touching");
+                                        return;
+                                    }
+                                    var overlapsize = mturf.area(inter);
+                                    // size of areas
+                                    var areasizeA = mturf.area(featureA);
+                                    var areasizeB = mturf.area(featureB);
+                                    var maxarea = (areasizeA > areasizeB) ? areasizeA : areasizeB;
+                                    var overlappct = ( overlapsize / maxarea) * 100;
+                                    var perc_overlap = Math.round(( overlappct  + Number.EPSILON) * 100) / 100;
+
+                                    if (perc_overlap > 0.05 ) {
+                                        console.log("overlap size:" + perc_overlap + " %");
+                                        console.log(featureA.properties);
+                                        console.log(featureB.properties);
+                                        console.log("feature A overlap feature B - properties: ");
+                                        console.log(overlapsize);
+                                        console.log(areasizeA);
+                                        console.log(areasizeB);
+                                        json.features[j].properties[ 'fixme' ] = "I am contained";
+                                    }
+                                }
+                            } */
+                            }
+                            //console.log("next test");
+                            //
+                        } );
+                    } );
+                }
+            } // end test
+            // Now delete the ones we need to delete
+
+            console.log(deleteIndexes);
+
+            /* sort from big to small : [1, 3, 5] */
+            deleteIndexes.sort( function( a, b ) {
+                return a - b;
+            } );
+
+            var uniqueArray = deleteIndexes.filter(function(item, pos, self) {
+                return self.indexOf(item) == pos;
+            });
+            console.log(uniqueArray);
+
+            var i = uniqueArray.length - 1;
+            /* delete backwards */
+            for ( i; i >= 0; i-- ) {
+                json.features.splice( uniqueArray[ i ], 1 );
+            }
+
+            // End
+
             if ( threshhold != 100 && threshhold ) {
                 $( '#msg' ).removeClass().addClass( "notice info" ).html( "Simplifying ways (overnode removal)..." );
                 // console.log("simplifying");
@@ -313,6 +491,7 @@ function openInJosm( layername ) {
                 } );
                 //console.log(dataset);
 
+
                 var opts = {
                     percentage: ( threshhold / 100 ),
                     method: 'dp',
@@ -320,14 +499,25 @@ function openInJosm( layername ) {
                 };
 
                 var ms = mapshaper.simplify( dataset, opts );
-                //console.log(ms);
 
+                if ( $( 'input[id="mapshaper_clean"]' ).is( ':checked' ) ) {
+                    $( '#msg' ).removeClass().addClass( "notice info" ).html( "Cleaning source data (attaching polygons, snapping to intersections, removing overlapping poly's )..." );
+                    // snap-interval=0.0000025 overlap-rule=max-id
+                    var opts = {
+                        snap_interval: "0.0000025",
+                        overlap_rule: 'max-id'
+                    };
+                    var ms = mapshaper.cleanLayers( dataset.layers, dataset , opts );
+                }
+
+                // $( '#msg' ).removeClass().addClass( "notice info" ).html( "Transcoding to geojson" );
                 var output = mapshaper.internal.exportFileContent( dataset, {
                     format: 'geojson'
                 } );
 
-                $( '#msg' ).removeClass().addClass( "notice info" ).html( "export to OSM-XML format" );
+                $( '#msg' ).removeClass().addClass( "notice info" ).html( "Transcoding geoJSON to OSM-XML format" );
                 if (output[0] && output[1]) {
+                    $( '#msg' ).removeClass().addClass( "notice info" ).html( "Merging multilayers geoJSON into single layer" );
                     var mergedGeoJSON = gmerge.merge([ JSON.parse(output[0].content) , JSON.parse(output[1].content) ]);
                     xml = geos( mergedGeoJSON );
                 }  else  {
@@ -335,10 +525,11 @@ function openInJosm( layername ) {
                 }
                 //var xml = geos(JSON.parse(json));
             } else {
-                $( '#msg' ).removeClass().addClass( "notice info" ).html( "Not simplifying." );
-                // console.log("Not simplifying");
+                $( '#msg' ).removeClass().addClass( "notice info" ).html( "Not simplifying or cleaning. Transcoding RAW geoJSON to OSM-XML format" );
                 xml = geos( json );
             }
+
+            //$( '#msg' ).removeClass().addClass( "notice info" ).html( "Internal XML structure created" );
 
             var token = myLocalStorage.get('ngStorage-token');
 
@@ -358,13 +549,13 @@ function openInJosm( layername ) {
                 contentType: "application/xml",
                 timeout: 5000 // 5 second wait
             } ).done( function( data ) {
-		    /*
+            /*
                 try {
                     //javascript:_paq.push(['trackEvent', 'openInJosm', '/api/export/upload']);
                 } catch(err) {
                     // tracking api probably blocked by user
                 }
-		*/
+        */
                 if (data.status == 'stored') {
                     $( '#msg' ).removeClass().addClass( "notice info" ).html( "Export XML uploaded to server: <a href=" + data.url + ">"+ data.fname +"</a> <button id=\"lfilejosm\" type=\"button\" class=\"btn btn-default\" tabindex=\"6\">JOSM</button>");
                     $( "#lfilejosm" ).click( function( event ) {
@@ -392,20 +583,21 @@ function openInJosm( layername ) {
 
             var req = new XMLHttpRequest();
             req.onreadystatechange = function() {
-                if ( req.readyState == 4 && req.status == 400 )
+                if ( req.readyState == 4 && req.status == 400 ) {
                     // something went wrong. Alert the user with appropriate messages
                     testJosmVersion();
+                }
             };
-            $( '#msg' ).removeClass().addClass( "notice info" ).html( "Exporting XML to JOSM" );
             try {
+                //$( '#msg' ).removeClass().addClass( "notice info" ).html( "Opening XML in JOSM" );
                 //console.log(myurl + encodeURIComponent( xml ));
-		    /*
+            /*
                 try {
                     //javascript:_paq.push(['trackEvent', 'openInJosm', myurl ]);
                 } catch(err) {
                     // tracking api probably blocked by user
                 }
-		*/
+        */
                 req.open( "GET", myurl + encodeURIComponent( xml ), true );
                 req.send( null );
             } catch ( err ) {
@@ -469,7 +661,7 @@ function openAreaInJosm() {
 }
 
 function testJosmVersion() {
-	/*
+    /*
     try {
         //javascript:_paq.push(['trackEvent', 'josm', 'testJosmVersion', myurl ]);
     } catch(err) {

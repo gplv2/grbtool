@@ -387,8 +387,8 @@ window.mapsCallback = function () {
                     </div>
                     <div class="help-block">Advanced export settings</div>
                     <div class="checkbox">
-                        <label class="form-control-label"><input id ="mapshaper_clean" type="checkbox" value="">Perform mapshaper clean on shapes (beta!)</label>
-                        <label class="form-control-label"><input id ="remove_within" type="checkbox" value="">Remove non-relations duplicates (beta!)</label>
+                        <label class="form-control-label"><input id ="mapshaper_clean" type="checkbox" data-toggle="tooltip" title="This option will perform mapshaper clean on all the data, it will connect all adjacent buildings, merge overlapping points and fix some small issues.  I needs the option below to be checked for decent result" checked value="">Solve and clean disjoint buildings</label>
+                        <label class="form-control-label"><input id ="remove_within" type="checkbox" data-toggle="tooltip" title="This option will fix overlapping and crossing buildings, it tries to automatically select the worst to delete." checked value="">Solve crossing and overlapped buildings</label>
                     </div>
                     <div class="help-block">JOSM settings</div>
                     <div class="radio">

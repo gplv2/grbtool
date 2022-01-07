@@ -335,13 +335,27 @@ function openInJosm( layername ) {
                             //console.log("compairing " + i + " with " + j );
                             var isWithin1 = mturf.booleanWithin( featureA, featureB );
                             var isWithin2 = mturf.booleanWithin( featureB, featureA );
+                            if ( 
+                                featureA.properties [ 'source:geometry:ref' ] === "Picc/1569893" && featureB.properties [ 'source:geometry:ref' ] === "Picc/16926" || 
+                                featureB.properties [ 'source:geometry:ref' ] === "Picc/16926" && featureA.properties [ 'source:geometry:ref' ] === "Picc/1569893" 
+                            ) {
+                                console.log("special");
+                                console.log(isWithin1);
+                                console.log(isWithin2);
+                                var isContains1 = mturf.booleanContains( featureA, featureB );
+                                var isContains2 = mturf.booleanContains( featureB, featureA );
+                                console.log("contains");
+                                console.log(isContains1);
+                                console.log(isContains2);
+                                console.log("overlap");
+                            }
                             if ( (isWithin1 !== null && isWithin1 !== undefined && isWithin1) || (isWithin2 !== null && isWithin2 !== undefined && isWithin2) ) {
-                                console.log("feature A is within feature B - properties: ");
+                                console.log("feature A is within feature B - or the other way- properties: ");
                                 console.log(featureA.properties);
                                 console.log(featureB.properties);
                                 var inter = mturf.intersect(featureA,featureB);
-                                console.log("intersection:");
-                                console.log(inter);
+                                //console.log("intersection:");
+                                //console.log(inter);
                                 if (inter === null) {
                                     // This geometry B is just sharing borders and doesn't look like it's encompassed inside, it's an adjacent building, keep this
                                     console.log("Just sharing a border, not deleting");
@@ -386,7 +400,7 @@ function openInJosm( layername ) {
                                         if (dteA > dteB ) {
                                             console.log("date test >");
                                             // If one geometry is younger but it doesn't have address data, it's problably not the right one to remove
-                                    		if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
+                                            if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
                                                 (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
                                                 console.log("remove i ");
                                                 deleteIndexes.push( i );
@@ -396,7 +410,7 @@ function openInJosm( layername ) {
                                             }
                                         } else {
                                             console.log("date test <");
-                                    		if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
+                                            if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
                                                 (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
                                                 deleteIndexes.push( j );
                                                 console.log("remove j ");
@@ -421,17 +435,26 @@ function openInJosm( layername ) {
                                     //json.features[i].properties[ 'inter' ] = "detected intersection";
                                     //json.features[i].properties[ 'fixme' ] = "help I'm a duplicate";
                                 }
-                            /* } else {
-                                var isOverlapped = mturf.booleanOverlap( featureA, featureB );
-                                if ( isOverlapped !== null && isOverlapped !== undefined && isOverlapped ) {
-                                    var inter = mturf.intersect(featureB,featureA);
-                                    if ( inter === null || inter === undefined) {
-                                        // no overlap , only crossing ?
-                                        //console.log("only touching");
-                                        return;
+                            } else {
+                                // If it's not within, check for possible overlap
+                                var isOverlap1 = mturf.de9im.intersects( featureA, featureB );
+                                //var isOverlap2 = mturf.booleanOverlap( featureB, featureA );
+                                //return;
+
+                                //if ( (isOverlap1 !== null && isOverlap1 !== undefined && isOverlap1 ) || (isOverlap2 !== null && isOverlap2 !== undefined && isOverlap2) ) 
+                                if ( isOverlap1 !== null && isOverlap1 !== undefined && isOverlap1 ) {
+                                    //console.log(isOverlap1);
+                                    //console.log(isOverlap2);
+                                    //console.log(isOverlap1);
+                                    //console.log(isOverlap2);
+                                    var inter = mturf.intersect(featureA,featureB);
+                                    if (inter === null) {
+                                        // This geometry B is just sharing borders and doesn't look like it's encompassed inside, it's an adjacent building, keep this
+                                        // console.log("Just sharing a border, not deleting");
+                                        return ;
                                     }
-                                    var overlapsize = mturf.area(inter);
                                     // size of areas
+                                    var overlapsize = mturf.area(inter);
                                     var areasizeA = mturf.area(featureA);
                                     var areasizeB = mturf.area(featureB);
                                     var maxarea = (areasizeA > areasizeB) ? areasizeA : areasizeB;
@@ -439,17 +462,87 @@ function openInJosm( layername ) {
                                     var perc_overlap = Math.round(( overlappct  + Number.EPSILON) * 100) / 100;
 
                                     if (perc_overlap > 0.05 ) {
-                                        console.log("overlap size:" + perc_overlap + " %");
+                                        console.log("features overlap - properties: ");
                                         console.log(featureA.properties);
                                         console.log(featureB.properties);
-                                        console.log("feature A overlap feature B - properties: ");
-                                        console.log(overlapsize);
-                                        console.log(areasizeA);
-                                        console.log(areasizeB);
-                                        json.features[j].properties[ 'fixme' ] = "I am contained";
+                                        console.log("overlap size is big :" + perc_overlap + " %");
+                                        //json.features[j].properties[ 'fixme' ] = "I am overlapped";
+
+                                        if ( (featureA.properties [ 'source:geometry:ref' ] === null || featureA.properties [ 'source:geometry:ref' ] === undefined) ) {
+                                            console.log("Missing properties on refA where some are expected:");
+                                            //console.log(featureA.properties);
+                                            return;
+                                        } else {
+                                            var refA = featureA.properties[ 'source:geometry:ref' ];
+                                        }
+                                        if ( (featureB.properties [ 'source:geometry:ref' ] === null || featureB.properties [ 'source:geometry:ref' ] === undefined) ) {
+                                            console.log("Missing properties on refB where some are expected:");
+                                            //console.log(featureB.properties);
+                                            return;
+                                        } else {
+                                            var refB = featureB.properties[ 'source:geometry:ref' ];
+                                        }
+
+                                        if ( (featureA.properties [ 'source:geometry:date' ] !== null && featureA.properties [ 'source:geometry:date' ] !== undefined) ) {
+                                            var dateA = featureA.properties[ 'source:geometry:date' ];
+                                        } else  if ( (featureA.properties [ 'source:geometry:version' ] !== null && featureA.properties [ 'source:geometry:version' ] !== undefined) ) {
+                                            var versionA = featureA.properties[ 'source:geometry:version' ];
+                                        } else {
+                                            console.log("no way to determine version, missing the date or the version");
+                                            return;
+                                        }
+
+                                        if ( (featureB.properties [ 'source:geometry:date' ] !== null && featureB.properties [ 'source:geometry:date' ] !== undefined) ) {
+                                            var dateB = featureB.properties[ 'source:geometry:date' ];
+                                        } else  if ( (featureB.properties [ 'source:geometry:version' ] !== null && featureB.properties [ 'source:geometry:version' ] !== undefined) ) {
+                                            var versionB = featureB.properties[ 'source:geometry:version' ];
+                                        } else {
+                                            console.log("no way to determine version, missing the date or the version");
+                                            return;
+                                        }
+
+
+                                        if (dateA && dateB) {
+                                            var dteA = new Date(dateA);
+                                            var dteB = new Date(dateB);
+                                            if (dteA > dteB ) {
+                                                console.log("date test >");
+                                                // If one geometry is younger but it doesn't have address data, it's problably not the right one to remove
+                                                if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
+                                                    (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
+                                                    console.log("remove i ");
+                                                    deleteIndexes.push( i );
+                                                } else {
+                                                    console.log("remove j ");
+                                                    deleteIndexes.push( j );
+                                                }
+                                            } else {
+                                                console.log("date test <");
+                                                if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
+                                                    (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
+                                                    deleteIndexes.push( j );
+                                                    console.log("remove j ");
+                                                } else{
+                                                    console.log("remove i ");
+                                                    deleteIndexes.push( i );
+                                                }
+                                                // erase B
+                                            }
+                                        } else if (versionA && versionB) {
+                                            if (versionA > versionB) {
+                                                deleteIndexes.push( j );
+                                                // erase A
+                                            } else {
+                                                deleteIndexes.push( i );
+                                                // erase B
+                                            }
+                                        } else {
+                                            console.log("We cant decide what to delete, we should not get here");
+                                        }
+                                        //json.features[i].properties[ 'inter' ] = "detected intersection";
+                                        //json.features[i].properties[ 'fixme' ] = "help I intersect";
                                     }
                                 }
-                            } */
                             }
                             //console.log("next test");
                             //
@@ -581,27 +674,34 @@ function openInJosm( layername ) {
             //console.log(xml);
             json = null;
 
-            var req = new XMLHttpRequest();
-            req.onreadystatechange = function() {
-                if ( req.readyState == 4 && req.status == 400 ) {
-                    // something went wrong. Alert the user with appropriate messages
-                    testJosmVersion();
-                }
-            };
-            try {
-                //$( '#msg' ).removeClass().addClass( "notice info" ).html( "Opening XML in JOSM" );
-                //console.log(myurl + encodeURIComponent( xml ));
-            /*
+            //var bytesize = getStringMemorySize(xml);
+            var length = xml.length;
+            //console.log(bytesize);
+            //console.log(length);
+            if (length<500000) {
+
+                var req = new XMLHttpRequest();
+                req.onreadystatechange = function() {
+                    if ( req.readyState == 4 && req.status == 400 ) {
+                        // something went wrong. Alert the user with appropriate messages
+                        testJosmVersion();
+                    }
+                };
+                try {
+                    //$( '#msg' ).removeClass().addClass( "notice info" ).html( "Opening XML in JOSM" );
+                    //console.log(myurl + encodeURIComponent( xml ));
+                    /*
                 try {
                     //javascript:_paq.push(['trackEvent', 'openInJosm', myurl ]);
                 } catch(err) {
-                    // tracking api probably blocked by user
+                                    // tracking api probably blocked by user
                 }
-        */
-                req.open( "GET", myurl + encodeURIComponent( xml ), true );
-                req.send( null );
-            } catch ( err ) {
-                $( '#msg' ).removeClass().addClass( "notice error" ).html( "Export of objects failed (too big?): " + err );
+                */
+                    req.open( "GET", myurl + encodeURIComponent( xml ), true );
+                    req.send( null );
+               } catch ( err ) {
+                    $( '#msg' ).removeClass().addClass( "notice error" ).html( "Export of objects failed (too big?): " + err );
+               }
             }
         }
     } ).fail( function( jqXHR, textStatus, errorThrown ) {
@@ -719,6 +819,32 @@ function addOverpassRoadLayer() {
     overpass_road_layer.setVisibility( true );
     overpass_road_layer.refresh();
     //console.log(overpass_road_layer);
+}
+
+function getStringMemorySize( _string ) {
+    var codePoint , accum = 0 ;
+
+    for( var stringIndex = 0, endOfString = _string.length; stringIndex < endOfString; stringIndex++ ) {
+        codePoint = _string.charCodeAt( stringIndex );
+
+        if( codePoint < 0x100 ) {
+            accum += 1;
+            continue;
+        }
+
+        if( codePoint < 0x10000 ) {
+            accum += 2;
+            continue;
+        }
+
+        if( codePoint < 0x1000000 ) {
+            accum += 3;
+        } else {
+            accum += 4;
+        }
+    }
+
+    return accum * 2;
 }
 
 function addDiffLayer() {

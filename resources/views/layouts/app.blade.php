@@ -355,7 +355,7 @@
                     BitLess is a hardcore software data crunching, application design, code and system admininistration company. doing this for over 2 decades.
                 </p>
                 <div class="footer-icons2">
-                            <a href="https://twitter.com/glenn_plas" class="btn btn-social-icon btn-lg btn-twitter" title="follow me on Twitter"><i class="fa fa-twitter"></i></a>
+                            <!-- <a href="https://twitter.com/glenn_plas" class="btn btn-social-icon btn-lg btn-twitter" title="follow me on Twitter"><i class="fa fa-twitter"></i></a> -->
                             <a href="https://www.linkedin.com/in/glennplas" class="btn btn-social-icon btn-lg btn-linkedin" title="follow me on Linkedin"><i class="fa fa-linkedin"></i></a>
                             <a href="https://bitbucket.org/gplv2/grbtool" class="btn btn-social-icon btn-lg btn-bitbucket" title="fork me on Bitbucket"><i class="fa fa-bitbucket"></i></a>
                             <a href="https://github.com/gplv2" class="btn btn-social-icon btn-lg btn-github" title="follow me on Github"><i class="fa fa-github"></i></a>

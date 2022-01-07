@@ -395,8 +395,8 @@ function openInJosm( layername ) {
                                         return;
                                     }
 
-                                    var refA = overpass.attributes.tags[ 'source:geometry:ref' ].split('/');
-                                    var refB = overpass.attributes.tags[ 'source:geometry:ref' ].split('/');
+                                    var refA = featureA.properties[ 'source:geometry:ref' ].split('/');
+                                    var refB = featureB.properties[ 'source:geometry:ref' ].split('/');
                                    
                                     if (refA[0] === refB[0]) {
                                         if (dateA && dateB) {
@@ -510,8 +510,8 @@ function openInJosm( layername ) {
                                         }
 
 
-                                        var refA = overpass.attributes.tags[ 'source:geometry:ref' ].split('/');
-                                        var refB = overpass.attributes.tags[ 'source:geometry:ref' ].split('/');
+                                        var refA = featureA.properties[ 'source:geometry:ref' ].split('/');
+                                        var refB = featureB.properties[ 'source:geometry:ref' ].split('/');
                                     
                                         if (refA[0] === refB[0]) {
                                             if (dateA && dateB) {

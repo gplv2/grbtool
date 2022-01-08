@@ -430,8 +430,8 @@ function openInJosm( layername ) {
                                                 }
                                             } else {
                                                 console.log("date test <");
-                                                if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
-                                                    (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
+                                                if ( (featureA.properties [ 'addr:street' ] !== null && featureA.properties [ 'addr:street' ] !== undefined) && 
+                                                    (featureB.properties [ 'addr:street' ] === null || featureB.properties [ 'addr:street' ] === undefined) ) {
                                                     deleteIndexes.push( j );
                                                     console.log("remove j ");
                                                 } else{
@@ -457,7 +457,7 @@ function openInJosm( layername ) {
                                         var isWithinVL = mturf.de9im.within( mturf.centroid(featureA), jsonDataVL );
                                         var isWithinWA = mturf.de9im.within( mturf.centroid(featureA), jsonDataWA );
                                         var isWithinBR = mturf.de9im.within( mturf.centroid(featureA), jsonDataBR );
-                                        if (refA[0] === 'Grb' && isWithinVL ) {
+                                        if ((refA[0] === 'Gbg' || refA[0] === 'Gba' || refA[0] === 'Knw' ) && isWithinVL ) {
                                             deleteIndexes.push( j );
                                         } else if (refA[0] === 'Picc' && isWithinWA ) {
                                             deleteIndexes.push( j );
@@ -561,8 +561,8 @@ function openInJosm( layername ) {
                                                     }
                                                 } else {
                                                     console.log("date test <");
-                                                    if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
-                                                        (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
+                                                    if ( (featureA.properties [ 'addr:street' ] !== null && featureA.properties [ 'addr:street' ] !== undefined) && 
+                                                        (featureB.properties [ 'addr:street' ] === null || featureB.properties [ 'addr:street' ] === undefined) ) {
                                                         deleteIndexes.push( j );
                                                         console.log("remove j ");
                                                     } else{
@@ -588,7 +588,7 @@ function openInJosm( layername ) {
                                             var isWithinVL = mturf.de9im.within( mturf.centroid(featureA), jsonDataVL );
                                             var isWithinWA = mturf.de9im.within( mturf.centroid(featureA), jsonDataWA );
                                             var isWithinBR = mturf.de9im.within( mturf.centroid(featureA), jsonDataBR );
-                                            if (refA[0] === 'Grb' && isWithinVL ) {
+                                            if ((refA[0] === 'Gbg' || refA[0] === 'Gba' || refA[0] === 'Knw' ) && isWithinVL ) {
                                                     deleteIndexes.push( j );
                                             } else if (refA[0] === 'Picc' && isWithinWA ) {
                                                     deleteIndexes.push( j );

@@ -419,17 +419,26 @@ function openInJosm( layername ) {
                                             var dteB = new Date(dateB);
                                             if (dteA > dteB ) {
                                                 console.log("date test >");
-                                                // If one geometry is younger but it doesn't have address data, it's problably not the right one to remove
-                                                if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
+                                                if ( (featureB.properties [ 'addr:street' ] === null && featureB.properties [ 'addr:street' ] === undefined) && 
                                                     (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
-                                                    console.log("remove i ");
-                                                    deleteIndexes.push( i );
+                                                        deleteIndexes.push( j );
                                                 } else {
-                                                    console.log("remove j ");
-                                                    deleteIndexes.push( j );
+                                                    // If one geometry is younger but it doesn't have address data, it's problably not the right one to remove
+                                                    if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
+                                                        (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
+                                                        console.log("remove i ");
+                                                        deleteIndexes.push( i );
+                                                    } else {
+                                                        console.log("remove j ");
+                                                        deleteIndexes.push( j );
+                                                    }
                                                 }
                                             } else {
                                                 console.log("date test <");
+                                                if ( (featureB.properties [ 'addr:street' ] === null && featureB.properties [ 'addr:street' ] === undefined) && 
+                                                    (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
+                                                    deleteIndexes.push( i );
+                                                }
                                                 if ( (featureA.properties [ 'addr:street' ] !== null && featureA.properties [ 'addr:street' ] !== undefined) && 
                                                     (featureB.properties [ 'addr:street' ] === null || featureB.properties [ 'addr:street' ] === undefined) ) {
                                                     deleteIndexes.push( j );
@@ -500,7 +509,7 @@ function openInJosm( layername ) {
                                     var overlappct = ( overlapsize / maxarea) * 100;
                                     var perc_overlap = Math.round(( overlappct  + Number.EPSILON) * 100) / 100;
 
-                                    if (perc_overlap > 0.05 ) {
+                                    if (perc_overlap > 0.8 ) {
                                         console.log("features overlap - properties: ");
                                         console.log(featureA.properties);
                                         console.log(featureB.properties);
@@ -550,26 +559,35 @@ function openInJosm( layername ) {
                                                 var dteB = new Date(dateB);
                                                 if (dteA > dteB ) {
                                                     console.log("date test >");
-                                                    // If one geometry is younger but it doesn't have address data, it's problably not the right one to remove
-                                                    if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
+                                                    if ( (featureB.properties [ 'addr:street' ] === null && featureB.properties [ 'addr:street' ] === undefined) && 
                                                         (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
-                                                        console.log("remove i ");
-                                                        deleteIndexes.push( i );
-                                                    } else {
-                                                        console.log("remove j ");
                                                         deleteIndexes.push( j );
+                                                    } else {
+                                                        // If one geometry is younger but it doesn't have address data, it's problably not the right one to remove
+                                                        if ( (featureB.properties [ 'addr:street' ] !== null && featureB.properties [ 'addr:street' ] !== undefined) && 
+                                                            (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
+                                                            console.log("remove i ");
+                                                            deleteIndexes.push( i );
+                                                        } else {
+                                                            console.log("remove j ");
+                                                            deleteIndexes.push( j );
+                                                        }
                                                     }
                                                 } else {
                                                     console.log("date test <");
-                                                    if ( (featureA.properties [ 'addr:street' ] !== null && featureA.properties [ 'addr:street' ] !== undefined) && 
-                                                        (featureB.properties [ 'addr:street' ] === null || featureB.properties [ 'addr:street' ] === undefined) ) {
-                                                        deleteIndexes.push( j );
-                                                        console.log("remove j ");
-                                                    } else{
-                                                        console.log("remove i ");
+                                                    if ( (featureB.properties [ 'addr:street' ] === null && featureB.properties [ 'addr:street' ] === undefined) && 
+                                                        (featureA.properties [ 'addr:street' ] === null || featureA.properties [ 'addr:street' ] === undefined) ) {
                                                         deleteIndexes.push( i );
+                                                    } else {
+                                                        if ( (featureA.properties [ 'addr:street' ] !== null && featureA.properties [ 'addr:street' ] !== undefined) && 
+                                                            (featureB.properties [ 'addr:street' ] === null || featureB.properties [ 'addr:street' ] === undefined) ) {
+                                                            deleteIndexes.push( j );
+                                                            console.log("remove j ");
+                                                        } else{
+                                                            console.log("remove i ");
+                                                            deleteIndexes.push( i );
+                                                        }
                                                     }
-                                                    // erase B
                                                 }
                                             } else if (versionA && versionB) {
                                                 if (versionA > versionB) {

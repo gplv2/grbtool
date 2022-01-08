@@ -5,6 +5,21 @@
 
 var streets = []; // list of streets with the addresses divided in several categories + extra info
 
+var jsonDataVL = {};
+var jsonDataBR = {};
+var jsonDataWA = {};
+
+// Loading the borders
+$.getJSON('geojson/bru_small.geojson',function(data){
+    jsonDataBR = data;
+});
+$.getJSON('geojson/vla_small.geojson',function(data){
+    jsonDataVL = data;
+});
+$.getJSON('geojson/wal_small.geojson',function(data){
+    jsonDataWA = data;
+});
+
 // REMOTECONTROL BINDINGS FOR JOSM
 function filterForJosm() {
     filterStrategy.setFilter( null );
@@ -437,7 +452,23 @@ function openInJosm( layername ) {
                                             console.log("We cant decide what to delete, we should not get here");
                                         }
                                     } else {
-                                            console.log("We have a conflict between data sources, keep them for the mapper");
+                                        console.log("We have a GRB/PICC/URBIS border conflict between data sources");
+                                        // Test to see where the points lie on the border
+                                        var isWithinVL = mturf.de9im.within( mturf.centroid(featureA), jsonDataVL );
+                                        var isWithinWA = mturf.de9im.within( mturf.centroid(featureA), jsonDataWA );
+                                        var isWithinBR = mturf.de9im.within( mturf.centroid(featureA), jsonDataBR );
+                                        if (refA[0] === 'Grb' && isWithinVL ) {
+                                            deleteIndexes.push( j );
+                                        } else if (refA[0] === 'Picc' && isWithinWA ) {
+                                            deleteIndexes.push( j );
+                                        } else if (refA[0] === 'Urbis' && isWithinBR ) {
+                                            deleteIndexes.push( j );
+                                        } else {
+                                            deleteIndexes.push( i );
+                                        }
+                                        //console.log(isWithinVL);
+                                        //console.log(isWithinWA);
+                                        //console.log(isWithinBR);
                                     }
 
                                     //json.features[i].properties[ 'inter' ] = "detected intersection";
@@ -552,7 +583,23 @@ function openInJosm( layername ) {
                                                 console.log("We cant decide what to delete, we should not get here");
                                             }
                                         } else {
-                                            console.log("We have a conflict between data sources, keep them for the mapper");
+                                            console.log("We have a GRB/PICC/URBIS border conflict between data sources");
+                                            // Test to see where the points lie on the border
+                                            var isWithinVL = mturf.de9im.within( mturf.centroid(featureA), jsonDataVL );
+                                            var isWithinWA = mturf.de9im.within( mturf.centroid(featureA), jsonDataWA );
+                                            var isWithinBR = mturf.de9im.within( mturf.centroid(featureA), jsonDataBR );
+                                            if (refA[0] === 'Grb' && isWithinVL ) {
+                                                    deleteIndexes.push( j );
+                                            } else if (refA[0] === 'Picc' && isWithinWA ) {
+                                                    deleteIndexes.push( j );
+                                            } else if (refA[0] === 'Urbis' && isWithinBR ) {
+                                                    deleteIndexes.push( j );
+                                            } else {
+                                                    deleteIndexes.push( i );
+                                            }
+                                            //console.log(isWithinVL);
+                                            //console.log(isWithinWA);
+                                            //console.log(isWithinBR);
                                         }
                                         //json.features[i].properties[ 'inter' ] = "detected intersection";
                                         //json.features[i].properties[ 'fixme' ] = "help I intersect";

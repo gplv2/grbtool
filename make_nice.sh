@@ -11,6 +11,7 @@ echo "Building pizza.js"
 echo "Building mapshaper.js"
 # Bake the mapshaper
 browserify node_modules/mapshaper/www/mapshaper.js --s mapshaper | uglifyjs > public/js/mapshaper.js
+browserify public/js/mturf.js -s mturf > public/js/mt.js
 
 echo "Building trf.js"
 # Bake the wrdiff stuff

@@ -427,7 +427,7 @@ function initmap() {
         strategies: [ streetStrategy, buildingStrategy, filterStrategy, mergeStrategy, boxStrategy, refresh ],
         maxScale: 420,
         //minScale: 6772,
-        minScale: 3000,
+        minScale: 3500,
         //maxResolution: map.getResolutionForZoom(15),
         //zoomOffset: 9, resolutions: [152.87405654907226, 76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627, 0.5971642833948135],
         //zoomOffset: 10, resolutions: [76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627, 0.5971642833948135],
@@ -778,6 +778,33 @@ function initmap() {
     map.addLayer( cdark_all );
     map.setLayerIndex( cdark_all, 9 );
 
+    var sunparks_all = new OpenLayers.Layer.XYZ(
+        "Sunparks map", [
+            'https://mapwarper.net/maps/tile/61426/${z}/${x}/${y}.png',
+        ], {
+            attribution: "Mapwarper",
+            sphericalMercator: true,
+            wrapDateLine: true,
+            transitionEffect: "resize",
+            buffer: 1,
+            type: 'png',
+            layername: 'dark_all',
+            transparent: "false",
+            numZoomLevels: 20,
+            //projection: geodetic,
+            //projection: 'EPSG:3857',
+            //displayProjection: mercator
+            strategies: [ new OpenLayers.Strategy.BBOX( {
+                ratio: 2,
+                resFactor: 2
+            } ) ],
+            tiled: true,
+            isBaseLayer: true,
+            visibility: false
+        }
+    );
+    map.addLayer( sunparks_all );
+    map.setLayerIndex( sunparks_all, 10 );
 
     /* shift-mouse1 Easily get bbox string (screen relative) */
     var boxcontrol = new OpenLayers.Control();
@@ -1607,11 +1634,13 @@ function openInCrabtool() {
     var postalcode = $( "#postcode" ).val();
     // http://crab-import.osm.be/?pcode=1982&filterStreets=*&collapsedSections=
     var crab_url = "http://crab-import.osm.be/?pcode=" + postalcode + "&filterStreets=*&collapsedSections=";
+	/*
     try {
-        javascript:_paq.push(['trackEvent', 'OpenInCrab', crab_url]);
+        //javascript:_paq.push(['trackEvent', 'OpenInCrab', crab_url]);
     } catch(err) {
         // tracking api probably blocked by user
     }
+    */
     openInNewTab( crab_url );
 }
 
@@ -1711,11 +1740,13 @@ function getOsmInfo() {
         //$("#msg").html("Info : " + "Added GEOJSON to map").removeClass().addClass("notice success");
     }
     //console.log("Overpass query:\n" + query);
+	/*
     try {
-        javascript:_paq.push(['trackEvent', 'getOsmInfo', query]);
+        //javascript:_paq.push(['trackEvent', 'getOsmInfo', query]);
     } catch(err) {
         // tracking api probably blocked by user
     }
+    */
     req.open( "GET", overpassapi + encodeURIComponent( query ), true );
     req.send( null );
 }
@@ -1729,7 +1760,7 @@ $( document ).ready( function() {
         $( "#dpslider" ).slider( {
             range: "min",
             max: 100,
-            value: 87,
+            value: 90,
             min: 66,
             create: function() {
                 handle.text( $( this ).slider( "value" ) + '%' ).css( 'width', 'initial' );
@@ -1858,11 +1889,13 @@ $( document ).ready( function() {
                 timeout: 2000 // 2 second wait
             } ).done( function( data ) {
                 //console.log(data);
+		    /*
                 try {
-                    javascript:_paq.push(['trackEvent', 'verifyAuth', '/api/auth/verify']);
+                    //javascript:_paq.push(['trackEvent', 'verifyAuth', '/api/auth/verify']);
                 } catch(err) {
                     // tracking api probably blocked by user
                 }
+		*/
                 openInJosm();
             } ).fail( function( jqXHR, textStatus, errorThrown ) {
                 $( '#msg' ).removeClass().addClass( "notice error" ).html( "Please log in to export the data to josm");
@@ -1974,11 +2007,13 @@ $( document ).ready( function() {
     $( "#msg" ).html( "Action: docReadydone" );
 
     function openStreetview( lat, lon ) {
+	    /*
         try {
-            javascript:_paq.push(['trackEvent', 'openStreetView', lat, lon]);
+            //javascript:_paq.push(['trackEvent', 'openStreetView', lat, lon]);
         } catch(err) {
             // tracking api probably blocked by user
         }
+	*/
         var dataUrl = '//cbk0.google.com/cbk?output=json&ll=' + lat + ',' + lon + '&';
         $.ajax( {
             url: dataUrl,

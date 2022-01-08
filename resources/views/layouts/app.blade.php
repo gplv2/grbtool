@@ -252,17 +252,17 @@
             }
     </style>
 <!-- Matomo -->
-<script type="text/javascript">
-  var _paq = window._paq || [];
+<script>
+  var _paq = window._paq = window._paq || [];
   /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   (function() {
-    var u="//matomo.bitless.be/";
+    var u="https://matomo.bitless.be/";
     _paq.push(['setTrackerUrl', u+'matomo.php']);
     _paq.push(['setSiteId', '1']);
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
   })();
 </script>
 <!-- End Matomo Code -->
@@ -355,7 +355,7 @@
                     BitLess is a hardcore software data crunching, application design, code and system admininistration company. doing this for over 2 decades.
                 </p>
                 <div class="footer-icons2">
-                            <a href="https://twitter.com/glenn_plas" class="btn btn-social-icon btn-lg btn-twitter" title="follow me on Twitter"><i class="fa fa-twitter"></i></a>
+                            <!-- <a href="https://twitter.com/glenn_plas" class="btn btn-social-icon btn-lg btn-twitter" title="follow me on Twitter"><i class="fa fa-twitter"></i></a> -->
                             <a href="https://www.linkedin.com/in/glennplas" class="btn btn-social-icon btn-lg btn-linkedin" title="follow me on Linkedin"><i class="fa fa-linkedin"></i></a>
                             <a href="https://bitbucket.org/gplv2/grbtool" class="btn btn-social-icon btn-lg btn-bitbucket" title="fork me on Bitbucket"><i class="fa fa-bitbucket"></i></a>
                             <a href="https://github.com/gplv2" class="btn btn-social-icon btn-lg btn-github" title="follow me on Github"><i class="fa fa-github"></i></a>
@@ -374,6 +374,7 @@
     {!! Html::script('js/jquery-2.2.4.min.js') !!}
     <!-- <script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
     <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->
+    {!! Html::script('js/popper.min.js') !!}
     {!! Html::script('js/bootstrap/dist/js/bootstrap.min.js') !!}
     <!-- <script src="css/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script> -->
 

@@ -1985,14 +1985,6 @@ $( document ).ready( function() {
         } );
 
 
-        $( "#vector_reload" ).button().click(function( event ) {
-            $('#msg').removeClass().addClass("notice info");
-            vector_layer.setVisibility(true);
-            vector_layer.refresh();
-            event.preventDefault();
-            return false;
-        });
-
         $( "#loadarea" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Opening area in JOSM" );
             $( 'body' ).css( 'cursor', 'wait' );
@@ -2001,6 +1993,37 @@ $( document ).ready( function() {
             event.preventDefault();
             return false;
         } );
+
+        // extra buttons on top 
+        $( "#vector_reload" ).button().click(function( event ) {
+            $( "#msg" ).html( "Reloading data from API" ).removeClass().addClass( "notice info" );
+            vector_layer.setVisibility(true);
+            vector_layer.refresh();
+            event.preventDefault();
+            $( "#msg" ).html( "Reloaded OK" ).removeClass().addClass( "notice success" );
+            return false;
+        });
+
+        $( "#vector_open" ).button().click( function( event ) {
+            $('#loadarea').click();
+        } );
+
+        $( "#vector_filter" ).button().click( function( event ) {
+            $('#fpass').click();
+        } );
+
+        $( "#vector_reset" ).button().click( function( event ) {
+            $('#rstfilter').click();
+        } );
+
+        $( "#vector_export" ).button().click( function( event ) {
+            $('#loadgrb').click();
+        } );
+
+        $( "#vector_overpass" ).button().click( function( event ) {
+            $('#opass').click();
+        } );
+
     } );
 
     $( "#msg" ).html( "Action: docReadydone" );

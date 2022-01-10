@@ -433,6 +433,8 @@ window.mapsCallback = function () {
             <div class="panel panel-default">
                 <div class="panel-heading">
                   View Map
+                <button id="vector_reload" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Reload the vector manually" tabindex="2"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+</button>
                 </div>
                 <div class="panel-body" id="map-wrap">
                   <div id="map" class="map"></div>

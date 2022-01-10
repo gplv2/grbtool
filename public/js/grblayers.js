@@ -1985,15 +1985,14 @@ $( document ).ready( function() {
         } );
 
 
-        /*
-                $( "#refreshgrb" ).button().click(function( event ) {
-                    $('#msg').removeClass().addClass("notice info");
-                    vector_layer.setVisibility(true);
-                    vector_layer.refresh();
-                    event.preventDefault();
-                    return false;
-                });
-        */
+        $( "#vector_reload" ).button().click(function( event ) {
+            $('#msg').removeClass().addClass("notice info");
+            vector_layer.setVisibility(true);
+            vector_layer.refresh();
+            event.preventDefault();
+            return false;
+        });
+
         $( "#loadarea" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Opening area in JOSM" );
             $( 'body' ).css( 'cursor', 'wait' );

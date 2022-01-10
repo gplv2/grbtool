@@ -2023,6 +2023,9 @@ $( document ).ready( function() {
         $( "#vector_overpass" ).button().click( function( event ) {
             $('#opass').click();
         } );
+        $( "#vector_streetview" ).button().click( function( event ) {
+            $('#ostreetview').click();
+        } );
 
     } );
 

@@ -435,7 +435,7 @@ window.mapsCallback = function () {
                   View Map
                 <button id="vector_reload" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Reload the vector manually" tabindex="19"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
                 <button id="vector_reset" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Reset the filtered data" tabindex="18"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>
-                <button id="vector_streetview" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Reset the filtered data" tabindex="17"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                <button id="vector_streetview" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Open streetview at the maplocation you last clicked" tabindex="17"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
                 <button id="vector_export" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Export the vector layer to JOSM" tabindex="16"><span class="glyphicon glyphicon-export" aria-hidden="true"></span>
                 <button id="vector_filter" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Filter the vector layer with Overpass data" tabindex="15"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
                 <button id="vector_overpass" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Load OSM data from Overpass" tabindex="14"><span class="glyphicon glyphicon-download" aria-hidden="true"></span>

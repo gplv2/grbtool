@@ -1377,6 +1377,15 @@ dotlayer.events.register('loadend', this, onloaddotend);
     }
 
     function onloadvectorend( evt ) {
+        // Clear the overpass layer since the filter will run when dragging
+        overpass_layer.destroyFeatures();
+        overpass_layer.refresh();
+        overpass_layer.setVisibility( false );
+        filterStrategy.setFilter( null );
+        mergeStrategy.setFilter( null );
+        streetStrategy.setFilter( null );
+        buildingStrategy.setFilter( null );
+
         // isvecup = null; Always do this now
         isvecup = null;
         if ( isvecup === null || isvecup === undefined ) {
@@ -1658,11 +1667,11 @@ function getOsmInfo() {
     var query = "<osm-script output=\"json\" timeout=\"250\">" +
         "  <union>" +
         "    <query type=\"way\">" +
-        "      <has-kv k=\"source:geometry:oidn\"/>" +
+        "      <has-kv k=\"ref:UrbIS\"/>" +
         "      <bbox-query e=\"" + bounds.right + "\" n=\"" + bounds.top + "\" s=\"" + bounds.bottom + "\" w=\"" + bounds.left + "\"/>" +
         "    </query>" +
         "    <query type=\"relation\">" +
-        "      <has-kv k=\"source:geometry:oidn\" />" +
+        "      <has-kv k=\"ref:UrbIS\" />" +
         "      <bbox-query e=\"" + bounds.right + "\" n=\"" + bounds.top + "\" s=\"" + bounds.bottom + "\" w=\"" + bounds.left + "\"/>" +
         //"      <bbox-query {{bbox}}/>" +
         "    </query>" +

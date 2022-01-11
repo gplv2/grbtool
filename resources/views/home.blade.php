@@ -3,8 +3,8 @@
 @section('title', 'Home - overview')
 
 @section('page-style')
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css" media="all" />
+<link rel="stylesheet" href="css/jquery-ui.css">
+<link rel="stylesheet" href="css/ol_style.css" media="all" />
 <link rel="stylesheet" href="css/complete.css">
 <style>
 
@@ -326,9 +326,9 @@ window.mapsCallback = function () {
                 <form id="reqform3" class="form-horizontal ng-pristine ng-valid" role="form">
                     <div class="form-group" id="search">
                            <div id="geosearch" class="filterclass ui-widget">
-                             <label for="address" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Name</label>
-                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                 <input type="text" class="form-control ui-autocomplete-input" autocomplete="off" title="Search via nominatim" id="address" value="" placeholder="Damstraat, Weerde" tabindex="9">
+                             <label for="address" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Name</label>
+                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                 <input type="text" class="form-control ui-search ui-autocomplete-input" autocomplete="off" title="Search via nominatim" id="address" value="" placeholder="Damstraat, Weerde" tabindex="9">
                               </div>
                            </div>
                     </div>
@@ -361,7 +361,7 @@ window.mapsCallback = function () {
                 <div class="panel-heading" data-toggle="collapse" data-target="#opts">
                   Options
                </div>
-                <div id="opts" class="panel-body collapse in">
+                <div id="opts" class="panel-body collapse">
                 <form id="genform" class="form-horizontal ng-pristine ng-valid" role="form">
 <!--
                      <div class="form-group">

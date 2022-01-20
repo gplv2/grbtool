@@ -299,7 +299,7 @@ window.mapsCallback = function () {
                             </div>
                         <!-- <button id="loadcert" type="button" class="btn btn-default" tabindex="5" onclick="javascript:_paq.push(['trackEvent', 'LoadCertificate']);">Load Certificate</button> -->
                         </div>
-                        Tip: download the <a href="https://raw.githubusercontent.com/gplv2/grb-mapcss/master/grb_buildings.css">"GRB MAPCSS"</a> for easy merging.
+			Tip: Install <a href="https://raw.githubusercontent.com/gplv2/grb-mapcss/master/grb_buildings.css">"GRB MAPCSS"</a> and/or <a href="https://framagit.org/Midgard/osm/raw/master/josm_style_grb.mapcss">"Midgards MAPCSS"</a> for easy merging.
 <!-- end form group -->
 <!--
             <div class="help-block">Take WR actions</div>

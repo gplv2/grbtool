@@ -119,7 +119,7 @@ class Osmium extends Command
                         $exportinfo = new \App\ExportInfo([
                             'data_export_id' => $export->id,
                             'bbox' => $res['bbox'],
-                            'info' => sprintf("Exported %d nodes, %d ways and %d relations",$res['nodes'], $res['ways'], $res['relations'])
+                            'info' => sprintf("%d nodes, %d ways and %d relations",$res['nodes'], $res['ways'], $res['relations'])
                         ]);
 
                         $exportinfo->save();
@@ -160,7 +160,7 @@ class Osmium extends Command
                         $exportinfo = new \App\ExportInfo([
                             'data_export_id' => $e->id,
                             'bbox' => $res['bbox'],
-                            'info' => sprintf("Exported %d nodes, %d ways and %d relations",$res['nodes'], $res['ways'], $res['relations'])
+                            'info' => sprintf("%d nodes, %d ways and %d relations",$res['nodes'], $res['ways'], $res['relations'])
                         ]);
 
                         $exportinfo->save();

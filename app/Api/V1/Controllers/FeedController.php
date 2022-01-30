@@ -46,13 +46,12 @@ class FeedController extends Controller
         $response = new Response();
         $response->header('charset', 'utf-8');
         /* create new feed */
-	    //$feed = App::make('feed');
+        //$feed = App::make('feed');
 
         //$this->feed->setCache(15, 'laravelFeedKey');
-        $this->feed->setCache(10, 'laravelFeedKey3sdfsdf');
+        $this->feed->setCache(3, 'laravelFeedKey');
 
-        if (1==1 || !$this->feed->isCached())
-        {
+        if (!$this->feed->isCached()) {
             /* Take out 15 exports from database to create feed */
             $exports = DataExport::orderBy('created_at' ,'desc')->take(15)->get();
 
@@ -71,18 +70,24 @@ class FeedController extends Controller
             $this->feed->copyright = 'All rights reserved by Foobar Corporation';
             $this->feed->setTextLimit(100);
 
-			    //dd($exports[0]->dataexport);
+            // https://www.openstreetmap.org/?minlon=-0.489&minlat=51.28&maxlon=0.236&maxlat=51.686#map=10/51.4835/-0.1265
+            // https://www.openstreetmap.org/?minlon=4.0384464&minlat=50.9675264&maxlon=4.0396527&maxlat=50.9692722
+
             //$this->feed->caching(true);
 
             //dd($this->feed);
             // {"id":8084,"user_id":"54","filename":"b2911194269dcf94aa09d00b61f5bd6b.osm","created_at":"2022-01-29 12:52:38","updated_at":"2022-01-29 12:52:38"},
             //debug($export);
             foreach ($exports as $export)
-	    {
-		    //if ($export->id==8093){
-			    //dd($export->exportinfo);
-		    //}
-                $this->feed->add('Export nr: ' . $export->id ,$export->user->name, url('public/'.$export->filename), $export->created_at,'description','content');
+            {
+                $pieces = explode(",", $export->dataexport->bbox);
+                $osm_url = sprintf("https://www.openstreetmap.org/?minlon=%F&minlat=%F&maxlon=%F&maxlat=%F",$pieces[0],$pieces[1],$pieces[2],$pieces[3]);
+                //dd($pieces);
+                $content  = sprintf("BBOX     : %s<br/>\n", $export->dataexport->bbox);
+                $content .= sprintf("INFO     : %s<br/>\n", $export->dataexport->info);
+                $content .= sprintf("Export   : <a href=\"%s\">%s</a><br/>\n", url('public/'.$export->filename), url('public/'.$export->filename));
+                $content .= sprintf("OSM      : <a href=\"%s\">%s</a><br/>\n", $osm_url, $osm_url);
+                $this->feed->add('User: ' . $export->user->name . ' created export nr: ' . $export->id ,$export->user->name, $osm_url, $export->created_at,'description',$content);
             }
         }
         return $this->feed->render('atom');

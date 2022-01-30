@@ -49,9 +49,9 @@ class FeedController extends Controller
         //$feed = App::make('feed');
 
         //$this->feed->setCache(15, 'laravelFeedKey');
-        $this->feed->setCache(3, 'laravelFeedKey');
+        //$this->feed->setCache(3, 'laravelFeedKey');
 
-        if (!$this->feed->isCached()) {
+        if (1==1) {
             /* Take out 15 exports from database to create feed */
             $exports = DataExport::orderBy('created_at' ,'desc')->take(15)->get();
 

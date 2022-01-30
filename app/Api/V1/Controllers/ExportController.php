@@ -17,6 +17,7 @@ use App\DataExport;
 use App\ExportInfo;
 use Storage;
 use DB;
+//use Artisan;
 use Dingo\Api\Routing\Helpers;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Cache;
@@ -82,15 +83,19 @@ class ExportController extends Controller
                         ]);
 
                 $dataexport->save();
-		DataExport::reguard();
-		/*
-		Mail::send('emails.firstexport', $data, function ($message) {
-			$message->from('grb@grbosm.site', 'GRB tool exports');
-			$message->subject('Your first GRB export');
-			$message->to('glenn@bitless.be')->cc('glenn.plas@telenet.be');
-		});
-		 */
-	    }
+                DataExport::reguard();
+
+                $exitCode = \Artisan::call('osmium:info', [ 'dataexport.filename' => $token . '.osm']);
+                //$exitCode = \Artisan::call('cache:clear');
+
+                /*
+                Mail::send('emails.firstexport', $data, function ($message) {
+                    $message->from('grb@grbosm.site', 'GRB tool exports');
+                    $message->subject('Your first GRB export');
+                    $message->to('glenn@bitless.be')->cc('glenn.plas@telenet.be');
+                });
+                */
+            }
         }
 
         $response = new Response();

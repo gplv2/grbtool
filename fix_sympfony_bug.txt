@@ -1,0 +1,5 @@
+} elseif (0 === strpos($key, '-')) {
+
+
+[2022-01-30 16:00:23] staging.ERROR: ErrorException: Trying to access array offset on value of type int in /var/www/grbtool_staging/vendor/symfony/console/Input/ArrayInput.php:135 
+

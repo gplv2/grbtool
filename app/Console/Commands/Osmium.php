@@ -114,6 +114,13 @@ class Osmium extends Command
                 if (empty($time)) {
                     $this->error("missing on disk: " . $e->filename);
                 } else {
+                    // see if an entry exists, skip it if already have this info
+                    $export_info=\App\ExportInfo::where('data_export_id', '=', $e->id)->first();
+                    if (!empty($export_info->id)) {
+                        // skip and do next
+                        continue;
+                    }
+                    
                     // Check with osmium
                     $this->info($e->filename);
                     $path = Storage::disk('public')->getAdapter()->getPathPrefix();

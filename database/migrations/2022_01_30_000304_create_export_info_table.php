@@ -14,13 +14,14 @@ class CreateExportInfoTable extends Migration
     {
         Schema::create('export_infos', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('data_export_id');
+            $table->unsignedInteger('data_export_id')->unique();
             //$table->string('filename')->unique();
             $table->string('bbox');
-            $table->string('areaname');
+            $table->string('areaname')->nullable();
             $table->string('info');
             $table->timestamps();
-            $table->index('data_exports_id');
+	    ///$table->index('data_exports_id');
+	    $table->foreign('data_export_id')->references('id')->on('data_exports');
         });
     }
 

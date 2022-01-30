@@ -165,11 +165,12 @@ return [
         Barryvdh\Cors\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Phaza\LaravelPostgis\DatabaseServiceProvider::class,
-	Laravel\Socialite\SocialiteServiceProvider::class,
-	Fideloper\Proxy\TrustedProxyServiceProvider::class,
-	//League\OAuth2\Client\Provider\GenericProvider::class,
-	//vendor/league/oauth2-client/src/Provider/GenericProvider.php
-	//JBelien\OAuth2\Client\Provider\OpenStreetMap::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        Fideloper\Proxy\TrustedProxyServiceProvider::class,
+        //League\OAuth2\Client\Provider\GenericProvider::class,
+        //vendor/league/oauth2-client/src/Provider/GenericProvider.php
+        //JBelien\OAuth2\Client\Provider\OpenStreetMap::class,
+	Roumen\Feed\FeedServiceProvider::class,
     ],
 
     /*
@@ -225,6 +226,7 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         //'Oauth2' => \JBelien\OAuth2\Client\Provider\OpenStreetMap::class,
+        'Feed' => Roumen\Feed\Feed::class,
     ],
 
 ];

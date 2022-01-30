@@ -47,7 +47,7 @@
                   </table>
                 </div>
           <div class="panel-footer">
-            You can download these exports by clicking on them
+	    You can download these exports by clicking on them or use the <a href="https://grbosm.site/api/rss-feed">"Export RSS feed"</a>
           </div>
           </div>
 <!-- 

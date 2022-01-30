@@ -14,6 +14,7 @@ use JWTAuth;
 use Validator;
 use App\User;
 use App\DataExport;
+use App\ExportInfo;
 use Storage;
 use DB;
 use Dingo\Api\Routing\Helpers;

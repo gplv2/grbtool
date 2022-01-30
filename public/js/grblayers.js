@@ -1377,6 +1377,15 @@ dotlayer.events.register('loadend', this, onloaddotend);
     }
 
     function onloadvectorend( evt ) {
+        // Clear the overpass layer since the filter will run when dragging
+        overpass_layer.destroyFeatures();
+        overpass_layer.refresh();
+        overpass_layer.setVisibility( false );
+        filterStrategy.setFilter( null );
+        mergeStrategy.setFilter( null );
+        streetStrategy.setFilter( null );
+        buildingStrategy.setFilter( null );
+
         // isvecup = null; Always do this now
         isvecup = null;
         if ( isvecup === null || isvecup === undefined ) {
@@ -1658,11 +1667,11 @@ function getOsmInfo() {
     var query = "<osm-script output=\"json\" timeout=\"250\">" +
         "  <union>" +
         "    <query type=\"way\">" +
-        "      <has-kv k=\"source:geometry:oidn\"/>" +
+        "      <has-kv k=\"ref:UrbIS\"/>" +
         "      <bbox-query e=\"" + bounds.right + "\" n=\"" + bounds.top + "\" s=\"" + bounds.bottom + "\" w=\"" + bounds.left + "\"/>" +
         "    </query>" +
         "    <query type=\"relation\">" +
-        "      <has-kv k=\"source:geometry:oidn\" />" +
+        "      <has-kv k=\"ref:UrbIS\" />" +
         "      <bbox-query e=\"" + bounds.right + "\" n=\"" + bounds.top + "\" s=\"" + bounds.bottom + "\" w=\"" + bounds.left + "\"/>" +
         //"      <bbox-query {{bbox}}/>" +
         "    </query>" +
@@ -1985,15 +1994,6 @@ $( document ).ready( function() {
         } );
 
 
-        /*
-                $( "#refreshgrb" ).button().click(function( event ) {
-                    $('#msg').removeClass().addClass("notice info");
-                    vector_layer.setVisibility(true);
-                    vector_layer.refresh();
-                    event.preventDefault();
-                    return false;
-                });
-        */
         $( "#loadarea" ).click( function( event ) {
             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Action: Opening area in JOSM" );
             $( 'body' ).css( 'cursor', 'wait' );
@@ -2002,6 +2002,40 @@ $( document ).ready( function() {
             event.preventDefault();
             return false;
         } );
+
+        // extra buttons on top 
+        $( "#vector_reload" ).button().click(function( event ) {
+            $( "#msg" ).html( "Reloading data from API" ).removeClass().addClass( "notice info" );
+            vector_layer.setVisibility(true);
+            vector_layer.refresh();
+            event.preventDefault();
+            $( "#msg" ).html( "Reloaded OK" ).removeClass().addClass( "notice success" );
+            return false;
+        });
+
+        $( "#vector_open" ).button().click( function( event ) {
+            $('#loadarea').click();
+        } );
+
+        $( "#vector_filter" ).button().click( function( event ) {
+            $('#fpass').click();
+        } );
+
+        $( "#vector_reset" ).button().click( function( event ) {
+            $('#rstfilter').click();
+        } );
+
+        $( "#vector_export" ).button().click( function( event ) {
+            $('#loadgrb').click();
+        } );
+
+        $( "#vector_overpass" ).button().click( function( event ) {
+            $('#opass').click();
+        } );
+        $( "#vector_streetview" ).button().click( function( event ) {
+            $('#ostreetview').click();
+        } );
+
     } );
 
     $( "#msg" ).html( "Action: docReadydone" );

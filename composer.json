@@ -17,7 +17,9 @@
         "fideloper/proxy": "^3.3",
         "swiftmailer/swiftmailer": "^5.2",
         "jbelien/oauth2-openstreetmap": "^0.1.2",
-        "league/oauth2-client": "^2.6"
+        "league/oauth2-client": "^2.6",
+        "roumen/feed": "v2.10.5",
+        "symfony/process": "3.0.x-dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

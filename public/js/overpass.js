@@ -76,19 +76,31 @@ function filterForJosm() {
                 }
                 // URBIS
                 if ( feature.attributes[ "source:geometry:version" ] !== null && feature.attributes[ "source:geometry:version" ] !== undefined ) {
-                    var myversion = "";
                     // make it a string by catting it into one.
                     var object_version = '' + feature.attributes[ "source:geometry:version" ];
-                }
+                } else {
+                    //feature.attributes[ "source:geometry:version" ]='1';
+                    var object_version = '1' ;
+		        }
 
+                // Multiple values situation: 
                 // ref tag present in overpass data
-                if ( overpass.attributes.tags[ 'source:geometry:ref' ] ) {
+                if ( overpass.attributes.tags[ 'source:geometry:ref' ] || overpass.attributes.tags[ 'ref:UrbIS' ] ) {
                     // See if a ; is present
-                    var dotcomma = overpass.attributes.tags[ 'source:geometry:ref' ].indexOf(";");
+                    if ( overpass.attributes.tags[ 'source:geometry:ref' ] ) {
+                        var dotcomma = overpass.attributes.tags[ 'source:geometry:ref' ].indexOf(";");
+                    } else if ( overpass.attributes.tags[ 'ref:UrbIS' ] ) {
+                        var dotcomma = overpass.attributes.tags[ 'ref:UrbIS' ].indexOf(";");
+                    }
                     // If a dotcomma is present in the overpass tags, this means a combined ref key of multiple objects
                     if (dotcomma) {
+			 //console.log("dotcomma");
                         // combined ref key needs different approach
-                        var refArray = overpass.attributes.tags[ 'source:geometry:ref' ].split(';');
+                        if ( overpass.attributes.tags[ 'source:geometry:ref' ] ) {
+                            var refArray = overpass.attributes.tags[ 'source:geometry:ref' ].split(';');
+                        } else if ( overpass.attributes.tags[ 'ref:UrbIS' ] ) {
+                            var refArray = overpass.attributes.tags[ 'ref:UrbIS' ].split(';');
+                        }
                         // What entity are we dealing with, if URBIS we need the version approach and not the date
                         //console.log(refArray);
                         //console.log(entity);
@@ -103,6 +115,8 @@ function filterForJosm() {
                                     ret = false;
                                 }
                             });
+                        } else {
+                            overpass.attributes.tags[ 'source:geometry:version' ] = '1';
                         }
 
                         if (overpass.attributes.tags[ 'source:geometry:date' ]) {
@@ -124,10 +138,28 @@ function filterForJosm() {
                             ret = false;
                         }
                         //urbis
-                        if ( overpass.attributes.tags[ 'source:geometry:ref' ] === feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] && 
-                            overpass.attributes.tags[ 'source:geometry:version' === object_version ]
-                        ) {
-                            ret = false;
+                        console.log("ref:UrbIS");
+                        if ( overpass.attributes.tags[ 'source:geometry:version' ] ){
+                            console.log("ref:UrbIS if");
+                            if ( overpass.attributes.tags[ 'source:geometry:ref' ] === feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] && 
+                                overpass.attributes.tags[ 'source:geometry:version' === object_version ]
+                            ) {
+                                ret = false;
+                            }
+                        } else if ( overpass.attributes.tags[ 'ref:UrbIS' ] ) {
+                            console.log("ref:UrbIS else");
+                            var overpass_ref = overpass.attributes.tags[ 'source:geometry:ref' ] = 'Urbis/' + overpass.attributes.tags[ 'ref:UrbIS' ];
+                            if ( overpass_ref === feature.attributes[ 'source:geometry:entity' ] + '/' + feature.attributes[ 'source:geometry:oidn' ] && 
+                                overpass.attributes.tags[ 'source:geometry:version' === object_version ]
+                            ) {
+                                ret = false;
+                            } else {
+                                // Do a geo compair here of equal refs
+                                var urbis_intersect = mturf.de9im.intersects( overpass.geometry, feature.geometry );
+                                console.log(overpass);
+                                console.log(feature);
+                                console.log(urbis_intersect);
+                            }
                         }
                     }
                 }

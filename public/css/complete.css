@@ -83,6 +83,8 @@
 .ui-widget .ui-widget { font-size: 0.9em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Segoe UI, Arial, sans-serif; font-size: 0.9em; }
 
+.ui-search { font-family: Segoe UI, Arial, sans-serif; font-size: 1.2em !important ; }
+
 #header .menu ul li a {
    display:block;
    float:left;

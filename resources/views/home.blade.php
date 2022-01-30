@@ -3,8 +3,8 @@
 @section('title', 'Home - overview')
 
 @section('page-style')
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css" media="all" />
+<link rel="stylesheet" href="css/jquery-ui.css">
+<link rel="stylesheet" href="css/ol_style.css" media="all" />
 <link rel="stylesheet" href="css/complete.css">
 <style>
 
@@ -271,7 +271,7 @@ window.mapsCallback = function () {
                         <div class="help-block col-md-offset-1">Postalcode</div>
                             <!-- <label for="postcode" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Postcode</label> -->
                             <div class="col-md-offset-0 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="2">
+                                <input type="text" class="form-control col-md-6 col-sm-6 col-xs-6" autocomplete="off" title="found via nominatim" id="postcode" tabindex="20">
                             </div>
                             <div class="col-md-offset-0 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <button id="ocrab" type="button" class="btn btn-default" tabindex="1" onclick="javascript:_paq.push(['trackEvent', 'josm', 'OpenInCrab']);">Open in CRAB import</button>
@@ -284,22 +284,22 @@ window.mapsCallback = function () {
                         <div class="row">
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <div class="help-block">Export data actions</div>
-                                <button id="opass" type="button" class="btn btn-default" tabindex="6" onclick="javascript:_paq.push(['trackEvent','josm', 'LoadOSMData']);">Load OSM data</button>
-                                <button id="fpass" type="button" class="btn btn-default" tabindex="7" onclick="javascript:_paq.push(['trackEvent','josm', 'FilterGRBLayer']);">Filter Export layer</button>
-                                <button id="loadarea" type="button" class="btn btn-default" tabindex="8" onclick="javascript:_paq.push(['trackEvent','josm', 'OpenAreaInJosm']);">Open Area in JOSM</button>
-                                <button id="loadgrb" type="button" class="btn btn-default" tabindex="9" onclick="javascript:_paq.push(['trackEvent','josm', 'ExportGRB']);">Export data to JOSM</button>
-                                <button id="rstfilter" type="button" class="btn btn-default" tabindex="4" onclick="javascript:_paq.push(['trackEvent','josm', 'ResetFilters']);">Reset Filters</button>
+                                <button id="opass" type="button" class="btn btn-default" tabindex="2" onclick="javascript:_paq.push(['trackEvent','josm', 'LoadOSMData']);">Load OSM data</button>
+                                <button id="fpass" type="button" class="btn btn-default" tabindex="3" onclick="javascript:_paq.push(['trackEvent','josm', 'FilterGRBLayer']);">Filter Export layer</button>
+                                <button id="loadarea" type="button" class="btn btn-default" tabindex="4" onclick="javascript:_paq.push(['trackEvent','josm', 'OpenAreaInJosm']);">Open Area in JOSM</button>
+                                <button id="loadgrb" type="button" class="btn btn-default" tabindex="5" onclick="javascript:_paq.push(['trackEvent','josm', 'ExportGRB']);">Export data to JOSM</button>
+                                <button id="rstfilter" type="button" class="btn btn-default" tabindex="6" onclick="javascript:_paq.push(['trackEvent','josm', 'ResetFilters']);">Reset Filters</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 <div class="help-block">Optional actions</div>
-                                <button id="ostreetview" type="button" class="btn btn-default" data-toggle="tooltip" title="Click on a road segment in the map to select the position" tabindex="2" onclick="javascript:_paq.push(['trackEvent', 'josm', 'OpenStreetview']);">Open Streetview</button>
-                                <button id="vrfyjosm" type="button" class="btn btn-default" tabindex="3" onclick="javascript:_paq.push(['trackEvent', 'josm', 'CheckJosm']);">Check JOSM</button>
+                                <button id="ostreetview" type="button" class="btn btn-default" data-toggle="tooltip" title="Click on a road segment in the map to select the position" tabindex="7" onclick="javascript:_paq.push(['trackEvent', 'josm', 'OpenStreetview']);">Open Streetview</button>
+                                <button id="vrfyjosm" type="button" class="btn btn-default" tabindex="8" onclick="javascript:_paq.push(['trackEvent', 'josm', 'CheckJosm']);">Check JOSM</button>
                             </div>
                         <!-- <button id="loadcert" type="button" class="btn btn-default" tabindex="5" onclick="javascript:_paq.push(['trackEvent', 'LoadCertificate']);">Load Certificate</button> -->
                         </div>
-                        Tip: download the <a href="https://raw.githubusercontent.com/gplv2/grb-mapcss/master/grb_buildings.css">"GRB MAPCSS"</a> for easy merging.
+			Tip: Install <a href="https://raw.githubusercontent.com/gplv2/grb-mapcss/master/grb_buildings.css">"GRB MAPCSS"</a> and/or <a href="https://framagit.org/Midgard/osm/raw/master/josm_style_grb.mapcss">"Midgards MAPCSS"</a> for easy merging.
 <!-- end form group -->
 <!--
             <div class="help-block">Take WR actions</div>
@@ -326,9 +326,9 @@ window.mapsCallback = function () {
                 <form id="reqform3" class="form-horizontal ng-pristine ng-valid" role="form">
                     <div class="form-group" id="search">
                            <div id="geosearch" class="filterclass ui-widget">
-                             <label for="address" class="col-lg-3 col-md-2 col-sm-2 col-xs-2">Name</label>
-                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                 <input type="text" class="form-control ui-autocomplete-input" autocomplete="off" title="Search via nominatim" id="address" value="" placeholder="Damstraat, Weerde" tabindex="1">
+                             <label for="address" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Name</label>
+                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                 <input type="text" class="form-control ui-search ui-autocomplete-input" autocomplete="off" title="Search via nominatim" id="address" value="" placeholder="Damstraat, Weerde" tabindex="9">
                               </div>
                            </div>
                     </div>
@@ -347,8 +347,8 @@ window.mapsCallback = function () {
                     <div class="form-group">
                         <div class="col-md-offset-2 col-lg-6 col-md-6">
                             <!-- <input class="ui-button ui-state-default ColVis_Button" type="button" name="clearsearch" value="X" id="clssearch" title="Wissen zoekbox"> --!>
-                            <button id="resetbutton" type="button" name="clearsearch" id="clssearch" class="btn btn-primary pull-left" tabindex="2">Reset</button>
-                            <button id="searchbutton" type="button" class="btn btn-primary pull-right" tabindex="1">Search!</button>
+                            <button id="resetbutton" type="button" name="clearsearch" id="clssearch" class="btn btn-primary pull-left" tabindex="10">Reset</button>
+                            <button id="searchbutton" type="button" class="btn btn-primary pull-right" tabindex="11">Search!</button>
                             <!-- <button id="testbutton"  type="button" class="btn btn-primary pull-left">Test grid</button>-->
                         </div>
                     </div>
@@ -361,7 +361,7 @@ window.mapsCallback = function () {
                 <div class="panel-heading" data-toggle="collapse" data-target="#opts">
                   Options
                </div>
-                <div id="opts" class="panel-body collapse in">
+                <div id="opts" class="panel-body collapse">
                 <form id="genform" class="form-horizontal ng-pristine ng-valid" role="form">
 <!--
                      <div class="form-group">
@@ -377,7 +377,7 @@ window.mapsCallback = function () {
                             <div id="slider_container">
                                 <div id="dpslider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                                   <div id="percentage" class="ui-slider-handle"></div>
-                                  <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                  <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="12"></span>
                                 </div>
                             </div>
                         </div>
@@ -433,6 +433,14 @@ window.mapsCallback = function () {
             <div class="panel panel-default">
                 <div class="panel-heading">
                   View Map
+                <button id="vector_reload" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Reload the vector manually" tabindex="19"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                <button id="vector_reset" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Reset the filtered data" tabindex="18"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>
+                <button id="vector_streetview" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Open streetview at the maplocation you last clicked" tabindex="17"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                <button id="vector_export" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Export the vector layer to JOSM" tabindex="16"><span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                <button id="vector_filter" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Filter the vector layer with Overpass data" tabindex="15"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+                <button id="vector_overpass" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Load OSM data from Overpass" tabindex="14"><span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                <button id="vector_open" type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Open and dowload area in JOSM" tabindex="13"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+</button>
                 </div>
                 <div class="panel-body" id="map-wrap">
                   <div id="map" class="map"></div>

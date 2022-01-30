@@ -28,6 +28,8 @@ $api->version('v1', function ($api) {
         return \App\User::all();
     });
 
+    $api->get('rss-feed', 'App\Api\V1\Controllers\FeedController@rssFeed');
+
     $api->get('status', ['middleware' => ['api.auth'], function () {
         // We need to trap this as cli stuff does not have JWT token inside. weird framework behavior
         $sapi_type = php_sapi_name();

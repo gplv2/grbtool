@@ -18,4 +18,8 @@ class DataExport extends Model
       return $this->belongsTo(User::Class);
    }
 
+   public function dataexport()
+   {
+      return $this->hasOne(ExportInfo::Class);
+   }
 }

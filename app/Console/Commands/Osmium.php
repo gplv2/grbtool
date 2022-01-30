@@ -98,6 +98,33 @@ class Osmium extends Command
 
                 if (is_null($export)) {
                     $this->info(sprintf("Skipping File %s has no database entry (old export)",$filename));
+                } else {
+                    \App\ExportInfo::unguard();
+                    // see if an entry exists, skip it if already have this info
+                    $export_info=\App\ExportInfo::where('data_export_id', '=', $export->id)->first();
+                    if (!empty($export_info->id)) {
+                        // skip and do next (so none in single file mode)
+                        return;
+                    }
+
+                    // Check with osmium
+                    // $this->info($export->filename);
+                    $path = Storage::disk('public')->getAdapter()->getPathPrefix();
+                    $res = $this->osmium($path . $export->filename);
+                    if (!empty($res)) {
+                        // bbox           | character varying(255)         |           | not null | 
+                        // areaname       | character varying(255)         |           | not null | 
+                        // info           | character varying(255)         |           | not null | 
+
+                        $exportinfo = new \App\ExportInfo([
+                            'data_export_id' => $export->id,
+                            'bbox' => $res['bbox'],
+                            'info' => sprintf("%d nodes, %d ways and %d relations",$res['nodes'], $res['ways'], $res['relations'])
+                        ]);
+
+                        $exportinfo->save();
+                    }
+                    \App\ExportInfo::reguard();
                 }
             }
         } else {
@@ -114,6 +141,13 @@ class Osmium extends Command
                 if (empty($time)) {
                     $this->error("missing on disk: " . $e->filename);
                 } else {
+                    // see if an entry exists, skip it if already have this info
+                    $export_info=\App\ExportInfo::where('data_export_id', '=', $e->id)->first();
+                    if (!empty($export_info->id)) {
+                        // skip and do next
+                        continue;
+                    }
+                    
                     // Check with osmium
                     $this->info($e->filename);
                     $path = Storage::disk('public')->getAdapter()->getPathPrefix();
@@ -126,7 +160,7 @@ class Osmium extends Command
                         $exportinfo = new \App\ExportInfo([
                             'data_export_id' => $e->id,
                             'bbox' => $res['bbox'],
-                            'info' => sprintf("Exported %d nodes, %d ways and %d relations",$res['nodes'], $res['ways'], $res['relations'])
+                            'info' => sprintf("%d nodes, %d ways and %d relations",$res['nodes'], $res['ways'], $res['relations'])
                         ]);
 
                         $exportinfo->save();

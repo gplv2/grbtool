@@ -9,7 +9,7 @@
 
 # Grbtool
 
-GRB-GIMT: GRB GUI Import and Merge Tool.  Production site for GRB import work flemish part of Belgium.
+GRB-GIMT: GRB/PICC/URBIS GUI Import and Merge Tool.  Production site for building GRB/PICC/URBIS import work in Belgium.  It started out as GRB (Flemish) only but then expanded to include Picc and Urbis data.
 
 [![Latest Stable Version](https://poser.pugx.org/matthiasnoback/badges/v/stable.png)](https://poser.pugx.org/matthiasnoback/badges/v/stable.png)
 
@@ -24,16 +24,20 @@ GRB-GIMT: GRB GUI Import and Merge Tool.  Production site for GRB import work fl
 
 ## Introduction
 
+(vagrant has nog been tested for a long time, so it will probably fail)
+
 This vagrant is specifically setup to use nginx, mariadb / postgres , php-fpm .  The reason is that standard homestead does not take care of bringing the OS up to date. 0.5 left package management broken in my experience so I started writing a fix script, that eventually became a custom provisioner.  The goal making it was to reuse the homestead box , since it is a good start.  But we will update/upgrade it on OS level. Also add specific software and last but note least: deploy the full app from a git clone and not from a shared dir.
 
 The reason to not use the shared directory as base of our application is that often versions differ between where you work (usually host) and the platform you test. Accidently dumping composer autoload on the host can have strange consequences.  It is better to start totally fresh on a VM.
 
-It's using my own custom installation scripts as I have had lots of issues with particular tasks in Ansible/Puppet etc.  For example some wget commands fail with segfaults when you're not using --quiet option inside a provisioner. If you use the provided vagrant configuration, you are sure to run on the latest ubuntu 16.04 server.
+It's using my own custom installation scripts as I have had lots of issues with particular tasks in Ansible/Puppet etc.  For example some wget commands fail with segfaults when you're not using --quiet option inside a provisioner. If you use the provided vagrant configuration, you are sure to run on the latest ubuntu 16.04 server. (probably want 20.04 now but that install will need to be changed)
 
 When it's done, you can visit the bridged ip remotely or the internal IP via the host OS to access the webserver.  The only thing you need to do is add a host mapping to your /etc/hosts file (linux) or equivalent for your OS.
 This mapping should point to the IP address you want to visit.  Vagrant will output this hosts
 
 Standard name of the app is : grb.app but you can rename this in the .env file and provisioning will follow.
+
+PS: I'm working on a updated vagrant/postgresql HA cluster which I think would be a good base to fix this one, so I'll update it in the near future
 
 <a name="VagrantFeatures"></a>
 ## Main Features

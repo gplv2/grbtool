@@ -86,6 +86,7 @@ class ExportController extends Controller
                 DataExport::reguard();
 
                 $exitCode = \Artisan::call('osmium:info', [ 'dataexport.filename' => $token . '.osm']);
+                //dd($exitCode);
                 //$exitCode = \Artisan::call('cache:clear');
 
                 /*

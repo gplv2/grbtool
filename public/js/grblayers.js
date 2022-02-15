@@ -32,6 +32,8 @@ var geodetic = null;
 var mercator = null;
 var lambert = null;
 
+let shouldUpdate = true;
+
 function initmap() {
     $( 'body' ).css( 'cursor', 'wait' );
 
@@ -43,7 +45,7 @@ function initmap() {
             return JSON.parse( localStorage.getItem( item ) );
         }
     };
-    
+
     var myOption = {
         set: function( item, value ) {
             var token = myLocalStorage.get('ngStorage-token');
@@ -136,13 +138,13 @@ function initmap() {
             orientation: "horizontal",
             range: "min",
             animate: true,
-    	min: 0,
+        min: 0,
             max: 100,
             //values: [ 75, 300 ],
             slide: function( event, ui ) {
               $('#msg').removeClass().addClass("notice info").html(" Info: Vector opacity: " + ui.value/100);
               // console.log(ui.value);
-    	  vector_layer.setOpacity(ui.value/100);
+          vector_layer.setOpacity(ui.value/100);
               vector_layer.refresh();
             }
           })
@@ -251,7 +253,7 @@ function initmap() {
                 attribution: "Tiles courtesy of <a href=\"https://geo6.be/\">GEO-6</a>",
                 transitionEffect: "resize",
                 numZoomLevels: 19
-			} ),
+            } ),
             new OpenLayers.Layer.OSM( "OpenStreetMap", null, {
                 numZoomLevels: 20
             } )
@@ -339,7 +341,7 @@ function initmap() {
         };
         localStorage.setItem( 'defaultlocation', JSON.stringify( setObject ) );
         // Option.set('defaultlocation', JSON.stringify( setObject ) );
-        
+
 /*
         var option;
         Option.get('defaultlocation').then(function (result) {
@@ -351,44 +353,44 @@ function initmap() {
         });
 */
 
-	    /*
+        /*
         var token = myLocalStorage.get('ngStorage-token');
-	    $.ajax( {
-		    type: "POST",
-		    dataType: "json",
-		    //data: { name: 'dpslider', value: ui.value },
-		    data: JSON.stringify({ "name": "defaultlocation", "value": JSON.stringify(setObject) }),
-		    beforeSend: function(xhr, settings) {
-			    if (token) {
-				    xhr.setRequestHeader('Authorization','Bearer ' + token);
-			    }
-			    xhr.setRequestHeader('Content-Type', 'application/json');
-			    xhr.overrideMimeType( 'application/json' );
-		    },
-		    cache: false,
-		    async: true,
-		    global: false,
-		    url: '/api/option',
-		    contentType: "application/json",
-		    timeout: 500, // 2 second wait
-		    success: function( data ) {
-			    //console.log(data);
-			    if ( data.status !== null && data.status !== undefined ) {
-				    //$( '#postcode' ).val( geocode.address.postcode );
-				    $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location saved in user profile" );
-			    } else {
-				    $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location value save problem" );
-			    }
+        $.ajax( {
+            type: "POST",
+            dataType: "json",
+            //data: { name: 'dpslider', value: ui.value },
+            data: JSON.stringify({ "name": "defaultlocation", "value": JSON.stringify(setObject) }),
+            beforeSend: function(xhr, settings) {
+                if (token) {
+                    xhr.setRequestHeader('Authorization','Bearer ' + token);
+                }
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.overrideMimeType( 'application/json' );
+            },
+            cache: false,
+            async: true,
+            global: false,
+            url: '/api/option',
+            contentType: "application/json",
+            timeout: 500, // 2 second wait
+            success: function( data ) {
+                //console.log(data);
+                if ( data.status !== null && data.status !== undefined ) {
+                    //$( '#postcode' ).val( geocode.address.postcode );
+                    $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location saved in user profile" );
+                } else {
+                    $( '#msg' ).removeClass().addClass( "notice info" ).html( "default start location value save problem" );
+                }
 
-			    $( 'body' ).css( 'cursor', 'default' );
-		    },
-		    statusCode: {
-			    404: function() {
-				    $( '#msg' ).removeClass().addClass( "notice error" ).html( "Error: Problem with option saver" );
-			    }
-		    }
-	    } );
-	    */
+                $( 'body' ).css( 'cursor', 'default' );
+            },
+            statusCode: {
+                404: function() {
+                    $( '#msg' ).removeClass().addClass( "notice error" ).html( "Error: Problem with option saver" );
+                }
+            }
+        } );
+        */
         //var retrievedObject = JSON.parse(localStorage.getItem('defaultlocation'));
         //console.log(retrievedObject);
         /*
@@ -445,9 +447,9 @@ function initmap() {
     } );
 
     /*
-    	var draw = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Polygon);
-    	map.addControl(draw);
-    	draw.activate();
+        var draw = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Polygon);
+        map.addControl(draw);
+        draw.activate();
             vector_layer.events.register('loadend', vector_layer, function(){
                 var extent = vector_layer.getDataExtent().toBBOX().replace(/,/g,", ");
                 $("#msg").html("GRB source dataExtent:"+ extent).removeClass().addClass("notice info");
@@ -480,7 +482,7 @@ function initmap() {
     map.addLayer( grb_wms );
     map.setLayerIndex( grb_wms, 2 );
 
-	// https://geoservices.wallonie.be/arcgis/services/IMAGERIE/ORTHO_LAST/MapServer/WMSServer?WIDTH=256&HEIGHT=256&VERSION=1.3.0&LAYERS=0&TRANSPARENT=false&FORMAT=image%2Fjpeg&EXCEPTIONS=INIMAGE&SERVICE=WMS&REQUEST=GetMap&STYLES=&CRS=EPSG%3A900913&BBOX=483082.01869507,6549124.5825623,483693.51492126,6549736.0787885
+    // https://geoservices.wallonie.be/arcgis/services/IMAGERIE/ORTHO_LAST/MapServer/WMSServer?WIDTH=256&HEIGHT=256&VERSION=1.3.0&LAYERS=0&TRANSPARENT=false&FORMAT=image%2Fjpeg&EXCEPTIONS=INIMAGE&SERVICE=WMS&REQUEST=GetMap&STYLES=&CRS=EPSG%3A900913&BBOX=483082.01869507,6549124.5825623,483693.51492126,6549736.0787885
 
     var grb_wbn = new OpenLayers.Layer.WMS(
         "GRB - WBN+ Weg/water",
@@ -641,9 +643,9 @@ function initmap() {
         "URBIS Ortho",
         //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB-basiskaart/wmsgr?",
         "https://geoservices-urbis.irisnet.be/geoserver/ows?", {
-		// extent 2.3056402404670271,49.2930727325656406 : 6.2282414692048640,51.4863972109605683
+        // extent 2.3056402404670271,49.2930727325656406 : 6.2282414692048640,51.4863972109605683
             //VERSION: '1.3.0',
-	    LAYERS: 'Urbis:Ortho2020',
+        LAYERS: 'Urbis:Ortho2020',
             transparent: "false",
             format: "image/jpeg"
         }, {
@@ -661,7 +663,7 @@ function initmap() {
     map.addLayer( urbis_wms );
     map.setLayerIndex( urbis_wms, 5 );
 
-	// https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB/wms?LAYERS=GRB_WBN%2CGRB_WVB%2CGRB_SBN%2CGRB_WTZ%2CGRB_WLAS%2CGRB_WGR%2CGRB_WGO%2CGRB_WRL%2CGRB_WKN%2CGRB_SNM%2CGRB_SNM_LINKS%2CGRB_SNM_RECHTS&TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A900913&BBOX=503872.89038574,6631065.0768726,506318.87529053,6633511.0617773&WIDTH=256&HEIGHT=256
+    // https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB/wms?LAYERS=GRB_WBN%2CGRB_WVB%2CGRB_SBN%2CGRB_WTZ%2CGRB_WLAS%2CGRB_WGR%2CGRB_WGO%2CGRB_WRL%2CGRB_WKN%2CGRB_SNM%2CGRB_SNM_LINKS%2CGRB_SNM_RECHTS&TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A900913&BBOX=503872.89038574,6631065.0768726,506318.87529053,6633511.0617773&WIDTH=256&HEIGHT=256
 
     var wr_combo = new OpenLayers.Layer.WMS(
         "Nat. Wegenregister",
@@ -1015,14 +1017,40 @@ dotlayer.events.register('loadend', this, onloaddotend);
     map.addLayer( vector_layer );
     vector_layer.setVisibility( true );
 
+    var has_permalink = false;
+    
+    var permalinkObject = { };
+
+    if (window.location.hash !== '') {
+        // in case permalink, try to restore center, zoom-level and rotation from the URL
+        const hash = window.location.hash.replace('#map=', '');
+        const parts = hash.split('/');
+        if (parts.length === 3) {
+            zoom = parseFloat(parts[0]);
+            center.lat = parseFloat(parts[1]);
+            center.lon = parseFloat(parts[2]);
+            has_permalink = true;
+            permalinkObject = {
+                'lat': center.lat,
+                'lon': center.lon,
+                'zoom': zoom
+            };
+        }
+    }
+
     // lon + lat + zoom
-    var retrievedObject = JSON.parse( localStorage.getItem( 'defaultlocation' ) );
+    if (has_permalink){
+        var retrievedObject = Object.assign({}, permalinkObject);
+
+    } else {
+        var retrievedObject = JSON.parse( localStorage.getItem( 'defaultlocation' ) );
+    }
+
     if ( retrievedObject ) {
         // var setObject = { 'lat': center.lat, 'lon': center.lon, 'zoom':  map.getZoom() };
         // localStorage.setItem('defaultlocation', JSON.stringify(setObject) );
         var lonLat = new OpenLayers.LonLat( retrievedObject.lon, retrievedObject.lat ).transform( geodetic, map.getProjectionObject() );
         map.setCenter( lonLat, retrievedObject.zoom );
-
     } else {
         var lonLat = new OpenLayers.LonLat( lon, lat ).transform( geodetic, map.getProjectionObject() );
         map.setCenter( lonLat, zoom );
@@ -1337,18 +1365,18 @@ dotlayer.events.register('loadend', this, onloaddotend);
                         //if (obj.length<=0)
                         //$('#msg').removeClass().addClass("notice info").html("Result: No results found with these search options");
                         /*
-			if(geocode.address.road !== null && geocode.address.road !== undefined) {
-                       	road = geocode.address.road + ' ';
-                       	}
-                       	if(geocode.address.housenumber !== null && geocode.address.housenumber !== undefined) {
-                       	housenumber = geocode.address.housenumber + ', ';
-                       	}
-                       	if(geocode.address.postcode !== null && geocode.address.postcode !== undefined) {
-                       	postcode = geocode.address.postcode +' ';
-                       	}
-                       	if(geocode.address.city !== null && geocode.address.city !== undefined) {
-                       	city = geocode.address.city;
-                       	}
+            if(geocode.address.road !== null && geocode.address.road !== undefined) {
+                        road = geocode.address.road + ' ';
+                        }
+                        if(geocode.address.housenumber !== null && geocode.address.housenumber !== undefined) {
+                        housenumber = geocode.address.housenumber + ', ';
+                        }
+                        if(geocode.address.postcode !== null && geocode.address.postcode !== undefined) {
+                        postcode = geocode.address.postcode +' ';
+                        }
+                        if(geocode.address.city !== null && geocode.address.city !== undefined) {
+                        city = geocode.address.city;
+                        }
                         */
                         if ( geocode.error ){
                             $( '#msg' ).html( "Error geocode: " + geocode.error );
@@ -1387,6 +1415,8 @@ dotlayer.events.register('loadend', this, onloaddotend);
         mergeStrategy.setFilter( null );
         streetStrategy.setFilter( null );
         buildingStrategy.setFilter( null );
+        // Permalink
+        updatePermalink;
 
         // isvecup = null; Always do this now
         isvecup = null;
@@ -1645,7 +1675,7 @@ function openInCrabtool() {
     var postalcode = $( "#postcode" ).val();
     // http://crab-import.osm.be/?pcode=1982&filterStreets=*&collapsedSections=
     var crab_url = "http://crab-import.osm.be/?pcode=" + postalcode + "&filterStreets=*&collapsedSections=";
-	/*
+    /*
     try {
         //javascript:_paq.push(['trackEvent', 'OpenInCrab', crab_url]);
     } catch(err) {
@@ -1751,7 +1781,7 @@ function getOsmInfo() {
         //$("#msg").html("Info : " + "Added GEOJSON to map").removeClass().addClass("notice success");
     }
     //console.log("Overpass query:\n" + query);
-	/*
+    /*
     try {
         //javascript:_paq.push(['trackEvent', 'getOsmInfo', query]);
     } catch(err) {
@@ -1800,7 +1830,7 @@ $( document ).ready( function() {
                     contentType: "application/json",
                     timeout: 500, // 2 second wait
                     success: function( data ) {
-			//console.log(data);
+            //console.log(data);
                         if ( data.status !== null && data.status !== undefined ) {
                             //$( '#postcode' ).val( geocode.address.postcode );
                             $( '#msg' ).removeClass().addClass( "notice info" ).html( "Slider default value saved in user profile" );
@@ -1900,13 +1930,13 @@ $( document ).ready( function() {
                 timeout: 2000 // 2 second wait
             } ).done( function( data ) {
                 //console.log(data);
-		    /*
+            /*
                 try {
                     //javascript:_paq.push(['trackEvent', 'verifyAuth', '/api/auth/verify']);
                 } catch(err) {
                     // tracking api probably blocked by user
                 }
-		*/
+        */
                 openInJosm();
             } ).fail( function( jqXHR, textStatus, errorThrown ) {
                 $( '#msg' ).removeClass().addClass( "notice error" ).html( "Please log in to export the data to josm");
@@ -2005,7 +2035,7 @@ $( document ).ready( function() {
             return false;
         } );
 
-        // extra buttons on top 
+        // extra buttons on top
         $( "#vector_reload" ).button().click(function( event ) {
             $( "#msg" ).html( "Reloading data from API" ).removeClass().addClass( "notice info" );
             vector_layer.setVisibility(true);
@@ -2043,13 +2073,13 @@ $( document ).ready( function() {
     $( "#msg" ).html( "Action: docReadydone" );
 
     function openStreetview( lat, lon ) {
-	    /*
+        /*
         try {
             //javascript:_paq.push(['trackEvent', 'openStreetView', lat, lon]);
         } catch(err) {
             // tracking api probably blocked by user
         }
-	*/
+    */
         var dataUrl = '//cbk0.google.com/cbk?output=json&ll=' + lat + ',' + lon + '&';
         $.ajax( {
             url: dataUrl,
@@ -2128,6 +2158,31 @@ function toFixed( value, precision ) {
     var power = Math.pow( 10, precision || 0 );
     return String( Math.round( value * power ) / power );
 }
+
+const updatePermalink = function () {
+    /*
+    if (!shouldUpdate) {
+        // do not update the URL when the view was changed
+        shouldUpdate = true;
+        return;
+    }
+    */
+
+    var center = bounds.getCenterLonLat();
+    const hash =
+        '#map=' +
+        map.getZoom().toFixed(2) +
+        '/' +
+        center[0].toFixed(2) +
+        '/' +
+        center[1].toFixed(2);
+    const state = {
+        zoom: map.getZoom(),
+        center: bounds.getCenterLonLat(),
+    };
+    window.history.pushState(state, 'map', hash);
+};
+
 
 /*
 

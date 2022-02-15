@@ -330,6 +330,8 @@ function initmap() {
         var bounds = map.getExtent();
         bounds.transform( map.getProjectionObject(), geodetic );
         var center = bounds.getCenterLonLat();
+        var maxzoom = map.getZoom();
+        if (maxzoom>18) { maxzoom = 18; }
         var setObject = {
             'lat': center.lat,
             'lon': center.lon,

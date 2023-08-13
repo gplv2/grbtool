@@ -25,7 +25,8 @@ $( document ).ready( function() {
         var lon = $( '#idtaglon' ).val();
         var address = $( '#idtagadd' ).val();
         //var url = 'http://nm1.bitless.be/reverse.php?format=json&lon='+ lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
-        var url = '//nominatim.openstreetmap.org/reverse.php?format=json&lon=' + lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
+        //var url = '//nominatim.openstreetmap.org/reverse.php?format=json&lon=' + lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.8,fr;q=0.5';
+        var url = '//nm1.bitless.be/reverse.php?format=json&lon=' + lon + '&lat=' + lat + '&zoom=18&addressdetails=1&accept-language=nl,en;q=0.5,fr;q=0.8';
 
         if ( ( lat !== null && lat !== undefined && lat != 0 ) && ( lon !== null && lon !== undefined && lon != 0 ) ) {
             if ( address.length <= 0 ) {

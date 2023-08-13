@@ -25,7 +25,8 @@ var isvecup = null;
 var stuff = null;
 var streetextents = null;
 
-var overpassapi = "//overpass-api.de/api/interpreter?data=";
+//var overpassapi = "//overpass-api.de/api/interpreter?data=";
+var overpassapi = "//maps.mail.ru/osm/tools/overpass/api/interpreter?data=";
 
 var webmercator = null;
 var geodetic = null;
@@ -406,7 +407,7 @@ function initmap() {
     layerswitcher.maximizeControl();
 
     // Make Belgium WMSlayers
-    // http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB/wms?request=getcapabilities&service=wms
+    // http://grb.agiv.be/geodiensten/GRB/wms?request=getcapabilities&service=wms
 
     var refresh = new OpenLayers.Strategy.Refresh( {
         force: true,
@@ -455,14 +456,14 @@ function initmap() {
                 $("#msg").html("GRB source dataExtent:"+ extent).removeClass().addClass("notice info");
             });
 
-    http://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms?FORMAT=image/jpeg&VERSION=1.1.1&SERVICE=WMS&REQUEST=GetMap&LAYERS=GRB_BSK&STYLES=&SRS=EPSG:3857&WIDTH=512&HEIGHT=512&BBOX=497451.2975108,6616695.4932892,497604.1715608,6616848.3673392
+    http://geo.api.vlaanderen.be/GRB-basiskaart/wms?FORMAT=image/jpeg&VERSION=1.1.1&SERVICE=WMS&REQUEST=GetMap&LAYERS=GRB_BSK&STYLES=&SRS=EPSG:3857&WIDTH=512&HEIGHT=512&BBOX=497451.2975108,6616695.4932892,497604.1715608,6616848.3673392
 
     */
 
     var grb_wms = new OpenLayers.Layer.WMS(
         "GRB Basiskaart",
-        //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB-basiskaart/wmsgr?",
-        "https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms?", {
+        //"http://grb.agiv.be/geodiensten/GRB-basiskaart/wmsgr?",
+        "https://geo.api.vlaanderen.be/GRB-basiskaart/wms?", {
             //LAYERS: 'GRB_BASISKAART',
             LAYERS: 'GRB_BSK',
             transparent: "false",
@@ -486,7 +487,7 @@ function initmap() {
 
     var grb_wbn = new OpenLayers.Layer.WMS(
         "GRB - WBN+ Weg/water",
-        "http://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB/wms?", {
+        "http://geo.api.vlaanderen.be/GRB/wms?", {
             LAYERS: 'GRB_WBN,GRB_WVB,GRB_SBN,GRB_WTZ,GRB_WLAS,GRB_WGR,GRB_WGO,GRB_WRL,GRB_WKN,GRB_SNM,GRB_SNM_LINKS,GRB_SNM_RECHTS',
             transparent: "true",
             //format: "image/png"
@@ -506,8 +507,8 @@ function initmap() {
 
     var grb_gem = new OpenLayers.Layer.WMS(
         "GRB - Gemeentegrenzen",
-        //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB/wms?",
-        "http://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB/wms?", {
+        //"http://grb.agiv.be/geodiensten/GRB/wms?",
+        "http://geo.api.vlaanderen.be/GRB/wms?", {
             LAYERS: 'GEM_GRENS',
             transparent: "true",
             //format: "image/png"
@@ -527,8 +528,8 @@ function initmap() {
 
     var grb_knw = new OpenLayers.Layer.WMS(
         "GRB - KNW",
-        //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB/wms?",
-        "http://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms?", {
+        //"http://grb.agiv.be/geodiensten/GRB/wms?",
+        "http://geo.api.vlaanderen.be/GRB-basiskaart/wms?", {
             LAYERS: 'GRB_KNW',
             transparent: "true",
             //format: "image/png"
@@ -548,8 +549,8 @@ function initmap() {
 
     var grb_gbg = new OpenLayers.Layer.WMS(
         "GRB - GBG",
-        //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB/wms?",
-        "http://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms?", {
+        //"http://grb.agiv.be/geodiensten/GRB/wms?",
+        "http://geo.api.vlaanderen.be/GRB-basiskaart/wms?", {
             LAYERS: 'GRB_GBG',
             transparent: "true",
             //format: "image/png"
@@ -568,8 +569,8 @@ function initmap() {
 
     var grb_gba = new OpenLayers.Layer.WMS(
         "GRB - Gebouwaanhorigheid",
-        //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB/wms?",
-        "http://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB-basiskaart/wms?", {
+        //"http://grb.agiv.be/geodiensten/GRB/wms?",
+        "http://geo.api.vlaanderen.be/GRB-basiskaart/wms?", {
             LAYERS: 'GRB_GBA',
             transparent: "true",
             //format: "image/png"
@@ -594,7 +595,7 @@ function initmap() {
     var grb_ortho = new OpenLayers.Layer.WMS(
         "AGIV Ortho",
         //"http://geo.agiv.be/ogc/wms/omkl?VERSION=1.1.1&",
-        "http://geoservices.informatievlaanderen.be/raadpleegdiensten/OMW/wms?", {
+        "http://geo.api.vlaanderen.be/OMW/wms?", {
             WIDTH: 512,
             HEIGHT: 512,
             VERSION: '1.1.1',
@@ -617,8 +618,8 @@ function initmap() {
 
     var picc_wms = new OpenLayers.Layer.WMS(
         "PICC Ortho",
-        //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB-basiskaart/wmsgr?",
-        "https://geoservices.wallonie.be/arcgis/services/IMAGERIE/ORTHO_LAST/MapServer/WMSServer?", {
+        //"http://grb.agiv.be/geodiensten/GRB-basiskaart/wmsgr?",
+        "https://geo.api.vlaanderen.be/arcgis/services/IMAGERIE/ORTHO_LAST/MapServer/WMSServer?", {
             //VERSION: '1.3.0',
             LAYERS: '0',
             transparent: "false",
@@ -641,7 +642,7 @@ function initmap() {
 
     var urbis_wms = new OpenLayers.Layer.WMS(
         "URBIS Ortho",
-        //"http://grb.agiv.be/geodiensten/raadpleegdiensten/GRB-basiskaart/wmsgr?",
+        //"http://grb.agiv.be/geodiensten/GRB-basiskaart/wmsgr?",
         "https://geoservices-urbis.irisnet.be/geoserver/ows?", {
         // extent 2.3056402404670271,49.2930727325656406 : 6.2282414692048640,51.4863972109605683
             //VERSION: '1.3.0',
@@ -663,12 +664,12 @@ function initmap() {
     map.addLayer( urbis_wms );
     map.setLayerIndex( urbis_wms, 5 );
 
-    // https://geoservices.informatievlaanderen.be/raadpleegdiensten/GRB/wms?LAYERS=GRB_WBN%2CGRB_WVB%2CGRB_SBN%2CGRB_WTZ%2CGRB_WLAS%2CGRB_WGR%2CGRB_WGO%2CGRB_WRL%2CGRB_WKN%2CGRB_SNM%2CGRB_SNM_LINKS%2CGRB_SNM_RECHTS&TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A900913&BBOX=503872.89038574,6631065.0768726,506318.87529053,6633511.0617773&WIDTH=256&HEIGHT=256
+    // https://geo.api.vlaanderen.be/GRB/wms?LAYERS=GRB_WBN%2CGRB_WVB%2CGRB_SBN%2CGRB_WTZ%2CGRB_WLAS%2CGRB_WGR%2CGRB_WGO%2CGRB_WRL%2CGRB_WKN%2CGRB_SNM%2CGRB_SNM_LINKS%2CGRB_SNM_RECHTS&TRANSPARENT=true&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A900913&BBOX=503872.89038574,6631065.0768726,506318.87529053,6633511.0617773&WIDTH=256&HEIGHT=256
 
     var wr_combo = new OpenLayers.Layer.WMS(
         "Nat. Wegenregister",
         //"http://geo.agiv.be/ogc/wms/omkl?VERSION=1.1.1&",
-        "http://geoservices.informatievlaanderen.be/raadpleegdiensten/Wegenregister/wms?", {
+        "http://geo.api.vlaanderen.be/Wegenregister/wms?", {
             WIDTH: 512,
             HEIGHT: 512,
             VERSION: '1.1.1',
@@ -693,7 +694,7 @@ function initmap() {
     var wr_combo_trans = new OpenLayers.Layer.WMS(
         "Nat. Wegenregister",
         //"http://geo.agiv.be/ogc/wms/omkl?VERSION=1.1.1&",
-        "http://geoservices.informatievlaanderen.be/raadpleegdiensten/Wegenregister/wms?", {
+        "http://geo.api.vlaanderen.be/Wegenregister/wms?", {
             WIDTH: 512,
             HEIGHT: 512,
             VERSION: '1.1.1',

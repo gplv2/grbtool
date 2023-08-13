@@ -32,7 +32,8 @@ if (!function_exists('getallheaders')) {
 // It's google Earth, so validate
 
 //$proxy = new CrossProxy(array('http://nm1.bitless.be/','search.php'));
-$proxy = new CrossProxy(array('https://nominatim.openstreetmap.org','search.php'));
+//$proxy = new CrossProxy(array('https://nominatim.openstreetmap.org','search.php'));
+$proxy = new CrossProxy(array('https://nm1.bitless.be','search.php'));
 
 class CrossProxy {
 
